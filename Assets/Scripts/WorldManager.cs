@@ -1,0 +1,43 @@
+using UnityEngine;
+public class WorldManager : MonoBehaviour, SaveInterface
+{
+    public GameObject player;
+    public float encounterRate;
+    private float encounterModifier;
+    private float encounterRequirement;
+    public int exp;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        encounterModifier = 1;
+        encounterRequirement = Random.Range(10, 20);
+        exp = 5;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(player.GetComponent<PlayerMovement>().xDirection != 0 || player.GetComponent<PlayerMovement>().yDirection != 0)
+        {
+            encounterRate += Time.deltaTime * encounterModifier;
+        }
+        if(encounterRate >= encounterRequirement)
+        {
+            encounterRate = 0;
+            encounterRequirement = Random.Range(10, 20);
+            //SaveManager.instance is the static thing we can call
+            SaveManager.instance.battleSpawn = 1;
+            SaveManager.instance.switchToBattleScene();
+        }
+    }
+
+    public void loadData(GameData gameData)
+    {
+        this.exp = gameData.exp;
+    }
+
+    public void saveData(ref GameData gameData)
+    {
+        gameData.exp = this.exp;
+    }
+}
