@@ -31,6 +31,7 @@ public class SaveManager : MonoBehaviour
     {
         //Setting file save/load to default directory
         fileManager = new FileManager(Application.persistentDataPath, fileName);
+        Debug.Log("Saved location is" + Application.persistentDataPath);
         allSaveData = findAllSaveData();
         loadGame();
     }

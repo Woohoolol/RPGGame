@@ -21,15 +21,16 @@ public class FileManager
             try
             {
                 string dataToLoad = "";
-                using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
                 {
                     //Reads cuz we're loading
                     using(StreamReader reader = new StreamReader(stream))
                     {
                        //Read the file!
-                       reader.ReadToEnd();
+                       dataToLoad = reader.ReadToEnd();
                     }
                 }
+                Debug.Log("data is" + dataToLoad);
                 //Converting from json back to gamedata
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
