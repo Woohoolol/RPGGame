@@ -488,6 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f0dbd939465a6429cd6ce2e3194092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+  battleSpawn: 0
 --- !u!1 &1153198682
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +606,7 @@ GameObject:
   - component: {fileID: 2038991752}
   - component: {fileID: 2038991751}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: WorldManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -624,7 +625,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   player: {fileID: 1153198682}
+  background: {fileID: 2692389454506844602, guid: b98ffd3715abb6a41b53db49dce59008, type: 3}
   encounterRate: 0
+  exp: 0
 --- !u!4 &2038991752
 Transform:
   m_ObjectHideFlags: 0

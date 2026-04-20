@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 public class BattleHud : MonoBehaviour
 {
-    //0 attack, 1 special, 2 guard, 3 escape
+    //0 attack, 1 special, 2 item, 3 escape
     public GameObject[] actions;
     public GameObject actionMenu;
     public BattleManager battleManager;
@@ -15,7 +15,7 @@ public class BattleHud : MonoBehaviour
     public GameObject playerStats;
     public GameObject optionDescription;
     public GameObject returnButton;
-    //0 main menu focused, 1 attack menu, 2 special menu, 3 guard, 4 escape, 5 victory, 6 defeat, 7 enemy attack, 8 waiting for input (victory/defeat)
+    //0 main menu focused, 1 attack menu, 2 special menu, 3 item, 4 escape, 5 victory, 6 defeat, 7 enemy attack, 8 waiting for input (victory/defeat)
     public int mode;
     private int focusedIndex;
     private int attackIndex;
@@ -31,6 +31,8 @@ public class BattleHud : MonoBehaviour
         {
             playerStats.transform.GetChild(i).gameObject.SetActive(true);
         }
+        StartCoroutine(showVictory());
+        StartCoroutine(escape());
     }
 
     // Update is called once per frame
@@ -78,14 +80,17 @@ public class BattleHud : MonoBehaviour
                 else if(focusedIndex == 1)
                 {
                     Debug.Log("SPECIAL");
+                    mode = 2;
                 }
                 else if(focusedIndex == 2)
                 {
                     Debug.Log("GUARD");
+                    mode = 3;
                 }
                 else if(focusedIndex == 3)
                 {
                     Debug.Log("ESCAPE");
+                    mode = 4;
                 }
             }
         }
@@ -126,15 +131,7 @@ public class BattleHud : MonoBehaviour
                 focusedIndex = 0;     
             }
         }
-        else if(mode == 5 && !finished)
-        {
-            optionDescription.SetActive(false);
-            Debug.Log("VICTORY");
-            Debug.Log("OBTAINED " + battleManager.expGain + " EXP");
-            Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
-            showVictory();
-        }
-        else if(mode == 6  && !finished)
+        else if(mode == 6 && !finished)
         {
             optionDescription.SetActive(false);
             Debug.Log("DEFEAT");
@@ -194,10 +191,49 @@ public class BattleHud : MonoBehaviour
         actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
     }
 
-    public void showVictory()
+    public IEnumerator escape()
     {
-        actionMenu.SetActive(false);
-        //Add victory screen here
-        returnButton.SetActive(true);
+        while(true)
+        {
+            if(mode == 4)
+            {
+                bool escaped = battleManager.escape();
+                if(!escaped)
+                {
+                    optionDescription.SetActive(true);
+                    optionDescription.GetComponent<TextMeshProUGUI>().SetText("Escape failed!");
+                    yield return new WaitForSeconds(1);
+                    mode = 0;
+                }
+                else
+                {
+                    optionDescription.SetActive(true);
+                    optionDescription.GetComponent<TextMeshProUGUI>().SetText("Escape successful!");
+                    yield return new WaitForSeconds(1);
+                    battleManager.switchBack();
+                }
+                break;
+            }
+            yield return null;
+        }
+    }
+    public IEnumerator showVictory()
+    {
+        while(true)
+        {
+            if(mode == 5)
+            {
+                optionDescription.SetActive(false);
+                yield return new WaitForSeconds(2);
+                Debug.Log("VICTORY");
+                Debug.Log("OBTAINED " + battleManager.expGain + " EXP");
+                Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
+                actionMenu.SetActive(false);
+                //Add victory screen here
+                returnButton.SetActive(true);
+                break;
+            }
+            yield return null;
+        }
     }
 }

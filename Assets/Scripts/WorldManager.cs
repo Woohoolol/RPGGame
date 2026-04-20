@@ -2,6 +2,7 @@ using UnityEngine;
 public class WorldManager : MonoBehaviour, SaveInterface
 {
     public GameObject player;
+    public GameObject background;
     public float encounterRate;
     private float encounterModifier;
     private float encounterRequirement;
@@ -12,6 +13,10 @@ public class WorldManager : MonoBehaviour, SaveInterface
         encounterModifier = 1;
         encounterRequirement = Random.Range(10, 20);
         exp = 5;
+        Instantiate(background, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        Instantiate(background, new Vector3(-19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
+        Instantiate(background, new Vector3(19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
+
     }
 
     // Update is called once per frame

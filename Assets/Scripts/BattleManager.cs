@@ -46,8 +46,10 @@ public class BattleManager : MonoBehaviour
         // attackTimer
         Character attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>();
         Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
+        Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
         attackedEnemy.hp -= (attackingPlayer.physical -  attackedEnemy.pdefense);
         Debug.Log("ATTACKED " + enemyIndex + " FOR " + (attackingPlayer.physical -  attackedEnemy.pdefense) + " HP ");
+        attackAnimation.Play("Attack");
         currentPlayerIndex++;
         if(attackedEnemy.hp <= 0)
         {
@@ -109,13 +111,22 @@ public class BattleManager : MonoBehaviour
     //     currentPlayerIndex = 0;
     //     return true;
     // }
+
+    public bool escape()
+    {
+        int escapeRequirement= 30;
+        int roll = Random.Range(0, 101);
+        //Failed escape should still take up a turn
+        currentPlayerIndex++;
+        return roll >= escapeRequirement;
+    }
     public IEnumerator enemyAttack()
     {
         while(true)
         {
-            yield return new WaitForSeconds(1);
             if(playerList.Count != 0 && enemyTurn())
             {
+                yield return new WaitForSeconds(2);
                 for(currentEnemyIndex = 0; currentEnemyIndex < enemyList.Count; currentEnemyIndex++)
                 {
                     //Only target characters that are alive
