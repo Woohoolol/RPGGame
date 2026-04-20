@@ -143,7 +143,7 @@ public class BattleManager : MonoBehaviour
                         break;
                     }
                     //Should be in battlehud but easier to get timings here for highlighting
-                    enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.red;
+                    enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
                     yield return new WaitForSeconds(1);
                     enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 }

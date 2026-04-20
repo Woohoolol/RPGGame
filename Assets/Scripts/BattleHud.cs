@@ -14,17 +14,18 @@ public class BattleHud : MonoBehaviour
     public GameObject[] enemyVisuals;
     public GameObject playerStats;
     public GameObject optionDescription;
-    //0 main menu focused, 1 attack menu, 2 special menu, 3 guard, 4 escape, 5 victory, 6 defeat, 7 enemy attack
+    public GameObject returnButton;
+    //0 main menu focused, 1 attack menu, 2 special menu, 3 guard, 4 escape, 5 victory, 6 defeat, 7 enemy attack, 8 waiting for input (victory/defeat)
     public int mode;
     private int focusedIndex;
     private int attackIndex;
     private int oldPlayerIndex;
-    public bool focused;
+    private bool finished;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        finished = false;
         focusedIndex = 0;
-        focused = true;
         mode = 0;
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
@@ -56,12 +57,12 @@ public class BattleHud : MonoBehaviour
             if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
                 //Unhighlight option before moving
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 focusedIndex--;
             }
             if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < actions.Length - 1)
             {
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 focusedIndex++;
             }
             //Highlight current option
@@ -125,16 +126,17 @@ public class BattleHud : MonoBehaviour
                 focusedIndex = 0;     
             }
         }
-        else if(mode == 5)
+        else if(mode == 5 && !finished)
         {
+            optionDescription.SetActive(false);
             Debug.Log("VICTORY");
             Debug.Log("OBTAINED " + battleManager.expGain + " EXP");
             Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
-
-            // battleManager.g
+            showVictory();
         }
-        else if(mode == 6)
+        else if(mode == 6  && !finished)
         {
+            optionDescription.SetActive(false);
             Debug.Log("DEFEAT");
         }
         else if(mode == 7)
@@ -152,7 +154,7 @@ public class BattleHud : MonoBehaviour
             string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().hp + " mp: " + battleManager.playerList[i].GetComponent<Character>().mp;
             playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
         }
-
+        //Making dead players transparent
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
             Color baseColor = battleManager.playerList[i].GetComponent<SpriteRenderer>().color;
@@ -167,6 +169,7 @@ public class BattleHud : MonoBehaviour
                 battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;
             }
         }
+        //Current player highlighted
         if(oldPlayerIndex != battleManager.currentPlayerIndex)
         {
             if(oldPlayerIndex < battleManager.playerList.Count)
@@ -193,7 +196,8 @@ public class BattleHud : MonoBehaviour
 
     public void showVictory()
     {
-        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
+        actionMenu.SetActive(false);
         //Add victory screen here
+        returnButton.SetActive(true);
     }
 }
