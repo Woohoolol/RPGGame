@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections.Generic;
+using System.Collections;
 public class BattleHud : MonoBehaviour
 {
     //0 attack, 1 special, 2 guard, 3 escape
@@ -9,10 +12,13 @@ public class BattleHud : MonoBehaviour
     public BattleManager battleManager;
     public GameObject specialMenu;
     public GameObject[] enemyVisuals;
+    public GameObject playerStats;
+    public GameObject optionDescription;
     //0 main menu focused, 1 attack menu, 2 special menu, 3 guard, 4 escape, 5 victory, 6 defeat, 7 enemy attack
     public int mode;
     private int focusedIndex;
     private int attackIndex;
+    private int oldPlayerIndex;
     public bool focused;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +26,10 @@ public class BattleHud : MonoBehaviour
         focusedIndex = 0;
         focused = true;
         mode = 0;
+        for(int i = 0; i < battleManager.playerList.Count; i++)
+        {
+            playerStats.transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -41,6 +51,7 @@ public class BattleHud : MonoBehaviour
 
         if(mode == 0)
         {
+            optionDescription.SetActive(false);
             showActiveMenu();
             if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
@@ -79,6 +90,8 @@ public class BattleHud : MonoBehaviour
         }
         else if(mode == 1)
         {
+            optionDescription.GetComponent<TextMeshProUGUI>().SetText("Select a target.");
+            optionDescription.SetActive(true);
             showInactiveMenu();
             if(Keyboard.current.leftArrowKey.wasPressedThisFrame && attackIndex > 0)
             {
@@ -91,10 +104,8 @@ public class BattleHud : MonoBehaviour
                 attackIndex++;
             }  
             battleManager.enemyList[attackIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-            battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
-                battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 bool killed = battleManager.allyAttack(attackIndex);
                 if(!killed)
                 {
@@ -112,7 +123,6 @@ public class BattleHud : MonoBehaviour
                 battleManager.enemyList[attackIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 mode = 0;
                 focusedIndex = 0;     
-                battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
         else if(mode == 5)
@@ -130,27 +140,60 @@ public class BattleHud : MonoBehaviour
         else if(mode == 7)
         {
             //Wait until enemies are done attacking
+            optionDescription.SetActive(false);
             showInactiveMenu();
             if(!battleManager.enemyTurn())
             {
                 mode = 0;
             }
         }
+        for(int i = 0; i < battleManager.playerList.Count; i++)
+        {
+            string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().hp + " mp: " + battleManager.playerList[i].GetComponent<Character>().mp;
+            playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
+        }
+
+        for(int i = 0; i < battleManager.playerList.Count; i++)
+        {
+            Color baseColor = battleManager.playerList[i].GetComponent<SpriteRenderer>().color;
+            if(battleManager.playerList[i].GetComponent<Character>().hp <= 0)
+            {
+                baseColor[3] = 0.25f;
+                battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;
+            }
+            else
+            {
+                baseColor[3] = 1;
+                battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;
+            }
+        }
+        if(oldPlayerIndex != battleManager.currentPlayerIndex)
+        {
+            if(oldPlayerIndex < battleManager.playerList.Count)
+            {
+                battleManager.playerList[oldPlayerIndex].GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            oldPlayerIndex = battleManager.currentPlayerIndex;
+        }
+        if(battleManager.currentPlayerIndex < battleManager.playerList.Count)
+        {
+            battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
     }
 
     public void showActiveMenu()
     {
-        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 
     public void showInactiveMenu()
     {
-        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
+        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
     }
 
     public void showVictory()
     {
-        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0f);
+        actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
         //Add victory screen here
     }
 }

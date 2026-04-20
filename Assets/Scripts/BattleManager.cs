@@ -28,13 +28,10 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < playerList.Count; i++)
+        //Check out of bounds first!
+        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().hp <= 0)
         {
-            if(playerList[i].GetComponent<Character>().hp <= 0)
-            {
-                Debug.Log("ELIMINATED ALLY");
-                playerList.RemoveAt(i);
-            }
+            currentPlayerIndex++;
         }
     }
 
@@ -43,6 +40,7 @@ public class BattleManager : MonoBehaviour
         SaveManager.instance.switchToWorldScene();
     }
     
+
     public bool allyAttack(int enemyIndex)
     {
         // attackTimer
@@ -69,9 +67,18 @@ public class BattleManager : MonoBehaviour
         return enemyList.Count == 0;
     }
 
+    //Unlike enemies we do not want to remove them as they are important
     public bool defeat()
     {
-        return playerList.Count == 0;
+        bool wiped = true;
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            if(playerList[i].GetComponent<Character>().hp > 0)
+            {
+                wiped = false;
+            }
+        }
+        return wiped;
     }
     public bool enemyTurn()
     {
@@ -106,11 +113,22 @@ public class BattleManager : MonoBehaviour
     {
         while(true)
         {
+            yield return new WaitForSeconds(1);
             if(playerList.Count != 0 && enemyTurn())
             {
                 for(currentEnemyIndex = 0; currentEnemyIndex < enemyList.Count; currentEnemyIndex++)
                 {
-                    int attackingIndex = Random.Range(0, playerList.Count);
+                    //Only target characters that are alive
+                    List<int> validAttackingIndex = new List<int>();
+                    for(int i = 0; i < playerList.Count; i++)
+                    {
+                        if(playerList[i].GetComponent<Character>().hp > 0)
+                        {
+                            validAttackingIndex.Add(i);
+                        }
+                    }
+                    int attackingIndex = validAttackingIndex[Random.Range(0, validAttackingIndex.Count)];
+
                     Character attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>();
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
