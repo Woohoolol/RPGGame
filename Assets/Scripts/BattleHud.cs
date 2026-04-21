@@ -148,14 +148,14 @@ public class BattleHud : MonoBehaviour
         }
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
-            string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().hp + " mp: " + battleManager.playerList[i].GetComponent<Character>().mp;
+            string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().stats.hp + " mp: " + battleManager.playerList[i].GetComponent<Character>().stats.mp;
             playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
         }
         //Making dead players transparent
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
             Color baseColor = battleManager.playerList[i].GetComponent<SpriteRenderer>().color;
-            if(battleManager.playerList[i].GetComponent<Character>().hp <= 0)
+            if(battleManager.playerList[i].GetComponent<Character>().stats.hp <= 0)
             {
                 baseColor[3] = 0.25f;
                 battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;

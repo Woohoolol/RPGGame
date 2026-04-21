@@ -19,8 +19,8 @@ public class BattleManager : MonoBehaviour
         currentEnemyIndex = 0;
         for(int i = 0; i < enemyList.Count; i++)
         {
-            expGain += enemyList[i].GetComponent<Character>().exp;
-            moneyGain += enemyList[i].GetComponent<Character>().money;
+            expGain += enemyList[i].GetComponent<Character>().stats.enemyExp;
+            moneyGain += enemyList[i].GetComponent<Character>().stats.enemyMoney;
         }
         StartCoroutine(enemyAttack());
         StartCoroutine(victoryReward());
@@ -30,7 +30,7 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         //Check out of bounds first!
-        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().hp <= 0)
+        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().stats.hp <= 0)
         {
             currentPlayerIndex++;
         }
@@ -45,8 +45,8 @@ public class BattleManager : MonoBehaviour
     public bool allyAttack(int enemyIndex)
     {
         // attackTimer
-        Character attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>();
-        Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
+        CharacterStats attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>().stats;
+        CharacterStats attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>().stats;
         Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
         attackedEnemy.hp -= (attackingPlayer.physical -  attackedEnemy.pdefense);
         Debug.Log("ATTACKED " + enemyIndex + " FOR " + (attackingPlayer.physical -  attackedEnemy.pdefense) + " HP ");
@@ -76,7 +76,7 @@ public class BattleManager : MonoBehaviour
         bool wiped = true;
         for(int i = 0; i < playerList.Count; i++)
         {
-            if(playerList[i].GetComponent<Character>().hp > 0)
+            if(playerList[i].GetComponent<Character>().stats.hp > 0)
             {
                 wiped = false;
             }
@@ -109,17 +109,17 @@ public class BattleManager : MonoBehaviour
                     List<int> validAttackingIndex = new List<int>();
                     for(int i = 0; i < playerList.Count; i++)
                     {
-                        if(playerList[i].GetComponent<Character>().hp > 0)
+                        if(playerList[i].GetComponent<Character>().stats.hp > 0)
                         {
                             validAttackingIndex.Add(i);
                         }
                     }
                     int attackingIndex = validAttackingIndex[Random.Range(0, validAttackingIndex.Count)];
 
-                    Character attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>();
+                    CharacterStats attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>().stats;
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
-                    Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
+                    CharacterStats attackedAlly =  playerList[attackingIndex].GetComponent<Character>().stats;
                     attackedAlly.hp -= (attackingEnemy.physical -  attackedAlly.pdefense);
                     Debug.Log("ATTACKED ALLY" + " FOR " + (attackingEnemy.physical -  attackedAlly.pdefense) + " HP ");
 
@@ -145,7 +145,7 @@ public class BattleManager : MonoBehaviour
         {
             yield return null;
         }
-        SaveManager.instance.gameData.exp += expGain;
+        // SaveManager.instance.gameData.exp += expGain;
         SaveManager.instance.gameData.money += moneyGain;
         yield return null;
     }

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1834120895239970034}
   - component: {fileID: 7323369796634232409}
-  - component: {fileID: 5629814511805516418}
   - component: {fileID: 322914038161973699}
+  - component: {fileID: 4688826428383074560}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -92,27 +92,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5629814511805516418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3708900249089444448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2942ee6149bba419b4375deb670095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
-  hp: 20
-  mp: 5
-  physical: 5
-  mental: 2
-  pdefense: 2
-  mdefense: 2
-  modifiers: []
-  exp: 0
-  money: 0
 --- !u!95 &322914038161973699
 Animator:
   serializedVersion: 7
@@ -135,3 +114,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4688826428383074560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3708900249089444448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2942ee6149bba419b4375deb670095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  stats:
+    exp: 2
+    level: 1
+    hp: 10
+    mp: 1
+    physical: 5
+    mental: 5
+    pdefense: 1
+    mdefense: 1
+    enemyExp: 5
+    enemyMoney: 10

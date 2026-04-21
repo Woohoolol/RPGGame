@@ -8,6 +8,7 @@ public class SaveManager : MonoBehaviour
 {
     //Static so can be called throughout classes
     public static SaveManager instance;
+    public List<GameObject> playerList;
     public GameData gameData;
     private List<SaveInterface> allSaveData;
     private string fileName = "reimu";
@@ -63,12 +64,16 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No save data found, initializing");
             newGame();
         }
-        Debug.Log("Loaded exp is " + gameData.exp);
     }
 
     public void saveGame()
     {
-        Debug.Log("Saved exp is " + gameData.exp + ", saving");
+        gameData.playerStats.Clear();
+        //Before saving, need to toss character data into gamedata
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            gameData.playerStats.Add(playerList[i].GetComponent<Character>().stats);
+        }
         fileManager.Save(gameData);
     }
 

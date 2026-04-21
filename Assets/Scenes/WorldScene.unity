@@ -535,7 +535,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f0dbd939465a6429cd6ce2e3194092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
-  battleSpawn: 0
+  playerList: []
+  gameData:
+    money: 0
+    battleSpawn: 0
+    playerStats: []
 --- !u!1 &1153198682
 GameObject:
   m_ObjectHideFlags: 0
