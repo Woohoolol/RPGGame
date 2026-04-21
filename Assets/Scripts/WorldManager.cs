@@ -1,5 +1,5 @@
 using UnityEngine;
-public class WorldManager : MonoBehaviour, SaveInterface
+public class WorldManager : MonoBehaviour
 {
     public GameObject player;
     public GameObject background;
@@ -31,18 +31,9 @@ public class WorldManager : MonoBehaviour, SaveInterface
             encounterRate = 0;
             encounterRequirement = Random.Range(10, 20);
             //SaveManager.instance is the static thing we can call
-            SaveManager.instance.battleSpawn = 1;
+            SaveManager.instance.gameData.battleSpawn = 1;
             SaveManager.instance.switchToBattleScene();
         }
     }
 
-    public void loadData(GameData gameData)
-    {
-        this.exp = gameData.exp;
-    }
-
-    public void saveData(ref GameData gameData)
-    {
-        gameData.exp = this.exp;
-    }
 }

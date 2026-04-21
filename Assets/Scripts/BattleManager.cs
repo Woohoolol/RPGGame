@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
             moneyGain += enemyList[i].GetComponent<Character>().money;
         }
         StartCoroutine(enemyAttack());
+        StartCoroutine(victoryReward());
     }
 
     // Update is called once per frame
@@ -86,38 +87,13 @@ public class BattleManager : MonoBehaviour
     {
         return currentPlayerIndex >= playerList.Count;
     }
-    // public bool enemyAttack()
-    // {
-    //     for(int i = 0; i < enemyList.Count; i++)
-    //     {
-    //         Character attackingEnemy = enemyList[i].GetComponent<Character>();
-    //         //Int version of random range is exclusive on second number
-    //         //Float version of random range is inclusive on both
-    //         Character attackedAlly =  playerList[Random.Range(0, playerList.Count)].GetComponent<Character>();
-    //         attackedAlly.hp -= (attackingEnemy.physical -  attackedAlly.pdefense);
-    //         Debug.Log("ATTACKED ALLY" + " FOR " + (attackingEnemy.physical -  attackedAlly.pdefense) + " HP ");
-    //         if(attackedAlly.hp <= 0)
-    //         {
-    //             Debug.Log("ELIMINATED ALLY");
-    //             playerList.RemoveAt(0);
-    //         }
-    //         //Enemies should stop hitting when everyone dead
-    //         if(defeat())
-    //         {
-    //             Debug.Log("ENEMIES STOP");
-    //             break;
-    //         }
-    //     }
-    //     currentPlayerIndex = 0;
-    //     return true;
-    // }
+
+
 
     public bool escape()
     {
-        int escapeRequirement= 30;
+        int escapeRequirement= 75;
         int roll = Random.Range(0, 101);
-        //Failed escape should still take up a turn
-        currentPlayerIndex++;
         return roll >= escapeRequirement;
     }
     public IEnumerator enemyAttack()
@@ -162,6 +138,15 @@ public class BattleManager : MonoBehaviour
             }
             yield return null;
         }
-
+    }
+    public IEnumerator victoryReward()
+    {
+        while(!victory())
+        {
+            yield return null;
+        }
+        SaveManager.instance.gameData.exp += expGain;
+        SaveManager.instance.gameData.money += moneyGain;
+        yield return null;
     }
 }

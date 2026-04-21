@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Linq;
+
 public class SaveManager : MonoBehaviour
 {
     //Static so can be called throughout classes
     public static SaveManager instance;
-    public int battleSpawn;
-    private GameData gameData;
+    public GameData gameData;
     private List<SaveInterface> allSaveData;
     private string fileName = "reimu";
     private FileManager fileManager;
@@ -63,22 +63,11 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No save data found, initializing");
             newGame();
         }
-
-        foreach(SaveInterface aSaveData in allSaveData)
-        {
-            //Talking to each file and calling load data
-            aSaveData.loadData(gameData);
-        }
         Debug.Log("Loaded exp is " + gameData.exp);
     }
 
     public void saveGame()
     {
-        foreach(SaveInterface aSaveData in allSaveData)
-        {
-            //Talking to each file and calling save data
-            aSaveData.saveData(ref gameData);
-        }
         Debug.Log("Saved exp is " + gameData.exp + ", saving");
         fileManager.Save(gameData);
     }

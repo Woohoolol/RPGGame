@@ -203,6 +203,9 @@ public class BattleHud : MonoBehaviour
                     optionDescription.SetActive(true);
                     optionDescription.GetComponent<TextMeshProUGUI>().SetText("Escape failed!");
                     yield return new WaitForSeconds(1);
+                    //Failed escape should still take up a turn
+                    //Should be in battleManager but simpler to put here to not worry about timing
+                    battleManager.currentPlayerIndex++;
                     mode = 0;
                 }
                 else
@@ -211,29 +214,26 @@ public class BattleHud : MonoBehaviour
                     optionDescription.GetComponent<TextMeshProUGUI>().SetText("Escape successful!");
                     yield return new WaitForSeconds(1);
                     battleManager.switchBack();
+                    break;
                 }
-                break;
             }
             yield return null;
         }
     }
     public IEnumerator showVictory()
     {
-        while(true)
+        while(mode != 5)
         {
-            if(mode == 5)
-            {
-                optionDescription.SetActive(false);
-                yield return new WaitForSeconds(2);
-                Debug.Log("VICTORY");
-                Debug.Log("OBTAINED " + battleManager.expGain + " EXP");
-                Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
-                actionMenu.SetActive(false);
-                //Add victory screen here
-                returnButton.SetActive(true);
-                break;
-            }
             yield return null;
         }
+        optionDescription.SetActive(false);
+        yield return new WaitForSeconds(2);
+        Debug.Log("VICTORY");
+        Debug.Log("OBTAINED " + battleManager.expGain + " EXP");
+        Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
+        actionMenu.SetActive(false);
+        //Add victory screen here
+        returnButton.SetActive(true);
+        yield return null;
     }
 }
