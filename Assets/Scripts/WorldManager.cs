@@ -11,7 +11,7 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         encounterModifier = 1;
-        encounterRequirement = Random.Range(10, 20);
+        encounterRequirement = Random.Range(1, 2);
         exp = 5;
         Instantiate(background, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(-19.20f, 0, 0), Quaternion.Euler(0, 0, 0));

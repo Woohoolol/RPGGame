@@ -11,7 +11,6 @@ public class BattleHud : MonoBehaviour
     public GameObject actionMenu;
     public BattleManager battleManager;
     public GameObject specialMenu;
-    public GameObject[] enemyVisuals;
     public GameObject playerStats;
     public GameObject optionDescription;
     public GameObject returnButton;
@@ -19,7 +18,7 @@ public class BattleHud : MonoBehaviour
     public int mode;
     private int focusedIndex;
     private int attackIndex;
-    private int oldPlayerIndex;
+    public int oldPlayerIndex;
     private bool finished;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -134,7 +133,7 @@ public class BattleHud : MonoBehaviour
         else if(mode == 6 && !finished)
         {
             optionDescription.SetActive(false);
-            Debug.Log("DEFEAT");
+            // Debug.Log("DEFEAT");
         }
         else if(mode == 7)
         {
@@ -148,14 +147,14 @@ public class BattleHud : MonoBehaviour
         }
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
-            string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().stats.hp + " mp: " + battleManager.playerList[i].GetComponent<Character>().stats.mp;
+            string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().currenthp + " mp: " + battleManager.playerList[i].GetComponent<Character>().currentmp;
             playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
         }
         //Making dead players transparent
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
             Color baseColor = battleManager.playerList[i].GetComponent<SpriteRenderer>().color;
-            if(battleManager.playerList[i].GetComponent<Character>().stats.hp <= 0)
+            if(battleManager.playerList[i].GetComponent<Character>().currenthp <= 0)
             {
                 baseColor[3] = 0.25f;
                 battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;
@@ -178,6 +177,7 @@ public class BattleHud : MonoBehaviour
         if(battleManager.currentPlayerIndex < battleManager.playerList.Count)
         {
             battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
+            Debug.Log("TURNED" + battleManager.currentPlayerIndex + "YELLOW");
         }
     }
 

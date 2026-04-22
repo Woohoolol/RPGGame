@@ -535,11 +535,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f0dbd939465a6429cd6ce2e3194092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
-  playerList: []
+  playerList:
+  - {fileID: 0}
   gameData:
     money: 0
     battleSpawn: 0
     playerStats: []
+  classes:
+  - {fileID: 7456626017482619415, guid: 416b594ee72eec84dbbd75101e11a868, type: 3}
+  - {fileID: 3708900249089444448, guid: 5e39af6860afdab458c72f9567f64580, type: 3}
 --- !u!1 &1153198682
 GameObject:
   m_ObjectHideFlags: 0

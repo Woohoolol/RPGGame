@@ -11,6 +11,20 @@ public class BattleManager : MonoBehaviour
     public float moneyGain;
     public float attackTimer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
+    {
+        //When entering random encounter, make a copy of gamedata team to fight with
+        playerList = new List<GameObject>();
+        for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
+        {
+            SaveManager.instance.playerList[i].GetComponent<Character>().currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().maxhp;
+            SaveManager.instance.playerList[i].GetComponent<Character>().currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
+            GameObject blah = Instantiate(SaveManager.instance.playerList[i], new Vector3(-1 + i, 0, 0), Quaternion.Euler(0, 0, 0));
+            playerList.Add(blah);
+            Debug.Log("ADDED");
+
+        }
+    }
     void Start()
     {
         expGain = 0;
@@ -19,18 +33,19 @@ public class BattleManager : MonoBehaviour
         currentEnemyIndex = 0;
         for(int i = 0; i < enemyList.Count; i++)
         {
-            expGain += enemyList[i].GetComponent<Character>().stats.enemyExp;
-            moneyGain += enemyList[i].GetComponent<Character>().stats.enemyMoney;
+            expGain += enemyList[i].GetComponent<Character>().enemyExp;
+            moneyGain += enemyList[i].GetComponent<Character>().enemyMoney;
         }
         StartCoroutine(enemyAttack());
         StartCoroutine(victoryReward());
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //Check out of bounds first!
-        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().stats.hp <= 0)
+        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().currenthp <= 0)
         {
             currentPlayerIndex++;
         }
@@ -45,14 +60,14 @@ public class BattleManager : MonoBehaviour
     public bool allyAttack(int enemyIndex)
     {
         // attackTimer
-        CharacterStats attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>().stats;
-        CharacterStats attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>().stats;
+        Character attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>();
+        Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
         Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
-        attackedEnemy.hp -= (attackingPlayer.physical -  attackedEnemy.pdefense);
+        attackedEnemy.currenthp -= (attackingPlayer.physical -  attackedEnemy.pdefense);
         Debug.Log("ATTACKED " + enemyIndex + " FOR " + (attackingPlayer.physical -  attackedEnemy.pdefense) + " HP ");
         attackAnimation.Play("Attack");
         currentPlayerIndex++;
-        if(attackedEnemy.hp <= 0)
+        if(attackedEnemy.currenthp <= 0)
         {
             Debug.Log("ELIMINATED");
             Destroy(enemyList[enemyIndex]);
@@ -76,7 +91,7 @@ public class BattleManager : MonoBehaviour
         bool wiped = true;
         for(int i = 0; i < playerList.Count; i++)
         {
-            if(playerList[i].GetComponent<Character>().stats.hp > 0)
+            if(playerList[i].GetComponent<Character>().currenthp > 0)
             {
                 wiped = false;
             }
@@ -109,18 +124,18 @@ public class BattleManager : MonoBehaviour
                     List<int> validAttackingIndex = new List<int>();
                     for(int i = 0; i < playerList.Count; i++)
                     {
-                        if(playerList[i].GetComponent<Character>().stats.hp > 0)
+                        if(playerList[i].GetComponent<Character>().currenthp > 0)
                         {
                             validAttackingIndex.Add(i);
                         }
                     }
                     int attackingIndex = validAttackingIndex[Random.Range(0, validAttackingIndex.Count)];
 
-                    CharacterStats attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>().stats;
+                    Character attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>();
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
-                    CharacterStats attackedAlly =  playerList[attackingIndex].GetComponent<Character>().stats;
-                    attackedAlly.hp -= (attackingEnemy.physical -  attackedAlly.pdefense);
+                    Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
+                    attackedAlly.currenthp -= (attackingEnemy.physical -  attackedAlly.pdefense);
                     Debug.Log("ATTACKED ALLY" + " FOR " + (attackingEnemy.physical -  attackedAlly.pdefense) + " HP ");
 
                     //Enemies should stop hitting when everyone dead
@@ -145,7 +160,10 @@ public class BattleManager : MonoBehaviour
         {
             yield return null;
         }
-        // SaveManager.instance.gameData.exp += expGain;
+        for(int i = 0; i < SaveManager.instance.gameData.playerStats.Count; i++)
+        {
+            SaveManager.instance.gameData.playerStats[i].exp += expGain;
+        }
         SaveManager.instance.gameData.money += moneyGain;
         yield return null;
     }

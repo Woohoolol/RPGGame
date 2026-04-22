@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 
 public class SaveManager : MonoBehaviour
 {
@@ -13,8 +14,11 @@ public class SaveManager : MonoBehaviour
     private List<SaveInterface> allSaveData;
     private string fileName = "reimu";
     private FileManager fileManager;
+    //Should be initalized in inspector with every class wanted
+    public GameObject[] classes;
     void Awake()
     {
+        playerList = new List<GameObject>();
         //First time generation
         if(instance == null)
         {
@@ -35,6 +39,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Saved location is" + Application.persistentDataPath);
         allSaveData = findAllSaveData();
         loadGame();
+        StartCoroutine(levelUp());
     }
 
     public void switchToWorldScene()
@@ -59,6 +64,14 @@ public class SaveManager : MonoBehaviour
     public void loadGame()
     {
         gameData = fileManager.Load();
+        //After loading, need to look at gamedata character type to instantiate correct prefab
+        for(int i = 0; i < gameData.playerStats.Count; i++)
+        {
+            int characterType = gameData.playerStats[i].characterType;
+            GameObject baseCharacter = classes[characterType];
+            baseCharacter.GetComponent<Character>().stats = gameData.playerStats[i];
+            playerList.Add(baseCharacter);
+        }
         if(gameData == null)
         {
             Debug.Log("No save data found, initializing");
@@ -86,7 +99,61 @@ public class SaveManager : MonoBehaviour
     {
         //Not a list yet
         IEnumerable<SaveInterface> allSaveData = FindObjectsOfType<MonoBehaviour>().OfType<SaveInterface>();
-
         return new List<SaveInterface>(allSaveData);
+    }
+
+    //Have to update character and stats here since in the playerlist, update functions do not run unless instantiated
+    //AKA we cannot put them in character.cs
+    public IEnumerator levelUp()
+    {
+        while(true)
+        {
+            for(int i = 0; i < playerList.Count; i++)
+            {
+                Character thePlayer = playerList[i].GetComponent<Character>();
+                while(thePlayer.stats.exp >= thePlayer.expRequirement)
+                {
+                    thePlayer.stats.level++;
+                    Debug.Log("LEVEL UP");
+                    thePlayer.stats.exp -= thePlayer.expRequirement;
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+            yield return null;
+        }
+    }
+
+    void Update()
+    {
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            Character thePlayer = playerList[i].GetComponent<Character>();
+            if((thePlayer.stats.characterType) == 0)
+            {
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.5)) + 5;
+            }
+            else if((thePlayer.stats.characterType) == 1)
+            {
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.45)) + 3;
+            }
+            if(thePlayer.stats.characterType == 0)
+            {
+                thePlayer.maxhp = (10 + 4 * thePlayer.stats.level);
+                thePlayer.maxmp = (1 + 1 * thePlayer.stats.level);
+                thePlayer.physical = (4 + 2 * thePlayer.stats.level);
+                thePlayer.mental = (0 + 0.5f * thePlayer.stats.level);
+                thePlayer.pdefense = (5 + 2 * thePlayer.stats.level);
+                thePlayer.mdefense = (3 + 2 * thePlayer.stats.level);
+            }
+            else if(thePlayer.stats.characterType == 1)
+            {
+                thePlayer.maxhp = (7 + 2 * thePlayer.stats.level);
+                thePlayer.maxmp = (3 + 1.5f * thePlayer.stats.level);
+                thePlayer.physical = (5 + 3.5f * thePlayer.stats.level);
+                thePlayer.mental = (2 + 1 * thePlayer.stats.level);
+                thePlayer.pdefense = (2 + 1 * thePlayer.stats.level);
+                thePlayer.mdefense = (2 + 1 * thePlayer.stats.level);
+            }
+        }
     }
 }
