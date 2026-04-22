@@ -19,10 +19,6 @@ public class BattleManager : MonoBehaviour
         {
             SaveManager.instance.playerList[i].GetComponent<Character>().currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().maxhp;
             SaveManager.instance.playerList[i].GetComponent<Character>().currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
-            GameObject blah = Instantiate(SaveManager.instance.playerList[i], new Vector3(-1 + i, 0, 0), Quaternion.Euler(0, 0, 0));
-            playerList.Add(blah);
-            Debug.Log("ADDED");
-
         }
     }
     void Start()

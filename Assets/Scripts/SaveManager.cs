@@ -15,7 +15,9 @@ public class SaveManager : MonoBehaviour
     private string fileName = "reimu";
     private FileManager fileManager;
     //Should be initalized in inspector with every class wanted
+    //These two should be synchronized with each other
     public GameObject[] classes;
+    public GameObject[] portraits;
     void Awake()
     {
         playerList = new List<GameObject>();
@@ -130,11 +132,19 @@ public class SaveManager : MonoBehaviour
             Character thePlayer = playerList[i].GetComponent<Character>();
             if((thePlayer.stats.characterType) == 0)
             {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.5)) + 5;
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.48)) + 5;
             }
             else if((thePlayer.stats.characterType) == 1)
             {
                 thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.45)) + 3;
+            }
+            else if((thePlayer.stats.characterType) == 2)
+            {
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.42)) + 3;
+            }
+            else if((thePlayer.stats.characterType) == 3)
+            {
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.47)) + 3;
             }
             if(thePlayer.stats.characterType == 0)
             {
@@ -142,8 +152,8 @@ public class SaveManager : MonoBehaviour
                 thePlayer.maxmp = (1 + 1 * thePlayer.stats.level);
                 thePlayer.physical = (4 + 2 * thePlayer.stats.level);
                 thePlayer.mental = (0 + 0.5f * thePlayer.stats.level);
-                thePlayer.pdefense = (5 + 2 * thePlayer.stats.level);
-                thePlayer.mdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.pdefense = (5 + 3.5f * thePlayer.stats.level);
+                thePlayer.mdefense = (3 + 3.5f * thePlayer.stats.level);
             }
             else if(thePlayer.stats.characterType == 1)
             {
@@ -153,6 +163,24 @@ public class SaveManager : MonoBehaviour
                 thePlayer.mental = (2 + 1 * thePlayer.stats.level);
                 thePlayer.pdefense = (2 + 1 * thePlayer.stats.level);
                 thePlayer.mdefense = (2 + 1 * thePlayer.stats.level);
+            }
+            else if(thePlayer.stats.characterType == 2)
+            {
+                thePlayer.maxhp = (7 + 1.5f * thePlayer.stats.level);
+                thePlayer.maxmp = (3 + 3f * thePlayer.stats.level);
+                thePlayer.physical = (2 + 1f * thePlayer.stats.level);
+                thePlayer.mental = (3 + 3.5f * thePlayer.stats.level);
+                thePlayer.pdefense = (2 + 1 * thePlayer.stats.level);
+                thePlayer.mdefense = (3 + 2 * thePlayer.stats.level);
+            }
+            else if(thePlayer.stats.characterType == 3)
+            {
+                thePlayer.maxhp = (10 + 3.5f * thePlayer.stats.level);
+                thePlayer.maxmp = (3 + 2f * thePlayer.stats.level);
+                thePlayer.physical = (3 + 1f * thePlayer.stats.level);
+                thePlayer.mental = (2 + 2f * thePlayer.stats.level);
+                thePlayer.pdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.mdefense = (3 + 2 * thePlayer.stats.level);
             }
         }
     }

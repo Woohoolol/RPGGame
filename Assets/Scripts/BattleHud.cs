@@ -7,13 +7,14 @@ using System.Collections;
 public class BattleHud : MonoBehaviour
 {
     //0 attack, 1 special, 2 item, 3 escape
-    public GameObject[] actions;
+    public List<GameObject> actions;
     public GameObject actionMenu;
     public BattleManager battleManager;
     public GameObject specialMenu;
     public GameObject playerStats;
     public GameObject optionDescription;
     public GameObject returnButton;
+    public GameObject selectionScreen;
     //0 main menu focused, 1 attack menu, 2 special menu, 3 item, 4 escape, 5 victory, 6 defeat, 7 enemy attack, 8 waiting for input (victory/defeat)
     public int mode;
     private int focusedIndex;
@@ -26,9 +27,18 @@ public class BattleHud : MonoBehaviour
         finished = false;
         focusedIndex = 0;
         mode = 0;
+        for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
+        {    
+            GameObject player = Instantiate(SaveManager.instance.playerList[i], playerStats.transform.GetChild(i).position + new Vector3(0, 4f, -1), Quaternion.Euler(0, 0, 0));
+            battleManager.playerList.Add(player);
+            player.transform.parent = selectionScreen.transform;
+        } 
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
             playerStats.transform.GetChild(i).gameObject.SetActive(true);
+            GameObject portrait = Instantiate(SaveManager.instance.portraits[battleManager.playerList[i].GetComponent<Character>().stats.characterType], 
+            playerStats.transform.GetChild(i).position + new Vector3(0, 1.75f, -1), Quaternion.Euler(0, 1, 0));
+            portrait.transform.parent = selectionScreen.transform;
         }
         StartCoroutine(showVictory());
         StartCoroutine(escape());
@@ -61,7 +71,7 @@ public class BattleHud : MonoBehaviour
                 actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 focusedIndex--;
             }
-            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < actions.Length - 1)
+            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < actions.Count - 1)
             {
                 actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 focusedIndex++;
@@ -177,7 +187,6 @@ public class BattleHud : MonoBehaviour
         if(battleManager.currentPlayerIndex < battleManager.playerList.Count)
         {
             battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
-            Debug.Log("TURNED" + battleManager.currentPlayerIndex + "YELLOW");
         }
     }
 

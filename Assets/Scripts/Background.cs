@@ -5,12 +5,14 @@ public class Background : MonoBehaviour
     private float initialX;
     private float finalX;
     private float scrollX;
+    // public bool isScrolling;
     //This is for backgrounds that have multiple parts, the more there are, the more we push them up
     // public int layerNumber;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         initialX = transform.position.x;
+        // isScrolling = true;
     }
 
     // Update is called once per frame
