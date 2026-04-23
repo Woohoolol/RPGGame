@@ -913,10 +913,10 @@ MonoBehaviour:
   - {fileID: 7456626017482619415, guid: 8c897f3f666f8af41b3ae005b3568b2a, type: 3}
   - {fileID: 7456626017482619415, guid: 6fb7986bca8ead34e94a2c0f38fe1a64, type: 3}
   portraits:
-  - {fileID: 1455461183385558864, guid: 4ab7e29b65d21ca41b5ea512c7b3f9cd, type: 3}
-  - {fileID: 1455461183385558864, guid: c788ab314fecade419438eff1a7f1ce1, type: 3}
-  - {fileID: 1455461183385558864, guid: d2dc907e39a353c4381943c29fd9ff7b, type: 3}
-  - {fileID: 1455461183385558864, guid: 47af256f3ac35a94f96e3817a11c2207, type: 3}
+  - {fileID: 6347274711622400622, guid: e50ef1e74282ea94fbe661811cfbe205, type: 3}
+  - {fileID: 2046663153770440243, guid: f3eaa2893c301a1419781b6e9458bef5, type: 3}
+  - {fileID: 2681344517687773519, guid: 8dd58f10671ca5c4a8969710194b7414, type: 3}
+  - {fileID: 2269879992560141492, guid: d7ae7ee287420a846aae8bb29398ce6d, type: 3}
 --- !u!1 &906367039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1413716741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1672,14 +1672,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 641.9717, y: 0, z: 0, w: 0}
+  m_margin: {x: 1.7462082, y: -225.00677, z: 0, w: -2.3197021}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -151,9 +151,22 @@ public class WorldManager : MonoBehaviour
                 for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
                 {
                     string playerInfo = String.Format("{0,-15}", "Level: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.level); 
-                    playerInfo +=  "Exp: " +  SaveManager.instance.playerList[i].GetComponent<Character>().stats.exp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().expRequirement + "\n\n";
-                    playerInfo += String.Format("{0,-15}", "Hp: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().maxhp);
-                    playerInfo += "Mp: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
+                    Character thePlayer = SaveManager.instance.playerList[i].GetComponent<Character>();
+                    playerInfo +=  "Exp: " +  Math.Ceiling(thePlayer.stats.exp) + "/" + thePlayer.expRequirement + "\n\n";
+                    if(thePlayer.stats.currenthp <= 0)
+                    {
+                        playerInfo += "<color=red>";
+                    }
+                    else if(thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    {
+                        playerInfo += "<color=yellow>";
+                    }
+                    playerInfo += String.Format("{0,-15}", "Hp: " +  Math.Ceiling(thePlayer.stats.currenthp) + "/" + Math.Ceiling(thePlayer.maxhp));
+                    if(thePlayer.stats.currenthp <= 0 || thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    {
+                        playerInfo += "</color>";
+                    }   
+                    playerInfo += "Mp: " +  Math.Ceiling(thePlayer.stats.currentmp) + "/" +  Math.Ceiling(thePlayer.maxmp);
                     playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
                 }
                 yield return new WaitUntil(() => mode != 1 && mode != 1.5f);
@@ -168,19 +181,33 @@ public class WorldManager : MonoBehaviour
             }
             if(mode == 2)
             {
+                    Character thePlayer =  SaveManager.instance.playerList[focusedIndex].GetComponent<Character>();
                     //4th index of playerstats is separate text box
-                    GameObject portrait = Instantiate(SaveManager.instance.portraits[SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.characterType], 
-                    new Vector3(playerStats.transform.GetChild(4).position.x, playerStats.transform.GetChild(4).position.y + 4.5f, -11), Quaternion.Euler(0, 0, 0));            
+                    GameObject portrait = Instantiate(SaveManager.instance.portraits[thePlayer.stats.characterType], 
+                    new Vector3(playerStats.transform.GetChild(4).position.x + 5f, playerStats.transform.GetChild(4).position.y + 1.5f, -11), Quaternion.Euler(0, 0, 0));      
+                    portrait.transform.localScale = new Vector3(0.25f, 0.25f, 1);      
                     portrait.transform.parent = actionMenu.transform;
                     playerStats.transform.GetChild(4).gameObject.SetActive(true);
-                    string playerInfo = String.Format("{0,-15}", "Level: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.level); 
-                    playerInfo +=  "Exp: " +  SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.exp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().expRequirement + "\n\n";
-                    playerInfo += String.Format("{0,-15}", "Hp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.currenthp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().maxhp);
-                    playerInfo += "Mp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.currentmp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().maxmp + "\n\n";
-                    playerInfo += String.Format("{0,-15}", "Physical: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().physical);
-                    playerInfo += "Mental: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().mental + "\n\n";
-                    playerInfo += "Physical Defense: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().pdefense + "\n\n";
-                    playerInfo += "Mental Defense: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().mdefense + "\n\n";
+                    string playerInfo = "Level: " + thePlayer.stats.level + "\n\n"; 
+                    playerInfo +=  "Exp: " +  thePlayer.stats.exp + "/" + thePlayer.expRequirement + "\n\n";
+                    if(thePlayer.stats.currenthp <= 0)
+                    {
+                        playerInfo += "<color=red>";
+                    }
+                    else if(thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    {
+                        playerInfo += "<color=yellow>";
+                    }
+                    playerInfo += "Hp: " + Math.Ceiling(thePlayer.stats.currenthp) + "/" + Math.Ceiling(thePlayer.maxhp) + "\n\n";
+                    if(thePlayer.stats.currenthp <= 0 || thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    {
+                        playerInfo += "</color>";
+                    }                
+                    playerInfo += "Mp: " + Math.Ceiling(thePlayer.stats.currentmp) + "/" + Math.Ceiling(thePlayer.maxmp) + "\n\n";
+                    playerInfo += "Physical: " + Math.Ceiling(thePlayer.physical) + "\n\n";
+                    playerInfo += "Mental: " + Math.Ceiling(thePlayer.mental) + "\n\n";
+                    playerInfo += "Physical Defense: " + Math.Ceiling(thePlayer.pdefense) + "\n\n";
+                    playerInfo += "Mental Defense: " + Math.Ceiling(thePlayer.mdefense) + "\n\n";
                     playerStats.transform.GetChild(4).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
                     yield return new WaitUntil(() => mode != 2);
                     Destroy(portrait);

@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
     public int currentPlayerIndex;
     public List<GameObject> enemyList;
     public int currentEnemyIndex;
+    public GameObject specialManager;
     public float expGain;
     public float moneyGain;
     public float attackTimer;
@@ -35,7 +36,6 @@ public class BattleManager : MonoBehaviour
         }
         StartCoroutine(enemyAttack());
         StartCoroutine(victoryReward());
-
     }
 
     // Update is called once per frame
@@ -45,6 +45,17 @@ public class BattleManager : MonoBehaviour
         while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().stats.currenthp <= 0)
         {
             currentPlayerIndex++;
+        }
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            if((playerList[i].GetComponent<Character>().stats.currenthp) > playerList[i].GetComponent<Character>().maxhp)
+            {
+                playerList[i].GetComponent<Character>().stats.currenthp = playerList[i].GetComponent<Character>().maxhp;
+            }
+            if((playerList[i].GetComponent<Character>().stats.currentmp) > playerList[i].GetComponent<Character>().maxmp)
+            {
+                playerList[i].GetComponent<Character>().stats.currentmp = playerList[i].GetComponent<Character>().maxmp;
+            }
         }
         for(int i = 0; i < enemyList.Count; i++)
         {
@@ -56,6 +67,12 @@ public class BattleManager : MonoBehaviour
             {
                 enemyList[i].GetComponent<Character>().stats.currentmp = enemyList[i].GetComponent<Character>().maxmp;
             }
+            if(enemyList[i].GetComponent<Character>().stats.currenthp <= 0)
+            {
+                Debug.Log("ELIMINATED");
+                Destroy(enemyList[i]);
+                enemyList.RemoveAt(i);
+            }
         }
 
     }
@@ -66,7 +83,7 @@ public class BattleManager : MonoBehaviour
     }
     
 
-    public bool allyAttack(int enemyIndex)
+    public void allyAttack(int enemyIndex)
     {
         // attackTimer
         Character attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>();
@@ -77,19 +94,12 @@ public class BattleManager : MonoBehaviour
         Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/(1 + 0.75 * attackingPlayer.physical + attackedEnemy.pdefense)))) + " HP ");
         attackAnimation.Play("Attack");
         currentPlayerIndex++;
-        if(attackedEnemy.stats.currenthp <= 0)
-        {
-            Debug.Log("ELIMINATED");
-            Destroy(enemyList[enemyIndex]);
-            enemyList.RemoveAt(enemyIndex);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
+    public void allySpecial(int specialIndex, int theEnemyIndex)
+    {
+        specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, playerList[currentPlayerIndex], enemyIndex: theEnemyIndex);
+    }
     public bool victory()
     {
         return enemyList.Count == 0;

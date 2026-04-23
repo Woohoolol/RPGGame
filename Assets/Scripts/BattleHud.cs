@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 public class BattleHud : MonoBehaviour
 {
     //0 attack, 1 special, 2 item, 3 escape
@@ -121,12 +122,8 @@ public class BattleHud : MonoBehaviour
             battleManager.enemyList[attackIndex].GetComponent<SpriteRenderer>().color = Color.blue;
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
-                bool killed = battleManager.allyAttack(attackIndex);
-                if(!killed)
-                {
-                    //Checking if that spot is destroyed before resetting color
-                    battleManager.enemyList[attackIndex].GetComponent<SpriteRenderer>().color = Color.white;
-                }
+                battleManager.enemyList[attackIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                battleManager.allyAttack(attackIndex);
                 //Reset to top of menu after action
                 mode = 0;
                 focusedIndex = 0;
@@ -139,6 +136,12 @@ public class BattleHud : MonoBehaviour
                 mode = 0;
                 focusedIndex = 0;     
             }
+        }
+        else if(mode == 2)
+        {
+            battleManager.allySpecial(1, 1);
+            mode = 0;
+            focusedIndex = 0;
         }
         else if(mode == 6 && !finished)
         {
@@ -157,8 +160,8 @@ public class BattleHud : MonoBehaviour
         }
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
-            string playerInfo = "Hp: " + battleManager.playerList[i].GetComponent<Character>().stats.currenthp + "/" + battleManager.playerList[i].GetComponent<Character>().maxhp + "\n";
-            playerInfo += "Mp: " + battleManager.playerList[i].GetComponent<Character>().stats.currentmp + "/" + battleManager.playerList[i].GetComponent<Character>().maxmp;
+            string playerInfo = "Hp: " + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().stats.currenthp) + "/" + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().maxhp) + "\n";
+            playerInfo += "Mp: " + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().stats.currentmp) + "/" + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().maxmp);
             playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
         }
         //Making dead players transparent

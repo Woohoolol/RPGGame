@@ -709,6 +709,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129509438}
   m_CullTransparentMesh: 1
+--- !u!1 &293819623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293819625}
+  - component: {fileID: 293819624}
+  m_Layer: 0
+  m_Name: SpecialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &293819624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293819623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b38990d9159158468498331dd613bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpecialManager
+  specialIndex: 0
+  currentPlayer: {fileID: 0}
+  battleManager: {fileID: 1138607227}
+  playerIndex: 0
+  enemyIndex: 0
+  activated: 0
+--- !u!4 &293819625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293819623}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.34147, y: 1.74964, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &343943119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,6 +1889,7 @@ MonoBehaviour:
   - {fileID: 553236966}
   - {fileID: 780794392}
   currentEnemyIndex: 0
+  specialManager: {fileID: 293819623}
   expGain: 0
   moneyGain: 0
   attackTimer: 0
@@ -3230,3 +3281,4 @@ SceneRoots:
   - {fileID: 629938715}
   - {fileID: 1138607229}
   - {fileID: 744410879}
+  - {fileID: 293819625}
