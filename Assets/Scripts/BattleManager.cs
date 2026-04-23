@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 public class BattleManager : MonoBehaviour
 {
     public List<GameObject> playerList;
@@ -17,8 +18,8 @@ public class BattleManager : MonoBehaviour
         playerList = new List<GameObject>();
         for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
         {
-            SaveManager.instance.playerList[i].GetComponent<Character>().currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().maxhp;
-            SaveManager.instance.playerList[i].GetComponent<Character>().currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
+            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().maxhp;
+            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
         }
     }
     void Start()
@@ -41,7 +42,7 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         //Check out of bounds first!
-        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().currenthp <= 0)
+        while(currentPlayerIndex < playerList.Count && playerList[currentPlayerIndex].GetComponent<Character>().stats.currenthp <= 0)
         {
             currentPlayerIndex++;
         }
@@ -59,11 +60,11 @@ public class BattleManager : MonoBehaviour
         Character attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>();
         Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
         Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
-        attackedEnemy.currenthp -= (attackingPlayer.physical -  attackedEnemy.pdefense);
-        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (attackingPlayer.physical -  attackedEnemy.pdefense) + " HP ");
+        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/attackedEnemy.pdefense)));
+        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/attackedEnemy.pdefense))) + " HP ");
         attackAnimation.Play("Attack");
         currentPlayerIndex++;
-        if(attackedEnemy.currenthp <= 0)
+        if(attackedEnemy.stats.currenthp <= 0)
         {
             Debug.Log("ELIMINATED");
             Destroy(enemyList[enemyIndex]);
@@ -87,7 +88,7 @@ public class BattleManager : MonoBehaviour
         bool wiped = true;
         for(int i = 0; i < playerList.Count; i++)
         {
-            if(playerList[i].GetComponent<Character>().currenthp > 0)
+            if(playerList[i].GetComponent<Character>().stats.currenthp > 0)
             {
                 wiped = false;
             }
@@ -104,7 +105,7 @@ public class BattleManager : MonoBehaviour
     public bool escape()
     {
         int escapeRequirement= 75;
-        int roll = Random.Range(0, 101);
+        int roll = UnityEngine.Random.Range(0, 101);
         return roll >= escapeRequirement;
     }
     public IEnumerator enemyAttack()
@@ -120,19 +121,19 @@ public class BattleManager : MonoBehaviour
                     List<int> validAttackingIndex = new List<int>();
                     for(int i = 0; i < playerList.Count; i++)
                     {
-                        if(playerList[i].GetComponent<Character>().currenthp > 0)
+                        if(playerList[i].GetComponent<Character>().stats.currenthp > 0)
                         {
                             validAttackingIndex.Add(i);
                         }
                     }
-                    int attackingIndex = validAttackingIndex[Random.Range(0, validAttackingIndex.Count)];
+                    int attackingIndex = validAttackingIndex[UnityEngine.Random.Range(0, validAttackingIndex.Count)];
 
                     Character attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>();
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
                     Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
-                    attackedAlly.currenthp -= (attackingEnemy.physical -  attackedAlly.pdefense);
-                    Debug.Log("ATTACKED ALLY" + " FOR " + (attackingEnemy.physical -  attackedAlly.pdefense) + " HP ");
+                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/attackedAlly.pdefense)));
+                    Debug.Log("ATTACKED ALLY " + attackingIndex + " FOR " + (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/attackedAlly.pdefense))) + " HP ");
 
                     //Enemies should stop hitting when everyone dead
                     if(defeat())

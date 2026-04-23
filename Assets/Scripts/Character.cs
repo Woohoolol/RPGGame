@@ -8,8 +8,6 @@ public class Character : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float maxhp;
     public float maxmp;
-    public float currenthp;
-    public float currentmp;
     public float physical;
     public float mental;
     public float pdefense;

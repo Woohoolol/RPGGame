@@ -157,14 +157,15 @@ public class BattleHud : MonoBehaviour
         }
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
-            string playerInfo = "hp: " + battleManager.playerList[i].GetComponent<Character>().currenthp + " mp: " + battleManager.playerList[i].GetComponent<Character>().currentmp;
+            string playerInfo = "Hp: " + battleManager.playerList[i].GetComponent<Character>().stats.currenthp + "/" + battleManager.playerList[i].GetComponent<Character>().maxhp + "\n";
+            playerInfo += "Mp: " + battleManager.playerList[i].GetComponent<Character>().stats.currentmp + "/" + battleManager.playerList[i].GetComponent<Character>().maxmp;
             playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
         }
         //Making dead players transparent
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
             Color baseColor = battleManager.playerList[i].GetComponent<SpriteRenderer>().color;
-            if(battleManager.playerList[i].GetComponent<Character>().currenthp <= 0)
+            if(battleManager.playerList[i].GetComponent<Character>().stats.currenthp <= 0)
             {
                 baseColor[3] = 0.25f;
                 battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;
@@ -199,7 +200,14 @@ public class BattleHud : MonoBehaviour
     {
         actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
     }
-
+    public void updatePlayerValues()
+    {
+        for(int i = 0; i < battleManager.playerList.Count; i++)
+        {
+            SaveManager.instance.gameData.playerStats[i].currenthp = battleManager.playerList[i].GetComponent<Character>().stats.currenthp;
+            SaveManager.instance.gameData.playerStats[i].currentmp = battleManager.playerList[i].GetComponent<Character>().stats.currentmp;
+        }
+    }
     public IEnumerator escape()
     {
         while(true)
@@ -221,6 +229,7 @@ public class BattleHud : MonoBehaviour
                 {
                     optionDescription.SetActive(true);
                     optionDescription.GetComponent<TextMeshProUGUI>().SetText("Escape successful!");
+                    updatePlayerValues();
                     yield return new WaitForSeconds(1);
                     battleManager.switchBack();
                     break;
@@ -236,6 +245,7 @@ public class BattleHud : MonoBehaviour
             yield return null;
         }
         optionDescription.SetActive(false);
+        updatePlayerValues();
         yield return new WaitForSeconds(2);
         Debug.Log("VICTORY");
         Debug.Log("OBTAINED " + battleManager.expGain + " EXP");

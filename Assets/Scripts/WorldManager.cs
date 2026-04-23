@@ -107,6 +107,7 @@ public class WorldManager : MonoBehaviour
             if(Keyboard.current.xKey.wasPressedThisFrame)
             {
                 mode = 1;
+                highlightBox.SetActive(false);
             }        
             if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
@@ -142,7 +143,7 @@ public class WorldManager : MonoBehaviour
                 {
                     playerStats.transform.GetChild(i).gameObject.SetActive(true);
                     GameObject portrait = Instantiate(SaveManager.instance.portraits[SaveManager.instance.playerList[i].GetComponent<Character>().stats.characterType], 
-                    playerStats.transform.GetChild(i).position + new Vector3(-6f, 0f, 0), Quaternion.Euler(0, 0, 0));
+                    playerStats.transform.GetChild(i).position + new Vector3(-6f, 0f, -1), Quaternion.Euler(0, 0, 0));
                     portraits.Add(portrait);
                     portrait.transform.localScale = new Vector3(0.08f, 0.08f, 1);
                     portrait.transform.parent = actionMenu.transform;
@@ -151,8 +152,8 @@ public class WorldManager : MonoBehaviour
                 {
                     string playerInfo = String.Format("{0,-15}", "Level: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.level); 
                     playerInfo +=  "Exp: " +  SaveManager.instance.playerList[i].GetComponent<Character>().stats.exp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().expRequirement + "\n\n";
-                    playerInfo += String.Format("{0,-15}", "hp: " + SaveManager.instance.playerList[i].GetComponent<Character>().currenthp);
-                    playerInfo += "mp: " + SaveManager.instance.playerList[i].GetComponent<Character>().currentmp;
+                    playerInfo += String.Format("{0,-15}", "Hp: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().maxhp);
+                    playerInfo += "Mp: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
                     playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
                 }
                 yield return new WaitUntil(() => mode != 1 && mode != 1.5f);
@@ -174,8 +175,12 @@ public class WorldManager : MonoBehaviour
                     playerStats.transform.GetChild(4).gameObject.SetActive(true);
                     string playerInfo = String.Format("{0,-15}", "Level: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.level); 
                     playerInfo +=  "Exp: " +  SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.exp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().expRequirement + "\n\n";
-                    playerInfo += String.Format("{0,-15}", "hp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().currenthp);
-                    playerInfo += "mp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().currentmp;
+                    playerInfo += String.Format("{0,-15}", "Hp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.currenthp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().maxhp);
+                    playerInfo += "Mp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.currentmp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().maxmp + "\n\n";
+                    playerInfo += String.Format("{0,-15}", "Physical: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().physical);
+                    playerInfo += "Mental: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().mental + "\n\n";
+                    playerInfo += "Physical Defense: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().pdefense + "\n\n";
+                    playerInfo += "Mental Defense: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().mdefense + "\n\n";
                     playerStats.transform.GetChild(4).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
                     yield return new WaitUntil(() => mode != 2);
                     Destroy(portrait);
