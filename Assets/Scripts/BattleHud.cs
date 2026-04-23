@@ -37,7 +37,7 @@ public class BattleHud : MonoBehaviour
         {
             playerStats.transform.GetChild(i).gameObject.SetActive(true);
             GameObject portrait = Instantiate(SaveManager.instance.portraits[battleManager.playerList[i].GetComponent<Character>().stats.characterType], 
-            playerStats.transform.GetChild(i).position + new Vector3(0, 1.75f, -1), Quaternion.Euler(0, 1, 0));
+            playerStats.transform.GetChild(i).position + new Vector3(0, 1.725f, -1), Quaternion.Euler(0, 1, 0));
             portrait.transform.parent = selectionScreen.transform;
         }
         StartCoroutine(showVictory());
@@ -208,6 +208,11 @@ public class BattleHud : MonoBehaviour
             SaveManager.instance.gameData.playerStats[i].currentmp = battleManager.playerList[i].GetComponent<Character>().stats.currentmp;
         }
     }
+
+    // public void useSpecial()
+    // {
+    //     Special theSpecial = specialList[focusedIndex];
+    // }
     public IEnumerator escape()
     {
         while(true)
