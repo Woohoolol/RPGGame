@@ -46,6 +46,18 @@ public class BattleManager : MonoBehaviour
         {
             currentPlayerIndex++;
         }
+        for(int i = 0; i < enemyList.Count; i++)
+        {
+            if((enemyList[i].GetComponent<Character>().stats.currenthp) > enemyList[i].GetComponent<Character>().maxhp)
+            {
+                enemyList[i].GetComponent<Character>().stats.currenthp = enemyList[i].GetComponent<Character>().maxhp;
+            }
+            if((enemyList[i].GetComponent<Character>().stats.currentmp) > enemyList[i].GetComponent<Character>().maxmp)
+            {
+                enemyList[i].GetComponent<Character>().stats.currentmp = enemyList[i].GetComponent<Character>().maxmp;
+            }
+        }
+
     }
 
     public void switchBack()
@@ -60,8 +72,9 @@ public class BattleManager : MonoBehaviour
         Character attackingPlayer = playerList[currentPlayerIndex].GetComponent<Character>();
         Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
         Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
-        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/attackedEnemy.pdefense)));
-        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/attackedEnemy.pdefense))) + " HP ");
+        //Third attackingPlayer.physical is to mitigate high atk/def differences
+        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/(1 + 0.75 * attackingPlayer.physical + attackedEnemy.pdefense))));
+        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/(1 + 0.75 * attackingPlayer.physical + attackedEnemy.pdefense)))) + " HP ");
         attackAnimation.Play("Attack");
         currentPlayerIndex++;
         if(attackedEnemy.stats.currenthp <= 0)
@@ -89,7 +102,7 @@ public class BattleManager : MonoBehaviour
         for(int i = 0; i < playerList.Count; i++)
         {
             if(playerList[i].GetComponent<Character>().stats.currenthp > 0)
-            {
+            { 
                 wiped = false;
             }
         }
@@ -132,8 +145,8 @@ public class BattleManager : MonoBehaviour
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
                     Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
-                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/attackedAlly.pdefense)));
-                    Debug.Log("ATTACKED ALLY " + attackingIndex + " FOR " + (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/attackedAlly.pdefense))) + " HP ");
+                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/(1 + 0.75 * attackingEnemy.physical + attackedAlly.pdefense))));
+                    Debug.Log("ATTACKED ALLY " + attackingIndex + " FOR " + (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/(1 + 0.75 * attackingEnemy.physical + attackedAlly.pdefense)))) + " HP ");
 
                     //Enemies should stop hitting when everyone dead
                     if(defeat())

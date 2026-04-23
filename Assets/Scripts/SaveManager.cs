@@ -130,25 +130,33 @@ public class SaveManager : MonoBehaviour
         for(int i = 0; i < playerList.Count; i++)
         {
             Character thePlayer = playerList[i].GetComponent<Character>();
+            if((thePlayer.stats.currenthp) > thePlayer.maxhp)
+            {
+                thePlayer.stats.currenthp = thePlayer.maxhp;
+            }
+            if((thePlayer.stats.currentmp) > thePlayer.maxmp)
+            {
+                thePlayer.stats.currentmp = thePlayer.maxmp;
+            }
             if((thePlayer.stats.characterType) == 0)
             {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.48)) + 5;
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.55)) + 6;
             }
             else if((thePlayer.stats.characterType) == 1)
             {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.45)) + 3;
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.49)) + 4;
             }
             else if((thePlayer.stats.characterType) == 2)
             {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.42)) + 3;
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.47)) + 4;
             }
             else if((thePlayer.stats.characterType) == 3)
             {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.47)) + 3;
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.52)) + 5;
             }
             if(thePlayer.stats.characterType == 0)
             {
-                thePlayer.maxhp = (10 + 4 * thePlayer.stats.level);
+                thePlayer.maxhp = (10 + 5 * thePlayer.stats.level);
                 thePlayer.maxmp = (1 + 1 * thePlayer.stats.level);
                 thePlayer.physical = (4 + 2 * thePlayer.stats.level);
                 thePlayer.mental = (0 + 0.5f * thePlayer.stats.level);

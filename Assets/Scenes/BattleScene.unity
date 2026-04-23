@@ -950,13 +950,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   stats:
     characterType: 0
-    currenthp: 0
+    currenthp: 80
     currentmp: 0
     exp: 0
     level: 0
-  maxhp: 20
+  maxhp: 50
   maxmp: 0
-  physical: 7
+  physical: 12
   mental: 1
   pdefense: 1
   mdefense: 1
@@ -1419,13 +1419,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   stats:
     characterType: 0
-    currenthp: 0
+    currenthp: 80
     currentmp: 0
     exp: 0
     level: 0
-  maxhp: 20
+  maxhp: 50
   maxmp: 0
-  physical: 7
+  physical: 12
   mental: 1
   pdefense: 1
   mdefense: 1
@@ -3031,13 +3031,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   stats:
     characterType: 0
-    currenthp: 0
-    currentmp: 0
+    currenthp: 50
+    currentmp: 50
     exp: 0
     level: 0
-  maxhp: 20
-  maxmp: 0
-  physical: 7
+  maxhp: 50
+  maxmp: 50
+  physical: 12
   mental: 1
   pdefense: 1
   mdefense: 1
