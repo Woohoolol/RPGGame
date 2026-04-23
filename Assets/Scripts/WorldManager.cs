@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 public class WorldManager : MonoBehaviour
 {
     public GameObject player;
@@ -14,15 +15,16 @@ public class WorldManager : MonoBehaviour
     public GameObject[] actions;
     public GameObject actionMenu;
     public GameObject playerStats;
+    public GameObject highlightBox;
     //0 = Overworld mode, 1 = stats menu, 2 = detailed stats, 3 = equipment menu, 4 = inventory menu
-    public int mode;
+    public float mode;
     public int focusedIndex;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         encounterModifier = 1;
-        encounterRequirement = Random.Range(1, 2);
+        encounterRequirement = UnityEngine.Random.Range(1, 2);
         Instantiate(background, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(-19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
@@ -50,7 +52,7 @@ public class WorldManager : MonoBehaviour
             if(encounterRate >= encounterRequirement)
             {
                 encounterRate = 0;
-                encounterRequirement = Random.Range(10, 20);
+                encounterRequirement = UnityEngine.Random.Range(10, 20);
                 //SaveManager.instance is the static thing we can call
                 SaveManager.instance.gameData.battleSpawn = 1;
                 SaveManager.instance.switchToBattleScene();
@@ -82,7 +84,8 @@ public class WorldManager : MonoBehaviour
                 if(focusedIndex == 0)
                 {
                     Debug.Log("DETAILED CHARACTER STATS");
-                    mode = 2;
+                    mode = 1.5f;
+                    focusedIndex = 0;
                 }
                 else if(focusedIndex == 1)
                 {
@@ -97,36 +100,86 @@ public class WorldManager : MonoBehaviour
                     Application.Quit();
                 }
             }
-
-            // for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
-            // {
-            //     string playerInfo = "hp: " + SaveManager.instance.playerList[i].GetComponent<Character>().currenthp + " mp: " + battleManager.playerList[i].GetComponent<Character>().currentmp;
-            //     playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
-            // }
         }
-
+        else if(mode == 1.5)
+        {
+            highlightBox.SetActive(true);
+            if(Keyboard.current.xKey.wasPressedThisFrame)
+            {
+                mode = 1;
+            }        
+            if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
+            {
+                focusedIndex--;
+            }
+            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < SaveManager.instance.playerList.Count - 1)
+            {
+                focusedIndex++;
+            }
+            highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-3.5f, -1.67f * focusedIndex, -1);
+            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            {
+                highlightBox.SetActive(false);
+                mode = 2;
+            }
+        }
+        else if(mode == 2)
+        {
+            if(Keyboard.current.xKey.wasPressedThisFrame)
+            {
+                mode = 1.5f;
+            }       
+        }
     }
     public IEnumerator showMenu()
     {
         while(true)
         {
-            if(mode == 1)
+            if(mode == 1 || mode == 1.5f)
             {
                 List<GameObject> portraits = new List<GameObject>();
                 for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
                 {
                     playerStats.transform.GetChild(i).gameObject.SetActive(true);
                     GameObject portrait = Instantiate(SaveManager.instance.portraits[SaveManager.instance.playerList[i].GetComponent<Character>().stats.characterType], 
-                    playerStats.transform.GetChild(i).position + new Vector3(-6.5f, 0f, -1), Quaternion.Euler(0, 0, 0));
+                    playerStats.transform.GetChild(i).position + new Vector3(-6f, 0f, 0), Quaternion.Euler(0, 0, 0));
                     portraits.Add(portrait);
                     portrait.transform.localScale = new Vector3(0.08f, 0.08f, 1);
                     portrait.transform.parent = actionMenu.transform;
                 }
-                yield return new WaitUntil(() => mode != 1);
+                for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
+                {
+                    string playerInfo = String.Format("{0,-15}", "Level: " + SaveManager.instance.playerList[i].GetComponent<Character>().stats.level); 
+                    playerInfo +=  "Exp: " +  SaveManager.instance.playerList[i].GetComponent<Character>().stats.exp + "/" + SaveManager.instance.playerList[i].GetComponent<Character>().expRequirement + "\n\n";
+                    playerInfo += String.Format("{0,-15}", "hp: " + SaveManager.instance.playerList[i].GetComponent<Character>().currenthp);
+                    playerInfo += "mp: " + SaveManager.instance.playerList[i].GetComponent<Character>().currentmp;
+                    playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
+                }
+                yield return new WaitUntil(() => mode != 1 && mode != 1.5f);
                 for(int i = 0; i < portraits.Count; i++)
                 {
                     Destroy(portraits[i]);
                 }
+                for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
+                {
+                    playerStats.transform.GetChild(i).gameObject.SetActive(false);
+                }
+            }
+            if(mode == 2)
+            {
+                    //4th index of playerstats is separate text box
+                    GameObject portrait = Instantiate(SaveManager.instance.portraits[SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.characterType], 
+                    new Vector3(playerStats.transform.GetChild(4).position.x, playerStats.transform.GetChild(4).position.y + 4.5f, -11), Quaternion.Euler(0, 0, 0));            
+                    portrait.transform.parent = actionMenu.transform;
+                    playerStats.transform.GetChild(4).gameObject.SetActive(true);
+                    string playerInfo = String.Format("{0,-15}", "Level: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.level); 
+                    playerInfo +=  "Exp: " +  SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.exp + "/" + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().expRequirement + "\n\n";
+                    playerInfo += String.Format("{0,-15}", "hp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().currenthp);
+                    playerInfo += "mp: " + SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().currentmp;
+                    playerStats.transform.GetChild(4).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
+                    yield return new WaitUntil(() => mode != 2);
+                    Destroy(portrait);
+                    playerStats.transform.GetChild(4).gameObject.SetActive(false);
             }
             yield return null;
         }
