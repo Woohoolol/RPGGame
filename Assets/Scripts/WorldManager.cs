@@ -16,6 +16,7 @@ public class WorldManager : MonoBehaviour
     public GameObject actionMenu;
     public GameObject playerStats;
     public GameObject highlightBox;
+    public GameObject specialManager;
     //0 = Overworld mode, 1 = stats menu, 2 = detailed stats, 3 = equipment menu, 4 = inventory menu
     public float mode;
     public int focusedIndex;
@@ -157,16 +158,16 @@ public class WorldManager : MonoBehaviour
                     {
                         playerInfo += "<color=red>";
                     }
-                    else if(thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    else if(thePlayer.stats.currenthp < 0.5f * thePlayer.basemaxhp)
                     {
                         playerInfo += "<color=yellow>";
                     }
-                    playerInfo += String.Format("{0,-15}", "Hp: " +  Math.Ceiling(thePlayer.stats.currenthp) + "/" + Math.Ceiling(thePlayer.maxhp));
-                    if(thePlayer.stats.currenthp <= 0 || thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    playerInfo += String.Format("{0,-15}", "Hp: " +  Math.Ceiling(thePlayer.stats.currenthp) + "/" + Math.Ceiling(thePlayer.basemaxhp));
+                    if(thePlayer.stats.currenthp <= 0 || thePlayer.stats.currenthp < 0.5f * thePlayer.basemaxhp)
                     {
                         playerInfo += "</color>";
                     }   
-                    playerInfo += "Mp: " +  Math.Ceiling(thePlayer.stats.currentmp) + "/" +  Math.Ceiling(thePlayer.maxmp);
+                    playerInfo += "Mp: " +  Math.Ceiling(thePlayer.stats.currentmp) + "/" +  Math.Ceiling(thePlayer.basemaxmp);
                     playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
                 }
                 yield return new WaitUntil(() => mode != 1 && mode != 1.5f);
@@ -184,34 +185,48 @@ public class WorldManager : MonoBehaviour
                     Character thePlayer =  SaveManager.instance.playerList[focusedIndex].GetComponent<Character>();
                     //4th index of playerstats is separate text box
                     GameObject portrait = Instantiate(SaveManager.instance.portraits[thePlayer.stats.characterType], 
-                    new Vector3(playerStats.transform.GetChild(4).position.x + 5f, playerStats.transform.GetChild(4).position.y + 1.5f, -11), Quaternion.Euler(0, 0, 0));      
+                    new Vector3(playerStats.transform.GetChild(4).position.x + 7f, playerStats.transform.GetChild(4).position.y + 1.5f, -11), Quaternion.Euler(0, 0, 0));      
                     portrait.transform.localScale = new Vector3(0.25f, 0.25f, 1);      
                     portrait.transform.parent = actionMenu.transform;
                     playerStats.transform.GetChild(4).gameObject.SetActive(true);
+                    playerStats.transform.GetChild(5).gameObject.SetActive(true);
                     string playerInfo = "Level: " + thePlayer.stats.level + "\n\n"; 
+                    string skillsInfo = "Skills: " + "\n\n";
                     playerInfo +=  "Exp: " +  thePlayer.stats.exp + "/" + thePlayer.expRequirement + "\n\n";
                     if(thePlayer.stats.currenthp <= 0)
                     {
                         playerInfo += "<color=red>";
                     }
-                    else if(thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    else if(thePlayer.stats.currenthp < 0.5f * thePlayer.basemaxhp)
                     {
                         playerInfo += "<color=yellow>";
                     }
-                    playerInfo += "Hp: " + Math.Ceiling(thePlayer.stats.currenthp) + "/" + Math.Ceiling(thePlayer.maxhp) + "\n\n";
-                    if(thePlayer.stats.currenthp <= 0 || thePlayer.stats.currenthp < 0.5f * thePlayer.maxhp)
+                    playerInfo += "Hp: " + Math.Ceiling(thePlayer.stats.currenthp) + "/" + Math.Ceiling(thePlayer.basemaxhp) + "\n\n";
+                    if(thePlayer.stats.currenthp <= 0 || thePlayer.stats.currenthp < 0.5f * thePlayer.basemaxhp)
                     {
                         playerInfo += "</color>";
                     }                
-                    playerInfo += "Mp: " + Math.Ceiling(thePlayer.stats.currentmp) + "/" + Math.Ceiling(thePlayer.maxmp) + "\n\n";
-                    playerInfo += "Physical: " + Math.Ceiling(thePlayer.physical) + "\n\n";
-                    playerInfo += "Mental: " + Math.Ceiling(thePlayer.mental) + "\n\n";
-                    playerInfo += "Physical Defense: " + Math.Ceiling(thePlayer.pdefense) + "\n\n";
-                    playerInfo += "Mental Defense: " + Math.Ceiling(thePlayer.mdefense) + "\n\n";
+                    playerInfo += "Mp: " + Math.Ceiling(thePlayer.stats.currentmp) + "/" + Math.Ceiling(thePlayer.basemaxmp) + "\n\n";
+                    playerInfo += "Physical: " + Math.Ceiling(thePlayer.basephysical) + "\n\n";
+                    playerInfo += "Mental: " + Math.Ceiling(thePlayer.basemental) + "\n\n";
+                    playerInfo += "Physical Defense: " + Math.Ceiling(thePlayer.basepdefense) + "\n\n";
+                    playerInfo += "Mental Defense: " + Math.Ceiling(thePlayer.basemdefense) + "\n\n";
+                    for(int i = 0; i < thePlayer.specialList.Count; i++)
+                    {
+                        int levelRequirement = thePlayer.specialList[i].Item2;
+                        if(thePlayer.stats.level >= levelRequirement)
+                        {
+                            int specialIndex = thePlayer.specialList[i].Item1;
+                            Special theSpecial = specialManager.GetComponent<SpecialManager>().allSpecials[specialIndex];
+                            skillsInfo += theSpecial.name + "\n\n";
+                        }
+                    }
                     playerStats.transform.GetChild(4).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
+                    playerStats.transform.GetChild(5).gameObject.GetComponent<TextMeshProUGUI>().SetText(skillsInfo);
                     yield return new WaitUntil(() => mode != 2);
                     Destroy(portrait);
                     playerStats.transform.GetChild(4).gameObject.SetActive(false);
+                    playerStats.transform.GetChild(5).gameObject.SetActive(false);
             }
             yield return null;
         }

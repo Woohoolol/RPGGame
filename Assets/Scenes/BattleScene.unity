@@ -1004,12 +1004,18 @@ MonoBehaviour:
     currentmp: 0
     exp: 0
     level: 0
-  maxhp: 50
-  maxmp: 0
-  physical: 12
-  mental: 1
-  pdefense: 1
-  mdefense: 1
+  basemaxhp: 100
+  basemaxmp: 0
+  basephysical: 0
+  basemental: 0
+  basepdefense: 0
+  basemdefense: 0
+  finalmaxhp: 0
+  finalmaxmp: 0
+  finalphysical: 0
+  finalmental: 0
+  finalpdefense: 0
+  finalmdefense: 0
   expRequirement: 0
   enemyExp: 5
   enemyMoney: 10
@@ -1473,12 +1479,18 @@ MonoBehaviour:
     currentmp: 0
     exp: 0
     level: 0
-  maxhp: 50
-  maxmp: 0
-  physical: 12
-  mental: 1
-  pdefense: 1
-  mdefense: 1
+  basemaxhp: 100
+  basemaxmp: 0
+  basephysical: 0
+  basemental: 0
+  basepdefense: 0
+  basemdefense: 0
+  finalmaxhp: 0
+  finalmaxmp: 0
+  finalphysical: 0
+  finalmental: 0
+  finalpdefense: 0
+  finalmdefense: 0
   expRequirement: 0
   enemyExp: 5
   enemyMoney: 10
@@ -3086,12 +3098,18 @@ MonoBehaviour:
     currentmp: 50
     exp: 0
     level: 0
-  maxhp: 50
-  maxmp: 50
-  physical: 12
-  mental: 1
-  pdefense: 1
-  mdefense: 1
+  basemaxhp: 100
+  basemaxmp: 0
+  basephysical: 0
+  basemental: 0
+  basepdefense: 0
+  basemdefense: 0
+  finalmaxhp: 0
+  finalmaxmp: 0
+  finalphysical: 0
+  finalmental: 0
+  finalpdefense: 0
+  finalmdefense: 0
   expRequirement: 0
   enemyExp: 5
   enemyMoney: 10

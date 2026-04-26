@@ -139,7 +139,7 @@ public class BattleHud : MonoBehaviour
         }
         else if(mode == 2)
         {
-            battleManager.allySpecial(1, 1);
+            battleManager.allySpecial(5, 1);
             mode = 0;
             focusedIndex = 0;
         }
@@ -160,8 +160,8 @@ public class BattleHud : MonoBehaviour
         }
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
-            string playerInfo = "Hp: " + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().stats.currenthp) + "/" + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().maxhp) + "\n";
-            playerInfo += "Mp: " + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().stats.currentmp) + "/" + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().maxmp);
+            string playerInfo = "Hp: " + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().stats.currenthp) + "/" + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().finalmaxhp) + "\n";
+            playerInfo += "Mp: " + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().stats.currentmp) + "/" + Math.Ceiling(battleManager.playerList[i].GetComponent<Character>().finalmaxmp);
             playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
         }
         //Making dead players transparent

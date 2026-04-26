@@ -19,8 +19,8 @@ public class BattleManager : MonoBehaviour
         playerList = new List<GameObject>();
         for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
         {
-            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().maxhp;
-            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().maxmp;
+            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().finalmaxhp;\
+            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().finalmaxmp;
         }
     }
     void Start()
@@ -48,24 +48,25 @@ public class BattleManager : MonoBehaviour
         }
         for(int i = 0; i < playerList.Count; i++)
         {
-            if((playerList[i].GetComponent<Character>().stats.currenthp) > playerList[i].GetComponent<Character>().maxhp)
+            //Cannot initialize to final values as they cannot be set in the list
+            if((playerList[i].GetComponent<Character>().stats.currenthp) > playerList[i].GetComponent<Character>().basemaxhp)
             {
-                playerList[i].GetComponent<Character>().stats.currenthp = playerList[i].GetComponent<Character>().maxhp;
+                playerList[i].GetComponent<Character>().stats.currenthp = playerList[i].GetComponent<Character>().basemaxhp;
             }
-            if((playerList[i].GetComponent<Character>().stats.currentmp) > playerList[i].GetComponent<Character>().maxmp)
+            if((playerList[i].GetComponent<Character>().stats.currentmp) > playerList[i].GetComponent<Character>().basemaxmp)
             {
-                playerList[i].GetComponent<Character>().stats.currentmp = playerList[i].GetComponent<Character>().maxmp;
+                playerList[i].GetComponent<Character>().stats.currentmp = playerList[i].GetComponent<Character>().basemaxmp;
             }
         }
         for(int i = 0; i < enemyList.Count; i++)
         {
-            if((enemyList[i].GetComponent<Character>().stats.currenthp) > enemyList[i].GetComponent<Character>().maxhp)
+            if((enemyList[i].GetComponent<Character>().stats.currenthp) > enemyList[i].GetComponent<Character>().basemaxhp)
             {
-                enemyList[i].GetComponent<Character>().stats.currenthp = enemyList[i].GetComponent<Character>().maxhp;
+                enemyList[i].GetComponent<Character>().stats.currenthp = enemyList[i].GetComponent<Character>().basemaxhp;
             }
-            if((enemyList[i].GetComponent<Character>().stats.currentmp) > enemyList[i].GetComponent<Character>().maxmp)
+            if((enemyList[i].GetComponent<Character>().stats.currentmp) > enemyList[i].GetComponent<Character>().basemaxmp)
             {
-                enemyList[i].GetComponent<Character>().stats.currentmp = enemyList[i].GetComponent<Character>().maxmp;
+                enemyList[i].GetComponent<Character>().stats.currentmp = enemyList[i].GetComponent<Character>().basemaxmp;
             }
             if(enemyList[i].GetComponent<Character>().stats.currenthp <= 0)
             {
@@ -90,15 +91,25 @@ public class BattleManager : MonoBehaviour
         Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
         Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
         //Third attackingPlayer.physical is to mitigate high atk/def differences
-        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/(1 + 0.75 * attackingPlayer.physical + attackedEnemy.pdefense))));
-        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.physical * (attackingPlayer.physical/(1 + 0.75 * attackingPlayer.physical + attackedEnemy.pdefense)))) + " HP ");
+        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.finalphysical * (attackingPlayer.finalphysical/(1 + 0.75 * attackingPlayer.finalphysical + attackedEnemy.finalpdefense))));
+        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.finalphysical * (attackingPlayer.finalphysical/(1 + 0.75 * attackingPlayer.finalphysical + attackedEnemy.finalpdefense)))) + " HP ");
         attackAnimation.Play("Attack");
         currentPlayerIndex++;
     }
 
-    public void allySpecial(int specialIndex, int theEnemyIndex)
+    public bool allySpecial(int specialIndex, int theEnemyIndex)
     {
-        specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, playerList[currentPlayerIndex], enemyIndex: theEnemyIndex);
+        Special theSpecial = specialManager.GetComponent<SpecialManager>().allSpecials[specialIndex];
+        if(theSpecial.mpcost > playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp)
+        {
+            return false;
+        }
+        else
+        {
+            specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, enemyIndex: theEnemyIndex);
+            playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
+            return true;
+        }
     }
     public bool victory()
     {
@@ -155,8 +166,8 @@ public class BattleManager : MonoBehaviour
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
                     Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
-                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/(1 + 0.75 * attackingEnemy.physical + attackedAlly.pdefense))));
-                    Debug.Log("ATTACKED ALLY " + attackingIndex + " FOR " + (float)Math.Ceiling((double)(attackingEnemy.physical * (attackingEnemy.physical/(1 + 0.75 * attackingEnemy.physical + attackedAlly.pdefense)))) + " HP ");
+                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + attackedAlly.finalpdefense))));
+                    Debug.Log("ATTACKED ALLY " + attackingIndex + " FOR " + (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + attackedAlly.finalpdefense)))) + " HP ");
 
                     //Enemies should stop hitting when everyone dead
                     if(defeat())
@@ -168,6 +179,10 @@ public class BattleManager : MonoBehaviour
                     enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
                     yield return new WaitForSeconds(1);
                     enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                for(int i = 0; i < playerList.Count; i++)
+                {
+                    playerList[i].GetComponent<Character>().buffDecay();
                 }
                 currentPlayerIndex = 0;
             }

@@ -5,7 +5,7 @@ public class Special
     public string name;
     public string description;
     public int mpcost;
-    //index 0 = Single target enemy, 1 = Area of effect enemy, 2 = ST ally, 3 = AOE ally
+    //index 0 = Single target enemy, 1 = Area of effect enemy, 2 = ST ally, 3 = AOE ally, 4 = Self Target
     public int targeting;
     //Either damage or healing amount, do a decimal amount for percentage
     public float intensity;
@@ -13,23 +13,18 @@ public class Special
     public bool isPhysical;
     public bool isMental;
     public bool isHealing;
-    public bool isBuff;
-    public bool isDebuff;
+    public bool isModifier;
     //index 0 = Stat type, 1 = Intensity, 2 = Duration
-    public float[] buffStats;
-    //index 0 = Stat type, 1 = Intensity, 2 = Duration
-    public float[] debuffStats;
-    //Stat type: 0 = attack, 1 = mental, 2 = pdefense, 3 = mdefense
+    //Positive stat type = buff, Negative = debuff
+    public float[] modifierStats;
+    //Stat type: 1 = physical, 2 = mental, 3 = pdefense, 4 = mdefense
     public Special()
     {
-        buffStats = new float[3];
-        debuffStats = new float[3];
     }
     //Just turn on (true) whichever characteristics are true
     public Special(string name, string description, int mpcost, int targeting, float intensity = 0, int numberOfHits = 0, 
     bool isPhysical = false, bool isMental = false, 
-    bool isHealing = false, bool isBuff = false, 
-    bool isDebuff = false)
+    bool isHealing = false, bool isModifier = false, float[] modifierStats = null)
     {
         this.name = name;
         this.description = description;
@@ -40,8 +35,8 @@ public class Special
         this.isPhysical = isPhysical;
         this.isMental = isMental;
         this.isHealing = isHealing;
-        this.isBuff = isBuff;
-        this.isDebuff = isDebuff;
+        this.isModifier = isModifier;
+        this.modifierStats = modifierStats;
         //Need to be of type {float, float, float}
         // this.buffStats = buffStats;
         // this.debuffStats = debuffStats;

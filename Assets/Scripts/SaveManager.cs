@@ -130,65 +130,59 @@ public class SaveManager : MonoBehaviour
         for(int i = 0; i < playerList.Count; i++)
         {
             Character thePlayer = playerList[i].GetComponent<Character>();
-            if((thePlayer.stats.currenthp) > thePlayer.maxhp)
+            if((thePlayer.stats.currenthp) > thePlayer.basemaxhp)
             {
-                thePlayer.stats.currenthp = thePlayer.maxhp;
+                thePlayer.stats.currenthp = thePlayer.basemaxhp;
             }
-            if((thePlayer.stats.currentmp) > thePlayer.maxmp)
+            if((thePlayer.stats.currentmp) > thePlayer.basemaxmp)
             {
-                thePlayer.stats.currentmp = thePlayer.maxmp;
-            }
-            if((thePlayer.stats.characterType) == 0)
-            {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.55)) + 6;
-            }
-            else if((thePlayer.stats.characterType) == 1)
-            {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.49)) + 4;
-            }
-            else if((thePlayer.stats.characterType) == 2)
-            {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.47)) + 4;
-            }
-            else if((thePlayer.stats.characterType) == 3)
-            {
-                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.52)) + 5;
+                thePlayer.stats.currentmp = thePlayer.basemaxmp;
             }
             if(thePlayer.stats.characterType == 0)
             {
-                thePlayer.maxhp = (10 + 5 * thePlayer.stats.level);
-                thePlayer.maxmp = (1 + 1 * thePlayer.stats.level);
-                thePlayer.physical = (4 + 2 * thePlayer.stats.level);
-                thePlayer.mental = (0 + 0.5f * thePlayer.stats.level);
-                thePlayer.pdefense = (5 + 3.5f * thePlayer.stats.level);
-                thePlayer.mdefense = (3 + 3.5f * thePlayer.stats.level);
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.55)) + 6;
+                thePlayer.basemaxhp = (10 + 5 * thePlayer.stats.level);
+                thePlayer.basemaxmp = (1 + 1 * thePlayer.stats.level);
+                thePlayer.basephysical = (4 + 2 * thePlayer.stats.level);
+                thePlayer.basemental = (0 + 0.5f * thePlayer.stats.level);
+                thePlayer.basepdefense = (5 + 3.5f * thePlayer.stats.level);
+                thePlayer.basemdefense = (3 + 3.5f * thePlayer.stats.level);
+                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
             }
             else if(thePlayer.stats.characterType == 1)
             {
-                thePlayer.maxhp = (7 + 2 * thePlayer.stats.level);
-                thePlayer.maxmp = (3 + 1.5f * thePlayer.stats.level);
-                thePlayer.physical = (5 + 3.5f * thePlayer.stats.level);
-                thePlayer.mental = (2 + 1 * thePlayer.stats.level);
-                thePlayer.pdefense = (2 + 1 * thePlayer.stats.level);
-                thePlayer.mdefense = (2 + 1 * thePlayer.stats.level);
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.49)) + 4;
+                thePlayer.basemaxhp = (7 + 2 * thePlayer.stats.level);
+                thePlayer.basemaxmp = (3 + 1.5f * thePlayer.stats.level);
+                thePlayer.basephysical = (5 + 3.5f * thePlayer.stats.level);
+                thePlayer.basemental = (2 + 1 * thePlayer.stats.level);
+                thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
+                thePlayer.basemdefense = (2 + 1 * thePlayer.stats.level);
+                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
+
             }
             else if(thePlayer.stats.characterType == 2)
             {
-                thePlayer.maxhp = (7 + 1.5f * thePlayer.stats.level);
-                thePlayer.maxmp = (3 + 3f * thePlayer.stats.level);
-                thePlayer.physical = (2 + 1f * thePlayer.stats.level);
-                thePlayer.mental = (3 + 3.5f * thePlayer.stats.level);
-                thePlayer.pdefense = (2 + 1 * thePlayer.stats.level);
-                thePlayer.mdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.47)) + 4;
+                thePlayer.basemaxhp = (7 + 1.5f * thePlayer.stats.level);
+                thePlayer.basemaxmp = (3 + 3f * thePlayer.stats.level);
+                thePlayer.basephysical = (2 + 1f * thePlayer.stats.level);
+                thePlayer.basemental = (3 + 3.5f * thePlayer.stats.level);
+                thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
+                thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
+
             }
             else if(thePlayer.stats.characterType == 3)
             {
-                thePlayer.maxhp = (10 + 3.5f * thePlayer.stats.level);
-                thePlayer.maxmp = (3 + 2f * thePlayer.stats.level);
-                thePlayer.physical = (3 + 1f * thePlayer.stats.level);
-                thePlayer.mental = (2 + 2f * thePlayer.stats.level);
-                thePlayer.pdefense = (3 + 2 * thePlayer.stats.level);
-                thePlayer.mdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.52)) + 5;
+                thePlayer.basemaxhp = (10 + 3.5f * thePlayer.stats.level);
+                thePlayer.basemaxmp = (3 + 2f * thePlayer.stats.level);
+                thePlayer.basephysical = (3 + 1f * thePlayer.stats.level);
+                thePlayer.basemental = (2 + 2f * thePlayer.stats.level);
+                thePlayer.basepdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
+                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
             }
         }
     }
