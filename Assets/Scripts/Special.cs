@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class Special
 {
     public string name;
@@ -16,7 +16,7 @@ public class Special
     public bool isModifier;
     //index 0 = Stat type, 1 = Intensity, 2 = Duration
     //Positive stat type = buff, Negative = debuff
-    public float[] modifierStats;
+    public List<float[]> modifierStats;
     //Stat type: 1 = physical, 2 = mental, 3 = pdefense, 4 = mdefense
     public Special()
     {
@@ -24,7 +24,7 @@ public class Special
     //Just turn on (true) whichever characteristics are true
     public Special(string name, string description, int mpcost, int targeting, float intensity = 0, int numberOfHits = 0, 
     bool isPhysical = false, bool isMental = false, 
-    bool isHealing = false, bool isModifier = false, float[] modifierStats = null)
+    bool isHealing = false, bool isModifier = false, List<float[]> modifierStats = null)
     {
         this.name = name;
         this.description = description;

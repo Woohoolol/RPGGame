@@ -118,7 +118,7 @@ public class WorldManager : MonoBehaviour
             {
                 focusedIndex++;
             }
-            highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-3.5f, -1.67f * focusedIndex, -1);
+            highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-2f, -1.67f * focusedIndex, -1);
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
                 highlightBox.SetActive(false);
@@ -209,8 +209,8 @@ public class WorldManager : MonoBehaviour
                     playerInfo += "Mp: " + Math.Ceiling(thePlayer.stats.currentmp) + "/" + Math.Ceiling(thePlayer.basemaxmp) + "\n\n";
                     playerInfo += "Physical: " + Math.Ceiling(thePlayer.basephysical) + "\n\n";
                     playerInfo += "Mental: " + Math.Ceiling(thePlayer.basemental) + "\n\n";
-                    playerInfo += "Physical Defense: " + Math.Ceiling(thePlayer.basepdefense) + "\n\n";
-                    playerInfo += "Mental Defense: " + Math.Ceiling(thePlayer.basemdefense) + "\n\n";
+                    playerInfo += "Physical\nDefense: " + Math.Ceiling(thePlayer.basepdefense) + "\n\n";
+                    playerInfo += "Mental\nDefense: " + Math.Ceiling(thePlayer.basemdefense) + "\n\n";
                     for(int i = 0; i < thePlayer.specialList.Count; i++)
                     {
                         int levelRequirement = thePlayer.specialList[i].Item2;

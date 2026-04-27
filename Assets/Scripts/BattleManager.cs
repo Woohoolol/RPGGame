@@ -91,25 +91,17 @@ public class BattleManager : MonoBehaviour
         Character attackedEnemy =  enemyList[enemyIndex].GetComponent<Character>();
         Animator attackAnimation = playerList[currentPlayerIndex].GetComponent<Animator>();
         //Third attackingPlayer.physical is to mitigate high atk/def differences
-        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.finalphysical * (attackingPlayer.finalphysical/(1 + 0.75 * attackingPlayer.finalphysical + attackedEnemy.finalpdefense))));
-        Debug.Log("ATTACKED " + enemyIndex + " FOR " + (float)Math.Ceiling((double)(attackingPlayer.finalphysical * (attackingPlayer.finalphysical/(1 + 0.75 * attackingPlayer.finalphysical + attackedEnemy.finalpdefense)))) + " HP ");
+        attackedEnemy.stats.currenthp -= (float)Math.Ceiling((double)(attackingPlayer.finalphysical * (attackingPlayer.finalphysical/(1 + 0.75 * attackingPlayer.finalphysical + Math.Pow(attackedEnemy.finalpdefense, 0.75)))));
         attackAnimation.Play("Attack");
         currentPlayerIndex++;
     }
 
-    public bool allySpecial(int specialIndex, int theEnemyIndex)
+    public void allySpecial(int specialIndex, int theEnemyIndex)
     {
         Special theSpecial = specialManager.GetComponent<SpecialManager>().allSpecials[specialIndex];
-        if(theSpecial.mpcost > playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp)
-        {
-            return false;
-        }
-        else
-        {
-            specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, enemyIndex: theEnemyIndex);
-            playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
-            return true;
-        }
+        specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, playerIndex: currentPlayerIndex, enemyIndex: theEnemyIndex);
+        playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
+        currentPlayerIndex++;
     }
     public bool victory()
     {
@@ -146,7 +138,7 @@ public class BattleManager : MonoBehaviour
     {
         while(true)
         {
-            if(playerList.Count != 0 && enemyTurn())
+            if(!defeat() && enemyTurn())
             {
                 yield return new WaitForSeconds(2);
                 for(currentEnemyIndex = 0; currentEnemyIndex < enemyList.Count; currentEnemyIndex++)
@@ -166,9 +158,7 @@ public class BattleManager : MonoBehaviour
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
                     Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
-                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + attackedAlly.finalpdefense))));
-                    Debug.Log("ATTACKED ALLY " + attackingIndex + " FOR " + (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + attackedAlly.finalpdefense)))) + " HP ");
-
+                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + Math.Pow(attackedAlly.finalpdefense, 0.75)))));
                     //Enemies should stop hitting when everyone dead
                     if(defeat())
                     {
@@ -182,7 +172,11 @@ public class BattleManager : MonoBehaviour
                 }
                 for(int i = 0; i < playerList.Count; i++)
                 {
-                    playerList[i].GetComponent<Character>().buffDecay();
+                    playerList[i].GetComponent<Character>().modifierDecay();
+                }
+                for(int i = 0; i < enemyList.Count; i++)
+                {
+                    enemyList[i].GetComponent<Character>().modifierDecay();
                 }
                 currentPlayerIndex = 0;
             }

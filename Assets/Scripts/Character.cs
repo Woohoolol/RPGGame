@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
 
     void Start()
     {
+        specialList = new List<(int, int)>();
         modifiers = new List<float[]>();
     }
 
@@ -68,10 +69,42 @@ public class Character : MonoBehaviour
             {
                 finalmdefense += modifierValue * basemdefense;
             }
+            else if(Math.Abs(modifierType) == 5)
+            {
+                finalmaxhp += modifierValue * basemaxhp;
+            }
+            else if(Math.Abs(modifierType) == 6)
+            {
+                finalmaxmp += modifierValue * basemaxmp;
+            }
         }
+        //Stat caps
+        //Cannot exceed 1.75x base value or fall below 0.25x base value
+        finalmaxhp = statCap(finalmaxhp, basemaxhp);
+        finalmaxmp = statCap(finalmaxmp, basemaxmp);
+        finalphysical = statCap(finalphysical, basephysical);
+        finalmental = statCap(finalmental, basemental);
+        finalpdefense = statCap(finalpdefense, basepdefense);
+        finalmdefense = statCap(finalmdefense, basemdefense);
+
     }
 
-    public void buffDecay()
+    public float statCap(float finalStat, float baseStat)
+    {
+        if(finalStat > 1.75f * baseStat)
+        {
+            return 1.75f * baseStat;
+        }
+        else if(finalStat < 0.25f * baseStat)
+        {
+            return 0.25f * baseStat;
+        }
+        else
+        {
+            return finalStat;
+        }
+    }
+    public void modifierDecay()
     {
         for(int i = 0; i < modifiers.Count; i++)
         {

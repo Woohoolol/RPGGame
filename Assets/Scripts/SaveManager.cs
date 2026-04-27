@@ -147,7 +147,7 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (0 + 0.5f * thePlayer.stats.level);
                 thePlayer.basepdefense = (5 + 3.5f * thePlayer.stats.level);
                 thePlayer.basemdefense = (3 + 3.5f * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
+                thePlayer.specialList = new List<(int, int)>{(0, 1), (7, 5)};
             }
             else if(thePlayer.stats.characterType == 1)
             {
@@ -158,7 +158,7 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basemdefense = (2 + 1 * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
+                thePlayer.specialList = new List<(int, int)>{(2, 1), (5, 5)};
 
             }
             else if(thePlayer.stats.characterType == 2)
@@ -170,7 +170,7 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (3 + 3.5f * thePlayer.stats.level);
                 thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
+                thePlayer.specialList = new List<(int, int)>{(3, 1), (6, 5), (6, 5)};
 
             }
             else if(thePlayer.stats.characterType == 3)
@@ -182,7 +182,7 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (2 + 2f * thePlayer.stats.level);
                 thePlayer.basepdefense = (3 + 2 * thePlayer.stats.level);
                 thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(0, 0), (1, 1), (2, 2), (3, 3)};
+                thePlayer.specialList = new List<(int, int)>{(1, 1), (4, 3), (8, 9)};
             }
         }
     }
