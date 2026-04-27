@@ -28,11 +28,11 @@ public class ItemManager : MonoBehaviour
     void Awake()
     {
         allItems = new List<Item>();
-        allItems.Add(new Item(0, "Health Vial", "Restores 50% of max hp."));
-        allItems.Add(new Item(1, "Mana Vial", "Restores 50% of max mp."));
-        allItems.Add(new Item(2, "Health Jug", "Restores all hp."));
-        allItems.Add(new Item(3, "Mana Jug", "Restores all mp."));
-        allItems.Add(new Item(4, "Elixir", "Fully revives a dead ally."));
+        allItems.Add(new Item(0, "Mushroom", "Restores 50% of max hp. Plumbers love to eat these for some reason."));
+        allItems.Add(new Item(1, "Elixir", "Restores 50% of max mp. Purple goo that forms the backbone of units."));
+        allItems.Add(new Item(2, "Shark Sandwich", "Restores all hp. Dave's recommendation."));
+        allItems.Add(new Item(3, "Tears of the Goddess","Restores all mp. Takes a while to stack but good for resource intensive characters." ));
+        allItems.Add(new Item(4, "Phoenix Kit", "Fully revives a dead ally with maximum hp and mp. Used instantly unlike the original."));
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -111,6 +111,7 @@ public class ItemManager : MonoBehaviour
             else if(itemID == 4)
             {
                 selectedCharacter.stats.currenthp += 1f * selectedCharacter.basemaxhp;
+                selectedCharacter.stats.currentmp += 1f * selectedCharacter.basemaxmp;
             }
             activated = false;
         }

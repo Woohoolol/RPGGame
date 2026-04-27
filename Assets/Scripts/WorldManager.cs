@@ -139,15 +139,16 @@ public class WorldManager : MonoBehaviour
             highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-2f, -1.67f * focusedIndex, -1);
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
-                highlightBox.SetActive(false);
                 if(mode == 1.5)
                 {
+                    highlightBox.SetActive(false);
                     mode = 2;
                 }
                 else if(mode == 3.5)
                 {
                     if(chosenItem == 4 || SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0)
                     {
+                        highlightBox.SetActive(false);
                         itemManager.GetComponent<ItemManager>().activateItem(chosenItem, focusedIndex);
                         focusedIndex = 0;
                         mode = 1;
@@ -181,12 +182,13 @@ public class WorldManager : MonoBehaviour
             {
                 focusedIndex++;
             }
-            highlightBox2.transform.position = new Vector3(2.75f, -1 * focusedIndex + 7.25f, -1);
+            highlightBox2.transform.position = new Vector3(2.75f, -1.1f * focusedIndex + 7.25f, -1);
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
                 itemSelection.SetActive(false);
                 highlightBox2.SetActive(false);
                 chosenItem = itemsToChoose[focusedIndex];
+                focusedIndex = 0;
                 mode = 3.5f;
             }
         }     
@@ -299,7 +301,7 @@ public class WorldManager : MonoBehaviour
             string descriptionInfo = "";
             string quantityInfo = "";
             nameInfo += String.Format("{0,-15}", "Name: "); 
-            descriptionInfo +=  String.Format("{0,-35}", "Description: ");
+            descriptionInfo +=  String.Format("{0,-30}", "Description: ");
             quantityInfo +=  String.Format("{0,-10}", "Quantity: ");
             nameInfo += "\n\n";
             descriptionInfo += "\n\n";
@@ -309,33 +311,53 @@ public class WorldManager : MonoBehaviour
             {
                 itemsToChoose.Add(item.Key);
                 //Padding on the bottom to make sure that the highlight box remains consistently stable
-                int bottomPadding = 3;
+                int bottomPadding = 4;
                 Item theItem = itemManager.GetComponent<ItemManager>().allItems[item.Key];
                 int quantity = item.Value;
-                nameInfo += String.Format("{0,-15}", theItem.name); 
                 quantityInfo +=  String.Format("{0,-5}", quantity);
-                String description = theItem.description;
-                String[] words = description.Split();
+                String[] words = theItem.description.Split();
                 String line = "";
                 foreach(string word in words)
                 {
-                    line += word + " ";
-                    if(line.Length >= 45)
+                    if((line + word + " ").Length >= 40)
                     {
-                        descriptionInfo += line;
-                        line = "";
+                        descriptionInfo += line + "\n";
+                        line = word + " ";
                         bottomPadding--;
+                    }
+                    else
+                    {
+                        line += word + " ";
                     }
                 }
                 descriptionInfo += line;
-                nameInfo += "\n\n\n";
-                quantityInfo += "\n\n\n";
                 for(int j = 0; j < bottomPadding; j++)
                 {
                     descriptionInfo += "\n";
                 }
+                line = "";
+                words = theItem.name.Split();
+                bottomPadding = 4;
+                foreach(string word in words)
+                {
+                    if((line + word + " ").Length >= 10)
+                    {
+                        nameInfo += line + "\n";
+                        line = word + " ";
+                        bottomPadding--;
+                    }
+                    else
+                    {
+                        line += word + " ";
+                    }
+                }
+                nameInfo += line;
+                quantityInfo += "\n\n\n\n";
+                for(int j = 0; j < bottomPadding; j++)
+                {
+                    nameInfo += "\n";
+                }
             }
-
             itemSelection.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().SetText(nameInfo);
             itemSelection.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(descriptionInfo);
             itemSelection.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().SetText(quantityInfo);

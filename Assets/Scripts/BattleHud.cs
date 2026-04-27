@@ -25,8 +25,10 @@ public class BattleHud : MonoBehaviour
     public float mode;
     public int focusedIndex;
     public int chosenSpecial;
+    public int chosenItem;
     private bool finished;
     private List<GameObject> portraits;
+    private List<int> itemsToChoose;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,7 +67,7 @@ public class BattleHud : MonoBehaviour
         {
             mode = 6;
         }
-        else if(battleManager.enemyTurn())
+        else if(battleManager.enemyTurn() || battleManager.specialManager.GetComponent<SpecialManager>().activated)
         {
             mode = 7;
         }
@@ -104,7 +106,8 @@ public class BattleHud : MonoBehaviour
                 }
                 else if(focusedIndex == 2)
                 {
-                    Debug.Log("GUARD");
+                    Debug.Log("ITEM");
+                    focusedIndex = 0;
                     mode = 3;
                 }
                 else if(focusedIndex == 3)
@@ -273,7 +276,7 @@ public class BattleHud : MonoBehaviour
             }
             else if(targeting == 2)
             {
-                optionDescription.GetComponent<TextMeshProUGUI>().SetText("Select an enemy to target.");
+                optionDescription.GetComponent<TextMeshProUGUI>().SetText("Select an ally to target.");
                 optionDescription.SetActive(true);
                 showInactiveMenu();
                 if(Keyboard.current.xKey.wasPressedThisFrame)
@@ -327,6 +330,119 @@ public class BattleHud : MonoBehaviour
                 highlightBox.SetActive(false);
                 specialMenu.SetActive(false);
             }       
+            if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
+            {
+                focusedIndex--;
+            }
+            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < SaveManager.instance.inventory.Count - 1)
+            {
+                focusedIndex++;
+            }
+            highlightBox.transform.position = new Vector3(0, -1.35f * focusedIndex + 2f, -1);
+            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            {
+                specialMenu.SetActive(false);
+                highlightBox.SetActive(false);
+                chosenItem = itemsToChoose[focusedIndex];
+                focusedIndex = 0;
+                mode = 3.5f;
+            }
+            string nameInfo = "";
+            string descriptionInfo = "";
+            string quantityInfo = "";
+            nameInfo += String.Format("{0,-15}", "Name: "); 
+            descriptionInfo +=  String.Format("{0,-45}", "Description: ");
+            quantityInfo +=  String.Format("{0,-10}", "Quantity: ");
+            nameInfo += "\n\n";
+            descriptionInfo += "\n\n";
+            quantityInfo += "\n\n";
+            itemsToChoose = new List<int>();
+            foreach(var item in SaveManager.instance.inventory)
+            {
+                itemsToChoose.Add(item.Key);
+                //Padding on the bottom to make sure that the highlight box remains consistently stable
+                int bottomPadding = 4;
+                Item theItem = battleManager.itemManager.GetComponent<ItemManager>().allItems[item.Key];
+                int quantity = item.Value;
+                quantityInfo +=  String.Format("{0,-5}", quantity);
+                String[] words = theItem.description.Split();
+                String line = "";
+                foreach(string word in words)
+                {
+                    if((line + word + " ").Length >= 40)
+                    {
+                        descriptionInfo += line + "\n";
+                        line = word + " ";
+                        bottomPadding--;
+                    }
+                    else
+                    {
+                        line += word + " ";
+                    }
+                }
+                descriptionInfo += line;
+                for(int j = 0; j < bottomPadding; j++)
+                {
+                    descriptionInfo += "\n";
+                }
+                line = "";
+                words = theItem.name.Split();
+                bottomPadding = 4;
+                foreach(string word in words)
+                {
+                    if((line + word + " ").Length >= 10)
+                    {
+                        nameInfo += line + "\n";
+                        line = word + " ";
+                        bottomPadding--;
+                    }
+                    else
+                    {
+                        line += word + " ";
+                    }
+                }
+                nameInfo += line;
+                quantityInfo += "\n\n\n\n";
+                for(int j = 0; j < bottomPadding; j++)
+                {
+                    nameInfo += "\n";
+                }
+            }            
+            specialMenu.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().SetText(nameInfo);
+            specialMenu.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(descriptionInfo);
+            specialMenu.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().SetText(quantityInfo);
+        }
+        else if(mode == 3.5)
+        {
+                optionDescription.GetComponent<TextMeshProUGUI>().SetText("Select an ally to target.");
+                optionDescription.SetActive(true);
+                showInactiveMenu();
+                if(Keyboard.current.xKey.wasPressedThisFrame)
+                {
+                    portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    mode = 3;
+                    focusedIndex = 0;
+                }   
+                if(Keyboard.current.leftArrowKey.wasPressedThisFrame && focusedIndex > 0)
+                {
+                    portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    focusedIndex--;
+                }
+                if(Keyboard.current.rightArrowKey.wasPressedThisFrame &&  focusedIndex < portraits.Count - 1)
+                {
+                    portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    focusedIndex++;
+                }  
+                portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
+                //Use item on nondead ally unless that item is an elixir
+                if(Keyboard.current.enterKey.wasPressedThisFrame && (battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0 || chosenItem == 4))
+                {
+                    portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    battleManager.allyItem(chosenItem, focusedIndex);
+                    mode = 0;
+                    focusedIndex = 0;
+                    optionDescription.SetActive(false);
+                }   
         }
         else if(mode == 6 && !finished)
         {
@@ -335,10 +451,10 @@ public class BattleHud : MonoBehaviour
         }
         else if(mode == 7)
         {
-            //Wait until enemies are done attacking
+            //Wait until enemies are done attacking or is attacking
             optionDescription.SetActive(false);
             showInactiveMenu();
-            if(!battleManager.enemyTurn())
+            if(!battleManager.enemyTurn() && !battleManager.specialManager.GetComponent<SpecialManager>().activated)
             {
                 mode = 0;
             }

@@ -104,6 +104,12 @@ public class BattleManager : MonoBehaviour
         playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
         currentPlayerIndex++;
     }
+
+    public void allyItem(int itemID, int theAllyIndex)
+    {
+        itemManager.GetComponent<ItemManager>().activateItem(itemID, playerIndex: theAllyIndex);
+        currentPlayerIndex++;
+    }
     public bool victory()
     {
         return enemyList.Count == 0;
