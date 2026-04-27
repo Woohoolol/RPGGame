@@ -293,7 +293,7 @@ public class BattleHud : MonoBehaviour
                     focusedIndex++;
                 }  
                 portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-                if(Keyboard.current.enterKey.wasPressedThisFrame)
+                if(Keyboard.current.enterKey.wasPressedThisFrame && battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0)
                 {
                     portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                     battleManager.allySpecial(chosenSpecial, focusedIndex);
@@ -314,9 +314,20 @@ public class BattleHud : MonoBehaviour
                 mode = 0;
                 focusedIndex = 0;
             }
-
         }
-
+        else if(mode == 3)
+        {
+            highlightBox.SetActive(true);
+            specialMenu.SetActive(true);
+            optionDescription.SetActive(true);
+            if(Keyboard.current.xKey.wasPressedThisFrame)
+            {
+                mode = 0;
+                focusedIndex = 0;
+                highlightBox.SetActive(false);
+                specialMenu.SetActive(false);
+            }       
+        }
         else if(mode == 6 && !finished)
         {
             optionDescription.SetActive(false);

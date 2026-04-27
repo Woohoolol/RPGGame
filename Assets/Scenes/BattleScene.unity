@@ -1143,6 +1143,56 @@ RectTransform:
   m_AnchoredPosition: {x: -0.027777778, y: -1.5555556}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &345640233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345640234}
+  - component: {fileID: 345640235}
+  m_Layer: 0
+  m_Name: ItemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &345640234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345640233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.08432, y: 2.04352, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &345640235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345640233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691e36103b24e8645ab87e4077232d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemManager
+  battleManager: {fileID: 1138607227}
+  playerIndex: 0
+  itemID: 0
+  acquired: 0
+  activated: 0
+  quantity: 0
 --- !u!1 &553236966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   stats:
     characterType: 0
-    currenthp: 80
+    currenthp: 10
     currentmp: 0
     exp: 0
     level: 0
@@ -1419,7 +1469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &602572359
 Transform:
   m_ObjectHideFlags: 0
@@ -1924,7 +1974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   stats:
     characterType: 0
-    currenthp: 80
+    currenthp: 10
     currentmp: 0
     exp: 0
     level: 0
@@ -2487,6 +2537,7 @@ MonoBehaviour:
   - {fileID: 780794392}
   currentEnemyIndex: 0
   specialManager: {fileID: 293819623}
+  itemManager: {fileID: 345640233}
   expGain: 0
   moneyGain: 0
   attackTimer: 0
@@ -3815,7 +3866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   stats:
     characterType: 0
-    currenthp: 50
+    currenthp: 10
     currentmp: 50
     exp: 0
     level: 0
@@ -3823,8 +3874,8 @@ MonoBehaviour:
   basemaxmp: 0
   basephysical: 22
   basemental: 0
-  basepdefense: 1111
-  basemdefense: 1111
+  basepdefense: 1
+  basemdefense: 1
   finalmaxhp: 0
   finalmaxmp: 0
   finalphysical: 0
@@ -4023,3 +4074,4 @@ SceneRoots:
   - {fileID: 744410879}
   - {fileID: 293819625}
   - {fileID: 708780059}
+  - {fileID: 345640234}

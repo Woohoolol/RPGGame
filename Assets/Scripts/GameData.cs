@@ -6,6 +6,8 @@ public class GameData
 {
     public float money;
     public int battleSpawn;
+    public List<int> inventoryID;
+    public List<int> inventoryQuantity;
     public List<CharacterStats> playerStats;
     public GameData()
     {

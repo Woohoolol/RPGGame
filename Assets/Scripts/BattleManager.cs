@@ -9,6 +9,7 @@ public class BattleManager : MonoBehaviour
     public List<GameObject> enemyList;
     public int currentEnemyIndex;
     public GameObject specialManager;
+    public GameObject itemManager;
     public float expGain;
     public float moneyGain;
     public float attackTimer;
@@ -194,6 +195,8 @@ public class BattleManager : MonoBehaviour
             SaveManager.instance.gameData.playerStats[i].exp += expGain;
         }
         SaveManager.instance.gameData.money += moneyGain;
+        int itemAcquired = UnityEngine.Random.Range(0, 5);
+        itemManager.GetComponent<ItemManager>().acquiredItem(itemAcquired, 3);
         yield return null;
     }
 }

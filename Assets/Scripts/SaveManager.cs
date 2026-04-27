@@ -10,6 +10,7 @@ public class SaveManager : MonoBehaviour
     //Static so can be called throughout classes
     public static SaveManager instance;
     public List<GameObject> playerList;
+    public Dictionary<int, int> inventory;
     public GameData gameData;
     private List<SaveInterface> allSaveData;
     private string fileName = "reimu";
@@ -21,6 +22,7 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         playerList = new List<GameObject>();
+        inventory = new Dictionary<int, int>();
         //First time generation
         if(instance == null)
         {
@@ -74,6 +76,10 @@ public class SaveManager : MonoBehaviour
             baseCharacter.GetComponent<Character>().stats = gameData.playerStats[i];
             playerList.Add(baseCharacter);
         }
+        for(int i = 0; i < gameData.inventoryID.Count; i++)
+        {
+            inventory.Add(gameData.inventoryID[i], gameData.inventoryQuantity[i]);
+        }
         if(gameData == null)
         {
             Debug.Log("No save data found, initializing");
@@ -84,10 +90,17 @@ public class SaveManager : MonoBehaviour
     public void saveGame()
     {
         gameData.playerStats.Clear();
+        gameData.inventoryID.Clear();
+        gameData.inventoryQuantity.Clear();
         //Before saving, need to toss character data into gamedata
         for(int i = 0; i < playerList.Count; i++)
         {
             gameData.playerStats.Add(playerList[i].GetComponent<Character>().stats);
+        }
+        foreach(var item in inventory)
+        {       
+            gameData.inventoryID.Add(item.Key);
+            gameData.inventoryQuantity.Add(item.Value);
         }
         fileManager.Save(gameData);
     }

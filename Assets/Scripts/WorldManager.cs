@@ -16,11 +16,18 @@ public class WorldManager : MonoBehaviour
     public GameObject actionMenu;
     public GameObject playerStats;
     public GameObject highlightBox;
+    public GameObject highlightBox2;
     public GameObject specialManager;
+    public GameObject itemManager;
+    public GameObject itemSelection;
+    public List<int> itemsToChoose;
     //0 = Overworld mode, 1 = stats menu, 2 = detailed stats, 3 = equipment menu, 4 = inventory menu
     public float mode;
     public int focusedIndex;
-
+    public int testx;
+    public int testy;
+    public int testy2;
+    public int chosenItem;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -82,33 +89,44 @@ public class WorldManager : MonoBehaviour
             actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 if(focusedIndex == 0)
                 {
                     Debug.Log("DETAILED CHARACTER STATS");
                     mode = 1.5f;
                     focusedIndex = 0;
                 }
+                // else if(focusedIndex == 1)
+                // {
+                //     Debug.Log("EQUIPMENT MENU");
+                // }
                 else if(focusedIndex == 1)
                 {
-                    Debug.Log("EQUIPMENT MENU");
+                    Debug.Log("INVENTORY MENU");
+                    mode = 3f;
+                    focusedIndex = 0;
                 }
                 else if(focusedIndex == 2)
-                {
-                    Debug.Log("INVENTORY MENU");
-                }
-                else if(focusedIndex == 3)
                 {
                     Application.Quit();
                 }
             }
         }
-        else if(mode == 1.5)
+        else if(mode == 1.5 || mode == 3.5)
         {
             highlightBox.SetActive(true);
             if(Keyboard.current.xKey.wasPressedThisFrame)
             {
-                mode = 1;
+                if(mode == 1.5)
+                {
+                    mode = 1;
+                }
+                else if(mode == 3.5)
+                {
+                    mode = 3;
+                }
                 highlightBox.SetActive(false);
+                focusedIndex = 0;
             }        
             if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
@@ -122,7 +140,19 @@ public class WorldManager : MonoBehaviour
             if(Keyboard.current.enterKey.wasPressedThisFrame)
             {
                 highlightBox.SetActive(false);
-                mode = 2;
+                if(mode == 1.5)
+                {
+                    mode = 2;
+                }
+                else if(mode == 3.5)
+                {
+                    if(chosenItem == 4 || SaveManager.instance.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0)
+                    {
+                        itemManager.GetComponent<ItemManager>().activateItem(chosenItem, focusedIndex);
+                        focusedIndex = 0;
+                        mode = 1;
+                    }
+                }
             }
         }
         else if(mode == 2)
@@ -132,12 +162,40 @@ public class WorldManager : MonoBehaviour
                 mode = 1.5f;
             }       
         }
+        else if(mode == 3)
+        {
+            highlightBox2.SetActive(true);
+            itemSelection.SetActive(true);
+            if(Keyboard.current.xKey.wasPressedThisFrame)
+            {
+                mode = 1;
+                focusedIndex = 0;
+                highlightBox2.SetActive(false);
+                itemSelection.SetActive(false);
+            } 
+            if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
+            {
+                focusedIndex--;
+            }
+            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < SaveManager.instance.inventory.Count - 1)
+            {
+                focusedIndex++;
+            }
+            highlightBox2.transform.position = new Vector3(2.75f, -1 * focusedIndex + 7.25f, -1);
+            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            {
+                itemSelection.SetActive(false);
+                highlightBox2.SetActive(false);
+                chosenItem = itemsToChoose[focusedIndex];
+                mode = 3.5f;
+            }
+        }     
     }
     public IEnumerator showMenu()
     {
         while(true)
         {
-            if(mode == 1 || mode == 1.5f)
+            if(mode == 1 || mode == 1.5f || mode == 3.5f)
             {
                 List<GameObject> portraits = new List<GameObject>();
                 for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
@@ -170,7 +228,14 @@ public class WorldManager : MonoBehaviour
                     playerInfo += "Mp: " +  Math.Ceiling(thePlayer.stats.currentmp) + "/" +  Math.Ceiling(thePlayer.basemaxmp);
                     playerStats.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().SetText(playerInfo);
                 }
-                yield return new WaitUntil(() => mode != 1 && mode != 1.5f);
+                if(mode == 3.5)
+                {
+                    yield return new WaitUntil(() => mode != 3.5f);
+                }
+                else if(mode == 1 || mode == 1.5)
+                {
+                    yield return new WaitUntil(() => mode != 1 && mode != 1.5f);
+                }
                 for(int i = 0; i < portraits.Count; i++)
                 {
                     Destroy(portraits[i]);
@@ -180,7 +245,7 @@ public class WorldManager : MonoBehaviour
                     playerStats.transform.GetChild(i).gameObject.SetActive(false);
                 }
             }
-            if(mode == 2)
+            else if(mode == 2)
             {
                     Character thePlayer =  SaveManager.instance.playerList[focusedIndex].GetComponent<Character>();
                     //4th index of playerstats is separate text box
@@ -227,6 +292,53 @@ public class WorldManager : MonoBehaviour
                     Destroy(portrait);
                     playerStats.transform.GetChild(4).gameObject.SetActive(false);
                     playerStats.transform.GetChild(5).gameObject.SetActive(false);
+            }
+            else if(mode == 3)
+            {
+            string nameInfo = "";
+            string descriptionInfo = "";
+            string quantityInfo = "";
+            nameInfo += String.Format("{0,-15}", "Name: "); 
+            descriptionInfo +=  String.Format("{0,-35}", "Description: ");
+            quantityInfo +=  String.Format("{0,-10}", "Quantity: ");
+            nameInfo += "\n\n";
+            descriptionInfo += "\n\n";
+            quantityInfo += "\n\n";
+            itemsToChoose = new List<int>();
+            foreach(var item in SaveManager.instance.inventory)
+            {
+                itemsToChoose.Add(item.Key);
+                //Padding on the bottom to make sure that the highlight box remains consistently stable
+                int bottomPadding = 3;
+                Item theItem = itemManager.GetComponent<ItemManager>().allItems[item.Key];
+                int quantity = item.Value;
+                nameInfo += String.Format("{0,-15}", theItem.name); 
+                quantityInfo +=  String.Format("{0,-5}", quantity);
+                String description = theItem.description;
+                String[] words = description.Split();
+                String line = "";
+                foreach(string word in words)
+                {
+                    line += word + " ";
+                    if(line.Length >= 45)
+                    {
+                        descriptionInfo += line;
+                        line = "";
+                        bottomPadding--;
+                    }
+                }
+                descriptionInfo += line;
+                nameInfo += "\n\n\n";
+                quantityInfo += "\n\n\n";
+                for(int j = 0; j < bottomPadding; j++)
+                {
+                    descriptionInfo += "\n";
+                }
+            }
+
+            itemSelection.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().SetText(nameInfo);
+            itemSelection.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(descriptionInfo);
+            itemSelection.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().SetText(quantityInfo);
             }
             yield return null;
         }
