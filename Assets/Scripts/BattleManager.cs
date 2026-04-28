@@ -79,12 +79,6 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    public void switchBack()
-    {
-        SaveManager.instance.switchToWorldScene();
-    }
-    
-
     public void allyAttack(int enemyIndex)
     {
         // attackTimer

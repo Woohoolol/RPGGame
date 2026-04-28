@@ -9,6 +9,9 @@ public class SaveManager : MonoBehaviour
 {
     //Static so can be called throughout classes
     public static SaveManager instance;
+    public GameObject transitionEffectPrefab;
+    private GameObject transitionEffect;
+    public bool switchScene;
     public int numberOfEnemies;
     public int biome;
     public List<GameObject> playerList;
@@ -23,8 +26,18 @@ public class SaveManager : MonoBehaviour
     public GameObject[] portraits;
     void Awake()
     {
+        SceneManager.activeSceneChanged += ChangedActiveScene;
+        transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        switchScene = false;
         playerList = new List<GameObject>();
-        inventory = new Dictionary<int, int>();
+        inventory = new Dictionary<int, int>(); 
+        //Setting file save/load to default directory
+        fileManager = new FileManager(Application.persistentDataPath, fileName);
+        Debug.Log("Saved location is" + Application.persistentDataPath);
+        allSaveData = findAllSaveData();
+        loadGame();
+        StartCoroutine(levelUp());
+
         //First time generation
         if(instance == null)
         {
@@ -40,22 +53,24 @@ public class SaveManager : MonoBehaviour
     
     void Start()
     {
-        //Setting file save/load to default directory
-        fileManager = new FileManager(Application.persistentDataPath, fileName);
-        Debug.Log("Saved location is" + Application.persistentDataPath);
-        allSaveData = findAllSaveData();
-        loadGame();
-        StartCoroutine(levelUp());
+
     }
 
-    public void switchToWorldScene()
+    //Allows us to check to see if there is a scene change
+    private void ChangedActiveScene(Scene current, Scene next)
     {
-        SceneManager.LoadScene("WorldScene");      
+        string currentName = current.name;
+        if (currentName == null)
+        {
+            transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        }
     }
-
-    public void switchToBattleScene()
+    public IEnumerator switchToScene(String sceneName)
     {
-        SceneManager.LoadScene("BattleScene");      
+        transitionEffect.GetComponent<Animator>().Play("StartTransition");
+        Debug.Log("PALYED");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(sceneName); 
     }
 
     public void newGame()

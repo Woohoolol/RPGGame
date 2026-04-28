@@ -33,13 +33,14 @@ public class WorldManager : MonoBehaviour
     {
         encounterModifier = 1;
         encounterRate = 0;
-        encounterRequirement = UnityEngine.Random.Range(10, 20);
+        encounterRequirement = UnityEngine.Random.Range(1, 2);
         Instantiate(background, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(-19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
         mode = 0;
         focusedIndex = 0;
         StartCoroutine(showMenu());
+        StartCoroutine(enterBattle());
     }
 
     // Update is called once per frame
@@ -56,13 +57,6 @@ public class WorldManager : MonoBehaviour
             if(player.GetComponent<PlayerMovement>().xDirection != 0 || player.GetComponent<PlayerMovement>().yDirection != 0)
             {
                 encounterRate += Time.deltaTime * encounterModifier;
-            }
-            if(encounterRate >= encounterRequirement)
-            {
-                encounterRate = 0;
-                //Change this note to self to be random
-                SaveManager.instance.numberOfEnemies = UnityEngine.Random.Range(1, 5);
-                SaveManager.instance.switchToBattleScene();
             }
         }
         else if(mode == 1)
@@ -363,5 +357,15 @@ public class WorldManager : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public IEnumerator enterBattle()
+    {
+
+        yield return new WaitUntil(() => encounterRate >= encounterRequirement);
+        encounterRate = 0;
+        //Change this note to self to be random
+        SaveManager.instance.numberOfEnemies = UnityEngine.Random.Range(1, 5);
+        StartCoroutine(SaveManager.instance.switchToScene("BattleScene"));
     }
 }

@@ -541,7 +541,7 @@ public class BattleHud : MonoBehaviour
                     optionDescription.GetComponent<TextMeshProUGUI>().SetText("Escape successful!");
                     updatePlayerValues();
                     yield return new WaitForSeconds(1);
-                    battleManager.switchBack();
+                    StartCoroutine(SaveManager.instance.switchToScene("WorldScene"));
                     break;
                 }
             }
@@ -562,7 +562,8 @@ public class BattleHud : MonoBehaviour
         Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
         actionMenu.SetActive(false);
         //Add victory screen here
-        returnButton.SetActive(true);
+        // returnButton.SetActive(true);
+        StartCoroutine(SaveManager.instance.switchToScene("WorldScene"));
         yield return null;
     }
 }
