@@ -1,0 +1,2212 @@
+fileFormatVersion: 2
+guid: e477bae9545e17745b978dd442f0538c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4361405071481737296
+    second: GodHands_0
+  - first:
+      213: 4773005969321170012
+    second: GodHands_1
+  - first:
+      213: -5036461669240099984
+    second: GodHands_2
+  - first:
+      213: -8881476314961671771
+    second: GodHands_3
+  - first:
+      213: 1805454927295119405
+    second: GodHands_4
+  - first:
+      213: -651233253631372505
+    second: GodHands_5
+  - first:
+      213: 9085695698982257826
+    second: GodHands_6
+  - first:
+      213: -7118033927348820331
+    second: GodHands_7
+  - first:
+      213: 3730262132095182282
+    second: GodHands_8
+  - first:
+      213: 749059165831047877
+    second: GodHands_9
+  - first:
+      213: 8591936506880891698
+    second: GodHands_10
+  - first:
+      213: 8375731343742839646
+    second: GodHands_11
+  - first:
+      213: -8198339712598044871
+    second: GodHands_12
+  - first:
+      213: 91039560393794313
+    second: GodHands_13
+  - first:
+      213: -7156416609523318804
+    second: GodHands_14
+  - first:
+      213: -5720659965571802129
+    second: GodHands_15
+  - first:
+      213: -2791766250705303338
+    second: GodHands_16
+  - first:
+      213: 401790121671401013
+    second: GodHands_17
+  - first:
+      213: 7134868641564753867
+    second: GodHands_18
+  - first:
+      213: 4005591462813101513
+    second: GodHands_19
+  - first:
+      213: -1892357152000133134
+    second: GodHands_20
+  - first:
+      213: -6231241885990965455
+    second: GodHands_21
+  - first:
+      213: 2744283367254664975
+    second: GodHands_22
+  - first:
+      213: 2593377784406257509
+    second: GodHands_23
+  - first:
+      213: -2514698298836757495
+    second: GodHands_24
+  - first:
+      213: 6359453878905519159
+    second: GodHands_25
+  - first:
+      213: -1841541295346766401
+    second: GodHands_26
+  - first:
+      213: 1229871451091250261
+    second: GodHands_27
+  - first:
+      213: -2791825501575490354
+    second: GodHands_28
+  - first:
+      213: -968131983289023984
+    second: GodHands_29
+  - first:
+      213: 5083875363323953099
+    second: GodHands_30
+  - first:
+      213: -122654910277299229
+    second: GodHands_31
+  - first:
+      213: -640238904507167874
+    second: GodHands_32
+  - first:
+      213: 2986371461647379976
+    second: GodHands_33
+  - first:
+      213: 5715466618856879149
+    second: GodHands_34
+  - first:
+      213: 4791561829820057194
+    second: GodHands_35
+  - first:
+      213: -9137254330440869031
+    second: GodHands_36
+  - first:
+      213: -8655348515165021241
+    second: GodHands_37
+  - first:
+      213: -8111657322622735925
+    second: GodHands_38
+  - first:
+      213: -5084011738704525409
+    second: GodHands_39
+  - first:
+      213: 622565148591246147
+    second: GodHands_40
+  - first:
+      213: -2607882106375103042
+    second: GodHands_41
+  - first:
+      213: 4442265935684740353
+    second: GodHands_42
+  - first:
+      213: -398347367880794094
+    second: GodHands_43
+  - first:
+      213: -9216711398006946349
+    second: GodHands_44
+  - first:
+      213: 1704604810829244347
+    second: GodHands_45
+  - first:
+      213: 4690616250005856366
+    second: GodHands_46
+  - first:
+      213: -2733714988958784734
+    second: GodHands_47
+  - first:
+      213: 1312234015589980743
+    second: GodHands_48
+  - first:
+      213: -1683783815042355052
+    second: GodHands_49
+  - first:
+      213: 5858886781533763365
+    second: GodHands_50
+  - first:
+      213: -3579067024135299003
+    second: GodHands_51
+  - first:
+      213: 2831186529939691391
+    second: GodHands_52
+  - first:
+      213: -2215926697349039961
+    second: GodHands_53
+  - first:
+      213: -5869431629237957373
+    second: GodHands_54
+  - first:
+      213: 3792556071173683597
+    second: GodHands_55
+  - first:
+      213: 8026233587952421011
+    second: GodHands_56
+  - first:
+      213: -1397074633272779911
+    second: GodHands_57
+  - first:
+      213: 4378707220607101497
+    second: GodHands_58
+  - first:
+      213: -1704153239495965522
+    second: GodHands_59
+  - first:
+      213: -5217695908126907375
+    second: GodHands_60
+  - first:
+      213: -5491686722831361258
+    second: GodHands_61
+  - first:
+      213: 6518631722724052513
+    second: GodHands_62
+  - first:
+      213: -390352849094306772
+    second: GodHands_63
+  - first:
+      213: -1275409564570093752
+    second: GodHands_64
+  - first:
+      213: -5428291618152811067
+    second: GodHands_65
+  - first:
+      213: -851035373576642093
+    second: GodHands_66
+  - first:
+      213: -8443996240040448812
+    second: GodHands_67
+  - first:
+      213: -3298689401675379533
+    second: GodHands_68
+  - first:
+      213: -7616487290932434241
+    second: GodHands_69
+  - first:
+      213: 5820413512099654116
+    second: GodHands_70
+  - first:
+      213: -139549078187871559
+    second: GodHands_71
+  - first:
+      213: -6000135956710104138
+    second: GodHands_72
+  - first:
+      213: 4403319328805044328
+    second: GodHands_73
+  - first:
+      213: -3856447987043592120
+    second: GodHands_74
+  - first:
+      213: -7979018326967693652
+    second: GodHands_75
+  - first:
+      213: -5845716474229713509
+    second: GodHands_76
+  - first:
+      213: -4542824180161523126
+    second: GodHands_77
+  - first:
+      213: -1176095516887201918
+    second: GodHands_78
+  - first:
+      213: -2068646991015031006
+    second: GodHands_79
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GodHands_0
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 3944
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bf6eb8f13d2973c0800000000000000
+      internalID: -4361405071481737296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_1
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 3849
+        width: 30
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c54153004af1d3240800000000000000
+      internalID: 4773005969321170012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_2
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 3908
+        width: 8
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07ba210dbc4ea1ab0800000000000000
+      internalID: -5036461669240099984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_3
+      rect:
+        serializedVersion: 2
+        x: 1497
+        y: 3897
+        width: 18
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a90aadf858aeb480800000000000000
+      internalID: -8881476314961671771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_4
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 3890
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d20876fc0b34e0910800000000000000
+      internalID: 1805454927295119405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_5
+      rect:
+        serializedVersion: 2
+        x: 1497
+        y: 3746
+        width: 17
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72351636eca56f6f0800000000000000
+      internalID: -651233253631372505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_6
+      rect:
+        serializedVersion: 2
+        x: 1274
+        y: 3805
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a4c123a910e61e70800000000000000
+      internalID: 9085695698982257826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_7
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 3746
+        width: 24
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 596e1352bd9a73d90800000000000000
+      internalID: -7118033927348820331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_8
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 3824
+        width: 9
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac5ef9635ad84c330800000000000000
+      internalID: 3730262132095182282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_9
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 3224
+        width: 724
+        height: 578
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ca2c17b751356a00800000000000000
+      internalID: 749059165831047877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_10
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 3784
+        width: 25
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23b98512bb0bc3770800000000000000
+      internalID: 8591936506880891698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_11
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 3645
+        width: 44
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ba5e5d7439c3470800000000000000
+      internalID: 8375731343742839646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_12
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 3798
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f8d92d775a93e80800000000000000
+      internalID: -8198339712598044871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_13
+      rect:
+        serializedVersion: 2
+        x: 1741
+        y: 3190
+        width: 763
+        height: 612
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 903a7c17fff634100800000000000000
+      internalID: 91039560393794313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_14
+      rect:
+        serializedVersion: 2
+        x: 1378
+        y: 3720
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cef38ac820d4fac90800000000000000
+      internalID: -7156416609523318804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_15
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 3701
+        width: 34
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feb5b4712122c90b0800000000000000
+      internalID: -5720659965571802129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_16
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 3359
+        width: 36
+        height: 382
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d849cae267a149d0800000000000000
+      internalID: -2791766250705303338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_17
+      rect:
+        serializedVersion: 2
+        x: 1555
+        y: 3640
+        width: 28
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e1c74acf1739500800000000000000
+      internalID: 401790121671401013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_18
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 3710
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf7a833a35240360800000000000000
+      internalID: 7134868641564753867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_19
+      rect:
+        serializedVersion: 2
+        x: 1378
+        y: 3705
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cdef408638b69730800000000000000
+      internalID: 4005591462813101513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_20
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 3555
+        width: 33
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f7bcd6423ffcb5e0800000000000000
+      internalID: -1892357152000133134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_21
+      rect:
+        serializedVersion: 2
+        x: 1648
+        y: 3552
+        width: 48
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13f29fbe48e2689a0800000000000000
+      internalID: -6231241885990965455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_22
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 3537
+        width: 26
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f072a34ce27a51620800000000000000
+      internalID: 2744283367254664975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_23
+      rect:
+        serializedVersion: 2
+        x: 1736
+        y: 3677
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56face7ca578df320800000000000000
+      internalID: 2593377784406257509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_24
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 3529
+        width: 54
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9045e8c783ff91dd0800000000000000
+      internalID: -2514698298836757495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_25
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 3611
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73cb4a9eb91514850800000000000000
+      internalID: 6359453878905519159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_26
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 3455
+        width: 33
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbda4a3e2f78176e0800000000000000
+      internalID: -1841541295346766401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_27
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 3541
+        width: 34
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55c20b19191611110800000000000000
+      internalID: 1229871451091250261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_28
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 3537
+        width: 52
+        height: 136
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec457bf7f717149d0800000000000000
+      internalID: -2791825501575490354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_29
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 3501
+        width: 33
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0120d5037118092f0800000000000000
+      internalID: -968131983289023984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_30
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 3453
+        width: 45
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcfb84915bd8d8640800000000000000
+      internalID: 5083875363323953099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_31
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 3526
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3d6fa420e3c4ef0800000000000000
+      internalID: -122654910277299229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_32
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 3501
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7b0775cb1a6d17f0800000000000000
+      internalID: -640238904507167874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_33
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 3530
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80e2bda9509b17920800000000000000
+      internalID: 2986371461647379976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_34
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 3523
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d243196ab9a615f40800000000000000
+      internalID: 5715466618856879149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_35
+      rect:
+        serializedVersion: 2
+        x: 1687
+        y: 3529
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a66ceb1f81c0f7240800000000000000
+      internalID: 4791561829820057194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_36
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 3444
+        width: 83
+        height: 163
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95b1ca30993f13180800000000000000
+      internalID: -9137254330440869031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_37
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 3522
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cb526a226602e780800000000000000
+      internalID: -8655348515165021241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_38
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 3358
+        width: 88
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc9206974aa9d6f80800000000000000
+      internalID: -8111657322622735925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_39
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 3489
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f97c9988246f179b0800000000000000
+      internalID: -5084011738704525409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_40
+      rect:
+        serializedVersion: 2
+        x: 1405
+        y: 3423
+        width: 21
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34bc15344bbc3a800800000000000000
+      internalID: 622565148591246147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_41
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 3341
+        width: 26
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd1a699a01fecbd0800000000000000
+      internalID: -2607882106375103042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_42
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 3423
+        width: 30
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 105ae46155916ad30800000000000000
+      internalID: 4442265935684740353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_43
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 3299
+        width: 90
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 210e040fd29c87af0800000000000000
+      internalID: -398347367880794094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_44
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 3310
+        width: 39
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d58084d0d9a71080800000000000000
+      internalID: -9216711398006946349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_45
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 3433
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb726e74b09f7a710800000000000000
+      internalID: 1704604810829244347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_46
+      rect:
+        serializedVersion: 2
+        x: 1706
+        y: 3419
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e60264f90aa681140800000000000000
+      internalID: 4690616250005856366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_47
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 3262
+        width: 103
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22363fd83b4ef0ad0800000000000000
+      internalID: -2733714988958784734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_48
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 3392
+        width: 9
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74adc6972edf53210800000000000000
+      internalID: 1312234015589980743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_49
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 3363
+        width: 27
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49039d19a8ff1a8e0800000000000000
+      internalID: -1683783815042355052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_50
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 3335
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5273d807c72fe4150800000000000000
+      internalID: 5858886781533763365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_51
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 3203
+        width: 59
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 540e9171189945ec0800000000000000
+      internalID: -3579067024135299003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_52
+      rect:
+        serializedVersion: 2
+        x: 1294
+        y: 3288
+        width: 25
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f771de116256a4720800000000000000
+      internalID: 2831186529939691391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_53
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 3225
+        width: 18
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a8b434c8627f31e0800000000000000
+      internalID: -2215926697349039961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_54
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 3199
+        width: 144
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30d44d1e7079b8ea0800000000000000
+      internalID: -5869431629237957373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_55
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 3251
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d89fe0527add1a430800000000000000
+      internalID: 3792556071173683597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_56
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 3232
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39886366ce8e26f60800000000000000
+      internalID: 8026233587952421011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_57
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 3199
+        width: 70
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97b1117e5089c9ce0800000000000000
+      internalID: -1397074633272779911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_58
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 3191
+        width: 133
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a69bb840b44cc30800000000000000
+      internalID: 4378707220607101497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_59
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 3200
+        width: 34
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea4030d58a1a958e0800000000000000
+      internalID: -1704153239495965522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_60
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 3217
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 114261257350797b0800000000000000
+      internalID: -5217695908126907375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_61
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 3205
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b58e3950c99c3b0800000000000000
+      internalID: -5491686722831361258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_62
+      rect:
+        serializedVersion: 2
+        x: 2223
+        y: 3186
+        width: 134
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e4f8eb305d67a50800000000000000
+      internalID: 6518631722724052513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_63
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 3177
+        width: 29
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c241ca4e620359af0800000000000000
+      internalID: -390352849094306772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_64
+      rect:
+        serializedVersion: 2
+        x: 977
+        y: 3130
+        width: 142
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 847f9a822c5dc4ee0800000000000000
+      internalID: -1275409564570093752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_65
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 3199
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c575ca9885daa4b0800000000000000
+      internalID: -5428291618152811067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_66
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 3188
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d12ca236d38034f0800000000000000
+      internalID: -851035373576642093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_67
+      rect:
+        serializedVersion: 2
+        x: 1914
+        y: 3168
+        width: 58
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dca7ab6826e0da80800000000000000
+      internalID: -8443996240040448812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_68
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 3132
+        width: 152
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bc0bc46773b832d0800000000000000
+      internalID: -3298689401675379533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_69
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 3169
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbae1bba92dcc4690800000000000000
+      internalID: -7616487290932434241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_70
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 3184
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e9659a504346c050800000000000000
+      internalID: 5820413512099654116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_71
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 3129
+        width: 151
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b2f0ed4ad8301ef0800000000000000
+      internalID: -139549078187871559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_72
+      rect:
+        serializedVersion: 2
+        x: 2194
+        y: 3176
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b3ee30332c3bbca0800000000000000
+      internalID: -6000135956710104138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_73
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 3147
+        width: 51
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 860490a899bbb1d30800000000000000
+      internalID: 4403319328805044328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_74
+      rect:
+        serializedVersion: 2
+        x: 2288
+        y: 3134
+        width: 109
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8481f75fcf42b7ac0800000000000000
+      internalID: -3856447987043592120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_75
+      rect:
+        serializedVersion: 2
+        x: 2396
+        y: 3162
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae42c43b15d44190800000000000000
+      internalID: -7979018326967693652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_76
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 3139
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9593efa6d7dfdea0800000000000000
+      internalID: -5845716474229713509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_77
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 2811
+        width: 1924
+        height: 346
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a42da602a75a4f0c0800000000000000
+      internalID: -4542824180161523126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_78
+      rect:
+        serializedVersion: 2
+        x: 2438
+        y: 3009
+        width: 35
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 287420ecb5badafe0800000000000000
+      internalID: -1176095516887201918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GodHands_80
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 514
+        width: 2845
+        height: 3467
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 321da850730f99c4a89c0cbe01870f6f
+      internalID: -66778398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f4d243f9eeeee1d4995f1eed145508dc
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GodHands_0: -4361405071481737296
+      GodHands_1: 4773005969321170012
+      GodHands_10: 8591936506880891698
+      GodHands_11: 8375731343742839646
+      GodHands_12: -8198339712598044871
+      GodHands_13: 91039560393794313
+      GodHands_14: -7156416609523318804
+      GodHands_15: -5720659965571802129
+      GodHands_16: -2791766250705303338
+      GodHands_17: 401790121671401013
+      GodHands_18: 7134868641564753867
+      GodHands_19: 4005591462813101513
+      GodHands_2: -5036461669240099984
+      GodHands_20: -1892357152000133134
+      GodHands_21: -6231241885990965455
+      GodHands_22: 2744283367254664975
+      GodHands_23: 2593377784406257509
+      GodHands_24: -2514698298836757495
+      GodHands_25: 6359453878905519159
+      GodHands_26: -1841541295346766401
+      GodHands_27: 1229871451091250261
+      GodHands_28: -2791825501575490354
+      GodHands_29: -968131983289023984
+      GodHands_3: -8881476314961671771
+      GodHands_30: 5083875363323953099
+      GodHands_31: -122654910277299229
+      GodHands_32: -640238904507167874
+      GodHands_33: 2986371461647379976
+      GodHands_34: 5715466618856879149
+      GodHands_35: 4791561829820057194
+      GodHands_36: -9137254330440869031
+      GodHands_37: -8655348515165021241
+      GodHands_38: -8111657322622735925
+      GodHands_39: -5084011738704525409
+      GodHands_4: 1805454927295119405
+      GodHands_40: 622565148591246147
+      GodHands_41: -2607882106375103042
+      GodHands_42: 4442265935684740353
+      GodHands_43: -398347367880794094
+      GodHands_44: -9216711398006946349
+      GodHands_45: 1704604810829244347
+      GodHands_46: 4690616250005856366
+      GodHands_47: -2733714988958784734
+      GodHands_48: 1312234015589980743
+      GodHands_49: -1683783815042355052
+      GodHands_5: -651233253631372505
+      GodHands_50: 5858886781533763365
+      GodHands_51: -3579067024135299003
+      GodHands_52: 2831186529939691391
+      GodHands_53: -2215926697349039961
+      GodHands_54: -5869431629237957373
+      GodHands_55: 3792556071173683597
+      GodHands_56: 8026233587952421011
+      GodHands_57: -1397074633272779911
+      GodHands_58: 4378707220607101497
+      GodHands_59: -1704153239495965522
+      GodHands_6: 9085695698982257826
+      GodHands_60: -5217695908126907375
+      GodHands_61: -5491686722831361258
+      GodHands_62: 6518631722724052513
+      GodHands_63: -390352849094306772
+      GodHands_64: -1275409564570093752
+      GodHands_65: -5428291618152811067
+      GodHands_66: -851035373576642093
+      GodHands_67: -8443996240040448812
+      GodHands_68: -3298689401675379533
+      GodHands_69: -7616487290932434241
+      GodHands_7: -7118033927348820331
+      GodHands_70: 5820413512099654116
+      GodHands_71: -139549078187871559
+      GodHands_72: -6000135956710104138
+      GodHands_73: 4403319328805044328
+      GodHands_74: -3856447987043592120
+      GodHands_75: -7979018326967693652
+      GodHands_76: -5845716474229713509
+      GodHands_77: -4542824180161523126
+      GodHands_78: -1176095516887201918
+      GodHands_79: -2068646991015031006
+      GodHands_8: 3730262132095182282
+      GodHands_80: -66778398
+      GodHands_81: -580775557
+      GodHands_9: 749059165831047877
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

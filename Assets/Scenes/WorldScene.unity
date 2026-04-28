@@ -1380,7 +1380,7 @@ MonoBehaviour:
   transitionEffectPrefab: {fileID: 5617332204849448172, guid: abc6c55c31a262b48b0e25ada0fd1efa, type: 3}
   switchScene: 0
   numberOfEnemies: 0
-  biome: 0
+  biome: 2
   playerList:
   - {fileID: 0}
   gameData:
@@ -1389,6 +1389,16 @@ MonoBehaviour:
     inventoryQuantity: 
     playerStats: []
     checkpointID: 0
+  enemies:
+  - biomeEnemies:
+    - {fileID: 6917933096425750177, guid: 688b7b6ce3ecdb74f87029d52502a20c, type: 3}
+    - {fileID: 6917933096425750177, guid: 2d2d9dc63b351e54eb071958179ee1b3, type: 3}
+    biomeBoss: {fileID: 6917933096425750177, guid: 361d73633a7d12443861680aba4cf758, type: 3}
+  - biomeEnemies:
+    - {fileID: 6917933096425750177, guid: c7e59c83ee957d74586fdf8ef772aca9, type: 3}
+    - {fileID: 6917933096425750177, guid: 4ae2560bf0c23524da79cb382e648c96, type: 3}
+    biomeBoss: {fileID: 6917933096425750177, guid: e8c92b6283ac0484abf64b8ae0ceb030, type: 3}
+  blah: 0
   classes:
   - {fileID: 7456626017482619415, guid: 416b594ee72eec84dbbd75101e11a868, type: 3}
   - {fileID: 3708900249089444448, guid: 5e39af6860afdab458c72f9567f64580, type: 3}

@@ -13,6 +13,7 @@ public class SaveManager : MonoBehaviour
     private GameObject transitionEffect;
     public bool switchScene;
     public int numberOfEnemies;
+    //biome 0 = home, 1 = sky, 2 = space
     public int biome;
     public List<GameObject> playerList;
     public Dictionary<int, int> inventory;
@@ -20,14 +21,16 @@ public class SaveManager : MonoBehaviour
     private List<SaveInterface> allSaveData;
     private string fileName = "reimu";
     private FileManager fileManager;
+    public List<Enemies> enemies;
+    public int blah;
     //Should be initalized in inspector with every class wanted
     //These two should be synchronized with each other
     public GameObject[] classes;
     public GameObject[] portraits;
     void Awake()
     {
+        biome = 2;
         SceneManager.activeSceneChanged += ChangedActiveScene;
-        transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         switchScene = false;
         playerList = new List<GameObject>();
         inventory = new Dictionary<int, int>(); 
@@ -71,6 +74,9 @@ public class SaveManager : MonoBehaviour
         Debug.Log("PALYED");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(sceneName); 
+        yield return new WaitForSeconds(0.5f);
+        GameObject copyTransitionEffect = transitionEffect;
+        Destroy(copyTransitionEffect);
     }
 
     public void newGame()
@@ -200,7 +206,7 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (3 + 3.5f * thePlayer.stats.level);
                 thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(3, 1), (6, 5), (6, 5)};
+                thePlayer.specialList = new List<(int, int)>{(3, 1), (6, 5)};
 
             }
             else if(thePlayer.stats.characterType == 3)

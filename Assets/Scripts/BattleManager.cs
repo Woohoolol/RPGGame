@@ -16,13 +16,8 @@ public class BattleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        //When entering random encounter, make a copy of gamedata team to fight with
         playerList = new List<GameObject>();
-        for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
-        {
-            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp = SaveManager.instance.playerList[i].GetComponent<Character>().finalmaxhp;\
-            // SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp = SaveManager.instance.playerList[i].GetComponent<Character>().finalmaxmp;
-        }
+        enemyList = new List<GameObject>();
     }
     void Start()
     {
@@ -49,7 +44,7 @@ public class BattleManager : MonoBehaviour
         }
         for(int i = 0; i < playerList.Count; i++)
         {
-            //Cannot initialize to final values as they cannot be set in the list
+            //Cannot initialize to final max values as they cannot be set in the list
             if((playerList[i].GetComponent<Character>().stats.currenthp) > playerList[i].GetComponent<Character>().basemaxhp)
             {
                 playerList[i].GetComponent<Character>().stats.currenthp = playerList[i].GetComponent<Character>().basemaxhp;

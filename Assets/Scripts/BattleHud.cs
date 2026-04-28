@@ -18,6 +18,7 @@ public class BattleHud : MonoBehaviour
     public GameObject returnButton;
     public GameObject selectionScreen;
     public GameObject highlightBox;
+    public GameObject enemySpawn;
     public float testx;
     public float testy;
     public float testy2;
@@ -32,6 +33,16 @@ public class BattleHud : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Where enemies will spawn
+        Transform positions = enemySpawn.transform.GetChild(SaveManager.instance.numberOfEnemies - 1);
+        for(int i = 0; i < SaveManager.instance.numberOfEnemies; i++)
+        {
+            Transform thePosition = positions.GetChild(i);
+            List<GameObject> listOfEnemies = SaveManager.instance.enemies[SaveManager.instance.biome - 1].biomeEnemies;
+            GameObject spawnedType = listOfEnemies[UnityEngine.Random.Range(0, listOfEnemies.Count)];
+            GameObject spawnedEnemy = Instantiate(spawnedType, thePosition.position, Quaternion.Euler(0, 0, 0));
+            battleManager.enemyList.Add(spawnedEnemy);
+        }
         portraits = new List<GameObject>();
         finished = false;
         focusedIndex = 0;
@@ -53,7 +64,7 @@ public class BattleHud : MonoBehaviour
         }
         for(int i = 0; i < SaveManager.instance.numberOfEnemies; i++)
         {
-            
+
         }
         StartCoroutine(showVictory());
         StartCoroutine(escape());
