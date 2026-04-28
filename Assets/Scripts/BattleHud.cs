@@ -51,6 +51,10 @@ public class BattleHud : MonoBehaviour
             portraits.Add(portrait);
             portrait.transform.parent = selectionScreen.transform;
         }
+        for(int i = 0; i < SaveManager.instance.numberOfEnemies; i++)
+        {
+            
+        }
         StartCoroutine(showVictory());
         StartCoroutine(escape());
     }
@@ -124,12 +128,12 @@ public class BattleHud : MonoBehaviour
             showInactiveMenu();
             if(Keyboard.current.leftArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
-                battleManager.enemyList[ focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 focusedIndex--;
             }
             if(Keyboard.current.rightArrowKey.wasPressedThisFrame &&  focusedIndex < battleManager.enemyList.Count - 1)
             {
-                battleManager.enemyList[ focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 focusedIndex++;
             }  
             battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;

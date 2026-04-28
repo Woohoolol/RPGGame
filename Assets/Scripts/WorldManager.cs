@@ -32,7 +32,8 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         encounterModifier = 1;
-        encounterRequirement = UnityEngine.Random.Range(1, 2);
+        encounterRate = 0;
+        encounterRequirement = UnityEngine.Random.Range(10, 20);
         Instantiate(background, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(-19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
@@ -44,7 +45,6 @@ public class WorldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if(mode == 0)
         {
             actionMenu.SetActive(false);
@@ -60,9 +60,8 @@ public class WorldManager : MonoBehaviour
             if(encounterRate >= encounterRequirement)
             {
                 encounterRate = 0;
-                encounterRequirement = UnityEngine.Random.Range(10, 20);
-                //SaveManager.instance is the static thing we can call
-                SaveManager.instance.gameData.battleSpawn = 1;
+                //Change this note to self to be random
+                SaveManager.instance.numberOfEnemies = UnityEngine.Random.Range(1, 5);
                 SaveManager.instance.switchToBattleScene();
             }
         }

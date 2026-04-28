@@ -9,6 +9,8 @@ public class SaveManager : MonoBehaviour
 {
     //Static so can be called throughout classes
     public static SaveManager instance;
+    public int numberOfEnemies;
+    public int biome;
     public List<GameObject> playerList;
     public Dictionary<int, int> inventory;
     public GameData gameData;
@@ -69,6 +71,11 @@ public class SaveManager : MonoBehaviour
     {
         gameData = fileManager.Load();
         //After loading, need to look at gamedata character type to instantiate correct prefab
+        if(gameData == null)
+        {
+            Debug.Log("No save data found, initializing");
+            newGame();
+        }
         for(int i = 0; i < gameData.playerStats.Count; i++)
         {
             int characterType = gameData.playerStats[i].characterType;
@@ -79,11 +86,6 @@ public class SaveManager : MonoBehaviour
         for(int i = 0; i < gameData.inventoryID.Count; i++)
         {
             inventory.Add(gameData.inventoryID[i], gameData.inventoryQuantity[i]);
-        }
-        if(gameData == null)
-        {
-            Debug.Log("No save data found, initializing");
-            newGame();
         }
     }
 
@@ -105,10 +107,10 @@ public class SaveManager : MonoBehaviour
         fileManager.Save(gameData);
     }
 
-    void OnApplicationQuit()
-    {
-        saveGame();
-    }
+    // void OnApplicationQuit()
+    // {
+    //     saveGame();
+    // }
 
     private List<SaveInterface> findAllSaveData()
     {

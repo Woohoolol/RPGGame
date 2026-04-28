@@ -4,7 +4,7 @@ using System.IO;
 public class FileManager
 {
     private string path = "";
-    private string fileName = "";
+    public string fileName = "";
 
     public FileManager(string path, string fileName)
     {

@@ -11,4 +11,8 @@ public class CharacterStats
     public float level;
     // public GameObject[] modifiers;
     // public Move[] moveset;
+    public CharacterStats()
+    {
+        
+    }
 }
