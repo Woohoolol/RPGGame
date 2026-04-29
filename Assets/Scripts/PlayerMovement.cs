@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove;
     public bool canSave;
     public Rigidbody2D rb;
+    public GameObject worldManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canMove)
+        if(canMove && !SaveManager.instance.dialogueActive)
         {
             xDirection = 0;
             yDirection = 0;
@@ -40,9 +41,11 @@ public class PlayerMovement : MonoBehaviour
             }
             rb.linearVelocity = new Vector2(xDirection * playerSpeed, yDirection * playerSpeed);
         }
-        if(canSave && Keyboard.current.zKey.wasPressedThisFrame)
+        if(canSave && Keyboard.current.zKey.wasPressedThisFrame && worldManager.GetComponent<WorldManager>().mode == 0)
         {
             Debug.Log("Saved game!");
+            SaveManager.instance.lastSavedLocation = transform.position;
+            Debug.Log(SaveManager.instance.lastSavedLocation);
             SaveManager.instance.saveGame();
         }
     }

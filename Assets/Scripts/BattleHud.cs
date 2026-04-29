@@ -19,6 +19,7 @@ public class BattleHud : MonoBehaviour
     public GameObject selectionScreen;
     public GameObject highlightBox;
     public GameObject enemySpawn;
+    public GameObject statBars;
     public float testx;
     public float testy;
     public float testy2;
@@ -41,6 +42,11 @@ public class BattleHud : MonoBehaviour
             List<GameObject> listOfEnemies = SaveManager.instance.enemies[SaveManager.instance.biome - 1].biomeEnemies;
             GameObject spawnedType = listOfEnemies[UnityEngine.Random.Range(0, listOfEnemies.Count)];
             GameObject spawnedEnemy = Instantiate(spawnedType, thePosition.position, Quaternion.Euler(0, 0, 0));
+            //Will instantiate by default in the center due to world camera camera main
+            //Shift health bars instead
+            GameObject enemyStatBars = Instantiate(statBars, thePosition.position - new Vector3(0, 2f, 0), Quaternion.Euler(0, 0, 0));
+            enemyStatBars.GetComponent<StatBars>().character = spawnedEnemy;
+            enemyStatBars.transform.parent = spawnedEnemy.transform;
             battleManager.enemyList.Add(spawnedEnemy);
         }
         portraits = new List<GameObject>();
@@ -104,7 +110,7 @@ public class BattleHud : MonoBehaviour
             }
             //Highlight current option
             actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 if(focusedIndex == 0)
@@ -148,7 +154,7 @@ public class BattleHud : MonoBehaviour
                 focusedIndex++;
             }  
             battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 battleManager.allyAttack(focusedIndex);
@@ -233,7 +239,7 @@ public class BattleHud : MonoBehaviour
                     descriptionInfo += "\n";
                 }
             }
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 if(battleManager.playerList[battleManager.currentPlayerIndex].GetComponent<Character>().stats.currentmp >= battleManager.specialManager.GetComponent<SpecialManager>().allSpecials[validSpecials[focusedIndex]].mpcost)
                 {
@@ -274,7 +280,7 @@ public class BattleHud : MonoBehaviour
                     focusedIndex++;
                 }  
                 battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-                if(Keyboard.current.enterKey.wasPressedThisFrame)
+                if(Keyboard.current.zKey.wasPressedThisFrame)
                 {
                     battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                     battleManager.allySpecial(chosenSpecial, focusedIndex);
@@ -311,7 +317,7 @@ public class BattleHud : MonoBehaviour
                     focusedIndex++;
                 }  
                 portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-                if(Keyboard.current.enterKey.wasPressedThisFrame && battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0)
+                if(Keyboard.current.zKey.wasPressedThisFrame && battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0)
                 {
                     portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                     battleManager.allySpecial(chosenSpecial, focusedIndex);
@@ -354,7 +360,7 @@ public class BattleHud : MonoBehaviour
                 focusedIndex++;
             }
             highlightBox.transform.position = new Vector3(0, -1.35f * focusedIndex + 2f, -1);
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 specialMenu.SetActive(false);
                 highlightBox.SetActive(false);
@@ -450,7 +456,7 @@ public class BattleHud : MonoBehaviour
                 }  
                 portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
                 //Use item on nondead ally unless that item is an elixir
-                if(Keyboard.current.enterKey.wasPressedThisFrame && (battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0 || chosenItem == 4))
+                if(Keyboard.current.zKey.wasPressedThisFrame && (battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0 || chosenItem == 4))
                 {
                     portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                     battleManager.allyItem(chosenItem, focusedIndex);
@@ -572,8 +578,9 @@ public class BattleHud : MonoBehaviour
         Debug.Log("OBTAINED " + battleManager.expGain + " EXP");
         Debug.Log("OBTAINED " + battleManager.moneyGain + " MONEY");
         actionMenu.SetActive(false);
-        //Add victory screen here
-        // returnButton.SetActive(true);
+        List<string> victoryDialogue = new List<string>{"Victory! \nYou obtained " + battleManager.expGain + " EXP! \nYou obtained " + battleManager.moneyGain + " money!", "Press Z to return to the overworld."};
+        GameObject victoryDialogueCanvas = SaveManager.instance.spawnDialogue(victoryDialogue, characterDialogue: false);
+        yield return new WaitUntil(() => victoryDialogueCanvas == null);
         StartCoroutine(SaveManager.instance.switchToScene("WorldScene"));
         yield return null;
     }

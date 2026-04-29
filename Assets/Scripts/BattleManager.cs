@@ -53,6 +53,14 @@ public class BattleManager : MonoBehaviour
             {
                 playerList[i].GetComponent<Character>().stats.currentmp = playerList[i].GetComponent<Character>().basemaxmp;
             }
+            if((playerList[i].GetComponent<Character>().stats.currenthp) < 0)
+            {
+                playerList[i].GetComponent<Character>().stats.currenthp = 0;
+            }
+            if((playerList[i].GetComponent<Character>().stats.currentmp) < 0)
+            {
+                playerList[i].GetComponent<Character>().stats.currentmp = 0;
+            }
         }
         for(int i = 0; i < enemyList.Count; i++)
         {
@@ -63,6 +71,10 @@ public class BattleManager : MonoBehaviour
             if((enemyList[i].GetComponent<Character>().stats.currentmp) > enemyList[i].GetComponent<Character>().basemaxmp)
             {
                 enemyList[i].GetComponent<Character>().stats.currentmp = enemyList[i].GetComponent<Character>().basemaxmp;
+            }
+            if((enemyList[i].GetComponent<Character>().stats.currentmp) < 0)
+            {
+                enemyList[i].GetComponent<Character>().stats.currentmp = 0;
             }
             if(enemyList[i].GetComponent<Character>().stats.currenthp <= 0)
             {
@@ -185,11 +197,12 @@ public class BattleManager : MonoBehaviour
         {
             yield return null;
         }
+        yield return new WaitForSeconds(2);
         for(int i = 0; i < SaveManager.instance.gameData.playerStats.Count; i++)
         {
             SaveManager.instance.gameData.playerStats[i].exp += expGain;
         }
-        SaveManager.instance.gameData.money += moneyGain;
+        SaveManager.instance.money += moneyGain;
         int itemAcquired = UnityEngine.Random.Range(0, 5);
         itemManager.GetComponent<ItemManager>().acquiredItem(itemAcquired, 3);
         yield return null;

@@ -110,7 +110,7 @@ MonoBehaviour:
     exp: 0
     level: 0
   basemaxhp: 10
-  basemaxmp: 0
+  basemaxmp: 1
   basephysical: 5
   basemental: 0
   basepdefense: 2

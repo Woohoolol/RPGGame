@@ -33,7 +33,7 @@ public class WorldManager : MonoBehaviour
     {
         encounterModifier = 1;
         encounterRate = 0;
-        encounterRequirement = UnityEngine.Random.Range(1, 2);
+        encounterRequirement = UnityEngine.Random.Range(5, 10);
         Instantiate(background, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(-19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
         Instantiate(background, new Vector3(19.20f, 0, 0), Quaternion.Euler(0, 0, 0));
@@ -41,6 +41,7 @@ public class WorldManager : MonoBehaviour
         focusedIndex = 0;
         StartCoroutine(showMenu());
         StartCoroutine(enterBattle());
+        player.transform.position = SaveManager.instance.lastSavedLocation;
     }
 
     // Update is called once per frame
@@ -80,7 +81,7 @@ public class WorldManager : MonoBehaviour
             }
             //Highlight current option
             actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
                 if(focusedIndex == 0)
@@ -130,7 +131,7 @@ public class WorldManager : MonoBehaviour
                 focusedIndex++;
             }
             highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-2f, -1.67f * focusedIndex, -1);
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 if(mode == 1.5)
                 {
@@ -175,8 +176,8 @@ public class WorldManager : MonoBehaviour
             {
                 focusedIndex++;
             }
-            highlightBox2.transform.position = new Vector3(2.75f, -1.1f * focusedIndex + 7.25f, -1);
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            highlightBox2.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-2f, -1.1f * focusedIndex - 0.5f, -1);
+            if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 itemSelection.SetActive(false);
                 highlightBox2.SetActive(false);
@@ -366,6 +367,7 @@ public class WorldManager : MonoBehaviour
         encounterRate = 0;
         //Change this note to self to be random
         SaveManager.instance.numberOfEnemies = UnityEngine.Random.Range(1, 5);
+        SaveManager.instance.lastSavedLocation = player.transform.position;
         StartCoroutine(SaveManager.instance.switchToScene("BattleScene"));
     }
 }

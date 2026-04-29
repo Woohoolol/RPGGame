@@ -11,17 +11,24 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
     public GameObject transitionEffectPrefab;
     private GameObject transitionEffect;
+    public GameObject dialogueCanvas;
     public int numberOfEnemies;
     //biome 0 = home, 1 = sky, 2 = space
     public int biome;
     public List<GameObject> playerList;
     public Dictionary<int, int> inventory;
+    public Vector3 lastSavedLocation;
+    public int checkpoint;
+    public float money;
     public GameData gameData;
     private List<SaveInterface> allSaveData;
     private string fileName = "reimu";
     private FileManager fileManager;
     public List<Enemies> enemies;
     public int blah;
+    private String theSceneName;
+    public bool dialogueActive;
+    public List<GameObject> dialogueList;
     //Should be initalized in inspector with every class wanted
     //These two should be synchronized with each other
     public GameObject[] classes;
@@ -29,16 +36,17 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         biome = 1;
-        SceneManager.activeSceneChanged += ChangedActiveScene;
+        theSceneName = SceneManager.GetActiveScene().name;
+        transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         playerList = new List<GameObject>();
+        dialogueList = new List<GameObject>();
         inventory = new Dictionary<int, int>(); 
         //Setting file save/load to default directory
         fileManager = new FileManager(Application.persistentDataPath, fileName);
         Debug.Log("Saved location is" + Application.persistentDataPath);
         allSaveData = findAllSaveData();
-        loadGame();
-        // StartCoroutine(levelUp());
-
+        StartCoroutine(levelUp());
+        StartCoroutine(processDialogue());
         //First time generation
         if(instance == null)
         {
@@ -51,43 +59,46 @@ public class SaveManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    
-    void Start()
+
+    public void switchScene(String sceneName)
     {
-        for(int i = 0; i < playerList.Count; i++)
-        {
-            Debug.Log("---" + playerList[i].GetComponent<Character>().stats.currenthp);
-        }
+        StartCoroutine(switchToScene(sceneName));
     }
 
-    //Allows us to check to see if there is a scene change
-    private void ChangedActiveScene(Scene current, Scene next)
-    {
-        string currentName = current.name;
-        if (currentName == null)
-        {
-            transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
-        }
-    }
     public IEnumerator switchToScene(String sceneName)
     {
         transitionEffect.GetComponent<Animator>().Play("StartTransition");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(sceneName); 
         yield return new WaitForSeconds(0.5f);
-        GameObject copyTransitionEffect = transitionEffect;
-        Destroy(copyTransitionEffect);
+        // GameObject copyTransitionEffect = transitionEffect;
+        // Destroy(copyTransitionEffect);
     }
 
     public void newGame()
     {
-        if(gameData == null)
+        Debug.Log("Initializing");
+        gameData = new GameData();
+        for(int i = 0; i < gameData.playerStats.Count; i++)
         {
-            Debug.Log("Initializing");
-            gameData = new GameData();
+            int characterType = gameData.playerStats[i].characterType;
+            GameObject baseCharacter = classes[characterType];
+            baseCharacter.GetComponent<Character>().stats = gameData.playerStats[i];
+            playerList.Add(baseCharacter);
         }
+        for(int i = 0; i < gameData.inventoryID.Count; i++)
+        {
+            inventory.Add(gameData.inventoryID[i], gameData.inventoryQuantity[i]);
+        }
+        lastSavedLocation = gameData.lastSavedLocation;
+        checkpoint = gameData.checkpoint;
+        money = gameData.money;
     }
 
+    public void exit()
+    {
+        Application.Quit();
+    }
     public void loadGame()
     {
         gameData = fileManager.Load();
@@ -108,6 +119,9 @@ public class SaveManager : MonoBehaviour
         {
             inventory.Add(gameData.inventoryID[i], gameData.inventoryQuantity[i]);
         }
+        lastSavedLocation = gameData.lastSavedLocation;
+        checkpoint = gameData.checkpoint;
+        money = gameData.money;
     }
 
     public void saveGame()
@@ -125,6 +139,9 @@ public class SaveManager : MonoBehaviour
             gameData.inventoryID.Add(item.Key);
             gameData.inventoryQuantity.Add(item.Value);
         }
+        gameData.lastSavedLocation = lastSavedLocation;
+        gameData.checkpoint = checkpoint;
+        gameData.money = money;
         fileManager.Save(gameData);
     }
 
@@ -149,20 +166,65 @@ public class SaveManager : MonoBehaviour
             for(int i = 0; i < playerList.Count; i++)
             {
                 Character thePlayer = playerList[i].GetComponent<Character>();
+                bool leveledUp = false;
                 while(thePlayer.stats.exp >= thePlayer.expRequirement)
                 {
                     thePlayer.stats.level++;
-                    Debug.Log("LEVEL UP");
                     thePlayer.stats.exp -= thePlayer.expRequirement;
-                    yield return new WaitForSeconds(0.5f);
+                    leveledUp = true;
                 }
+                if(leveledUp)
+                {
+                    List<string> levelUpDialogue = new List<string>{thePlayer.stats.characterType + " Leveled up to level " + thePlayer.stats.level + "!"};
+                    SaveManager.instance.spawnDialogue(levelUpDialogue, characterDialogue: false);
+                }
+
             }
             yield return null;
         }
     }
 
+    //Dialogue character referencing charactertypes from Character
+    public GameObject spawnDialogue(List<string> dialogue, bool characterDialogue, List<int> dialogueCharacters = null)
+    {
+        //Z values are all glitching with each other, will spawn at dfferent z values
+        float zCoordinate = 0;
+        if(dialogueList.Count > 1)
+        {
+            zCoordinate = dialogueList[dialogueList.Count-1].transform.position.z - 2;
+        }
+        GameObject theDialogueCanvas = Instantiate(dialogueCanvas, new Vector3(0, 0, zCoordinate), Quaternion.Euler(0, 0, 0));
+        theDialogueCanvas.SetActive(false);
+        theDialogueCanvas.transform.GetChild(0).GetComponent<Dialogue>().texts = dialogue;
+        theDialogueCanvas.transform.GetChild(0).GetComponent<Dialogue>().characterType = dialogueCharacters;
+        theDialogueCanvas.transform.GetChild(0).GetComponent<Dialogue>().characterDialogue = characterDialogue;
+        dialogueList.Add(theDialogueCanvas);
+        dialogueActive = true;
+        return theDialogueCanvas;
+    }
+
+    public IEnumerator processDialogue()
+    {
+        while(true)
+        {  
+            if(dialogueList.Count > 0)
+            {
+                GameObject theDialogueCanvas = dialogueList[0];
+                dialogueList.RemoveAt(0);
+                theDialogueCanvas.SetActive(true);
+                yield return new WaitUntil(() => theDialogueCanvas == null);
+            }
+            yield return null;
+        }
+    }
     void Update()
     {
+        if(theSceneName != SceneManager.GetActiveScene().name)
+        {
+            Debug.Log("CHANGED SCENE");
+            theSceneName = SceneManager.GetActiveScene().name;
+            transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        }
         for(int i = 0; i < playerList.Count; i++)
         {
             Character thePlayer = playerList[i].GetComponent<Character>();
@@ -219,6 +281,14 @@ public class SaveManager : MonoBehaviour
             if((thePlayer.stats.currentmp) > thePlayer.basemaxmp)
             {
                 thePlayer.stats.currentmp = thePlayer.basemaxmp;
+            }
+            if((thePlayer.stats.currenthp) < 0)
+            {
+                thePlayer.stats.currenthp = 0;
+            }
+            if((thePlayer.stats.currentmp) < 0)
+            {
+                thePlayer.stats.currentmp = 0;
             }
         }
 
