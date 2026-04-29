@@ -11,7 +11,6 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
     public GameObject transitionEffectPrefab;
     private GameObject transitionEffect;
-    public bool switchScene;
     public int numberOfEnemies;
     //biome 0 = home, 1 = sky, 2 = space
     public int biome;
@@ -29,9 +28,8 @@ public class SaveManager : MonoBehaviour
     public GameObject[] portraits;
     void Awake()
     {
-        biome = 2;
+        biome = 1;
         SceneManager.activeSceneChanged += ChangedActiveScene;
-        switchScene = false;
         playerList = new List<GameObject>();
         inventory = new Dictionary<int, int>(); 
         //Setting file save/load to default directory
@@ -39,7 +37,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Saved location is" + Application.persistentDataPath);
         allSaveData = findAllSaveData();
         loadGame();
-        StartCoroutine(levelUp());
+        // StartCoroutine(levelUp());
 
         //First time generation
         if(instance == null)
@@ -56,7 +54,10 @@ public class SaveManager : MonoBehaviour
     
     void Start()
     {
-
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            Debug.Log("---" + playerList[i].GetComponent<Character>().stats.currenthp);
+        }
     }
 
     //Allows us to check to see if there is a scene change
@@ -71,7 +72,6 @@ public class SaveManager : MonoBehaviour
     public IEnumerator switchToScene(String sceneName)
     {
         transitionEffect.GetComponent<Animator>().Play("StartTransition");
-        Debug.Log("PALYED");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(sceneName); 
         yield return new WaitForSeconds(0.5f);
@@ -166,14 +166,6 @@ public class SaveManager : MonoBehaviour
         for(int i = 0; i < playerList.Count; i++)
         {
             Character thePlayer = playerList[i].GetComponent<Character>();
-            if((thePlayer.stats.currenthp) > thePlayer.basemaxhp)
-            {
-                thePlayer.stats.currenthp = thePlayer.basemaxhp;
-            }
-            if((thePlayer.stats.currentmp) > thePlayer.basemaxmp)
-            {
-                thePlayer.stats.currentmp = thePlayer.basemaxmp;
-            }
             if(thePlayer.stats.characterType == 0)
             {
                 thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.55)) + 6;
@@ -220,6 +212,15 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
                 thePlayer.specialList = new List<(int, int)>{(1, 1), (4, 3), (8, 9)};
             }
+            if((thePlayer.stats.currenthp) > thePlayer.basemaxhp)
+            {
+                thePlayer.stats.currenthp = thePlayer.basemaxhp;
+            }
+            if((thePlayer.stats.currentmp) > thePlayer.basemaxmp)
+            {
+                thePlayer.stats.currentmp = thePlayer.basemaxmp;
+            }
         }
+
     }
 }
