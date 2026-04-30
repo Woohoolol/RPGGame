@@ -71,19 +71,19 @@ public class WorldManager : MonoBehaviour
            if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
                 //Unhighlight option before moving
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 focusedIndex--;
             }
             if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < actions.Length - 1)
             {
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 focusedIndex++;
             }
             //Highlight current option
-            actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
+            actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
             if(Keyboard.current.zKey.wasPressedThisFrame)
             {
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 if(focusedIndex == 0)
                 {
                     Debug.Log("DETAILED CHARACTER STATS");
@@ -102,7 +102,7 @@ public class WorldManager : MonoBehaviour
                 }
                 else if(focusedIndex == 2)
                 {
-                    Application.Quit();
+                    StartCoroutine(SaveManager.instance.switchToScene("MainMenuScene"));
                 }
             }
         }
@@ -130,7 +130,7 @@ public class WorldManager : MonoBehaviour
             {
                 focusedIndex++;
             }
-            highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-2f, -1.67f * focusedIndex, -1);
+            highlightBox.transform.position = playerStats.transform.GetChild(0).transform.position + new Vector3(-1.5f, -1.67f * focusedIndex, -1);
             if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 if(mode == 1.5)

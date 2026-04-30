@@ -101,6 +101,9 @@ public class SaveManager : MonoBehaviour
     }
     public void loadGame()
     {
+        playerList = new List<GameObject>();
+        dialogueList = new List<GameObject>();
+        inventory = new Dictionary<int, int>(); 
         gameData = fileManager.Load();
         //After loading, need to look at gamedata character type to instantiate correct prefab
         if(gameData == null)
@@ -161,7 +164,7 @@ public class SaveManager : MonoBehaviour
     //AKA we cannot put them in character.cs
     public IEnumerator levelUp()
     {
-        while(true)
+        while(true && SceneManager.GetActiveScene().name != "MainMenuScene")
         {
             for(int i = 0; i < playerList.Count; i++)
             {

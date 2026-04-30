@@ -9,16 +9,28 @@ public class PlayerMovement : MonoBehaviour
     public bool canSave;
     public Rigidbody2D rb;
     public GameObject worldManager;
+    public Animator anim;
+    public int state;
+    public int previousState;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         playerSpeed = 3f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Keyboard.current.shiftKey.isPressed)
+        {
+            playerSpeed = 6f;
+        }
+        else
+        {
+            playerSpeed = 3f;
+        }
         if(canMove && !SaveManager.instance.dialogueActive)
         {
             xDirection = 0;
@@ -38,6 +50,35 @@ public class PlayerMovement : MonoBehaviour
             if(Keyboard.current.downArrowKey.isPressed)
             {
                 yDirection += -1;
+            }
+            anim.StopPlayback();
+            //Horizontal direction takes priority over veritcal
+            if(xDirection > 0)
+            {
+                anim.Play("PlayerWalkingRight");
+                state = 0;
+                yDirection = 0;
+            }
+            else if(xDirection < 0)
+            {
+                anim.Play("PlayerWalkingLeft");
+                state = 1;
+                yDirection = 0;
+            }
+            else if(yDirection > 0)
+            {
+                anim.Play("PlayerWalkingUp");
+                state = 2;
+            }
+            else if(yDirection < 0)
+            {
+                anim.Play("PlayerWalkingDown");
+                state = 3;
+            }
+            else if(xDirection == 0 && yDirection == 0)
+            {
+                anim.Play("DefaultAnimation");
+                state = 4;
             }
             rb.linearVelocity = new Vector2(xDirection * playerSpeed, yDirection * playerSpeed);
         }

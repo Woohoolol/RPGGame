@@ -31,6 +31,8 @@ public class BattleHud : MonoBehaviour
     private bool finished;
     private List<GameObject> portraits;
     private List<int> itemsToChoose;
+    //0 = Physical, 1 = Mental, 2 = Healing, 3 = Debuff, 4 = Buff
+    public List<GameObject> particleAnimations;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -68,11 +70,8 @@ public class BattleHud : MonoBehaviour
             portraits.Add(portrait);
             portrait.transform.parent = selectionScreen.transform;
         }
-        for(int i = 0; i < SaveManager.instance.numberOfEnemies; i++)
-        {
-
-        }
         StartCoroutine(showVictory());
+        StartCoroutine(showDefeat());
         StartCoroutine(escape());
     }
 
@@ -100,19 +99,19 @@ public class BattleHud : MonoBehaviour
             if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
             {
                 //Unhighlight option before moving
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 focusedIndex--;
             }
             if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < actions.Count - 1)
             {
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 focusedIndex++;
             }
             //Highlight current option
-            actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.blue;
+            actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
             if(Keyboard.current.zKey.wasPressedThisFrame)
             {
-                actions[focusedIndex].GetComponent<SpriteRenderer>().color = new Color(0.3f, 0, 1);
+                actions[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 if(focusedIndex == 0)
                 {
                     Debug.Log("ATTACK");
@@ -157,6 +156,10 @@ public class BattleHud : MonoBehaviour
             if(Keyboard.current.zKey.wasPressedThisFrame)
             {
                 battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                GameObject particle = Instantiate(particleAnimations[0], new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+                particle.transform.parent = battleManager.enemyList[focusedIndex].transform.parent;
+                particle.transform.position = battleManager.enemyList[focusedIndex].transform.position;
+                Destroy(particle, 1);
                 battleManager.allyAttack(focusedIndex);
                 //Reset to top of menu after action
                 mode = 0;
@@ -465,11 +468,6 @@ public class BattleHud : MonoBehaviour
                     optionDescription.SetActive(false);
                 }   
         }
-        else if(mode == 6 && !finished)
-        {
-            optionDescription.SetActive(false);
-            // Debug.Log("DEFEAT");
-        }
         else if(mode == 7)
         {
             //Wait until enemies are done attacking or is attacking
@@ -508,11 +506,16 @@ public class BattleHud : MonoBehaviour
                 baseColor[2] = 1;
             }
             battleManager.playerList[i].GetComponent<SpriteRenderer>().color = baseColor;
-        }
-
- 
+        } 
     }
 
+    public void spawnParticle(int particleType, GameObject target)
+    {
+        GameObject particle = Instantiate(particleAnimations[particleType], new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        particle.transform.parent = target.transform.parent;
+        particle.transform.position = target.transform.position;
+        Destroy(particle, 1);
+    }
     public void showActiveMenu()
     {
         actionMenu.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
@@ -583,5 +586,17 @@ public class BattleHud : MonoBehaviour
         yield return new WaitUntil(() => victoryDialogueCanvas == null);
         StartCoroutine(SaveManager.instance.switchToScene("WorldScene"));
         yield return null;
+    }
+
+    public IEnumerator showDefeat()
+    {
+        while(mode != 6)
+        {
+            yield return null;
+        }
+        optionDescription.SetActive(false);
+        yield return new WaitForSeconds(2);
+        actionMenu.SetActive(false);
+        StartCoroutine(SaveManager.instance.switchToScene("DefeatScene"));
     }
 }

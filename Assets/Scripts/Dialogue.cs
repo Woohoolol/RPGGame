@@ -61,10 +61,14 @@ public class Dialogue : MonoBehaviour
     {
         anim.Play("DialogueDisappear");
         yield return new WaitForSeconds(0.25f);
-        SaveManager.instance.dialogueActive = false;
         Destroy(transform.parent.gameObject);  
     }
-
+    //If dialogue gets destroyed by a scene change make sure we can still move
+    public void OnDestroy()
+    {
+        Debug.Log("WHAT");
+        SaveManager.instance.dialogueActive = false;
+    }
     // Update is called once per frame
     void Update()
     {

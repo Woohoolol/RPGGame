@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
     public int currentPlayerIndex;
     public List<GameObject> enemyList;
     public int currentEnemyIndex;
+    public GameObject battleHud;
     public GameObject specialManager;
     public GameObject itemManager;
     public float expGain;
@@ -166,6 +167,7 @@ public class BattleManager : MonoBehaviour
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
                     Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
+                    battleHud.GetComponent<BattleHud>().spawnParticle(0, playerList[attackingIndex]);
                     attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + Math.Pow(attackedAlly.finalpdefense, 0.75)))));
                     //Enemies should stop hitting when everyone dead
                     if(defeat())

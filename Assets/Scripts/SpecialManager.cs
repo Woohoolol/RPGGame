@@ -7,6 +7,7 @@ public class SpecialManager : MonoBehaviour
     public List<Special> allSpecials;
     public int specialIndex;
     public GameObject battleManager;
+    public BattleHud battleHud;
     public int playerIndex;
     public int enemyIndex;
     public bool activated;
@@ -80,6 +81,7 @@ public class SpecialManager : MonoBehaviour
             }
         }
     }
+
     public IEnumerator useSpecial()
     {
         while(true)
@@ -97,10 +99,22 @@ public class SpecialManager : MonoBehaviour
                 {
                     if(theEnemy != null)
                     {
+                        if(theSpecial.isHealing)
+                        {
+                            battleHud.spawnParticle(2, theBattleManager.enemyList[enemyIndex]);
+                        }
+                        else if(theSpecial.isPhysical)
+                        {
+                            battleHud.spawnParticle(0, theBattleManager.enemyList[enemyIndex]);
+                        }
+                        else if(theSpecial.isMental)
+                        {
+                            battleHud.spawnParticle(1, theBattleManager.enemyList[enemyIndex]);
+                        }
                         theEnemy.stats.currenthp -= damage;
                         theEnemy.stats.currenthp += healing;
                         Debug.Log("HEALED ENEMY FOR " + healing + " DAMAGED ENEMY FOR " + damage);
-                        yield return new WaitForSeconds(0.5f);
+                        yield return new WaitForSeconds(0.25f);
                     }
                 }
                 if(theSpecial.isModifier && theEnemy != null)
@@ -108,6 +122,15 @@ public class SpecialManager : MonoBehaviour
                     for(int i = 0; i < theSpecial.modifierStats.Count; i++)
                     {
                         theEnemy.modifiers.Add(theSpecial.modifierStats[i]);
+                        if(theSpecial.modifierStats[i][0] < 0)
+                        {
+                            battleHud.spawnParticle(3, theBattleManager.enemyList[enemyIndex]);
+                        }
+                        else if(theSpecial.modifierStats[i][0] > 0)
+                        {
+                            battleHud.spawnParticle(4, theBattleManager.enemyList[enemyIndex]);
+                        }
+                        yield return new WaitForSeconds(0.25f);
                     }
                 }
             }
@@ -121,10 +144,22 @@ public class SpecialManager : MonoBehaviour
                     {
                         if(theEnemy != null)
                         {
+                            if(theSpecial.isHealing)
+                            {
+                                battleHud.spawnParticle(2, theBattleManager.enemyList[i]);
+                            }
+                            else if(theSpecial.isPhysical)
+                            {
+                                battleHud.spawnParticle(0, theBattleManager.enemyList[i]);
+                            }
+                            else if(theSpecial.isMental)
+                            {
+                                battleHud.spawnParticle(1, theBattleManager.enemyList[i]);
+                            }
                             theEnemy.stats.currenthp -= damage;
                             theEnemy.stats.currenthp += healing;
                             Debug.Log("HEALED ENEMY FOR " + healing + " DAMAGED ENEMY FOR " + damage);
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(0.25f);
                         }
                     }
                     if(theSpecial.isModifier && theEnemy != null)
@@ -132,6 +167,15 @@ public class SpecialManager : MonoBehaviour
                         for(int j = 0; j < theSpecial.modifierStats.Count; j++)
                         {
                             theEnemy.modifiers.Add(theSpecial.modifierStats[j]);
+                            if(theSpecial.modifierStats[j][0] < 0)
+                            {
+                                battleHud.spawnParticle(3, theBattleManager.enemyList[i]);
+                            }
+                            else if(theSpecial.modifierStats[j][0] > 0)
+                            {
+                                battleHud.spawnParticle(4, theBattleManager.enemyList[i]);
+                            }
+                            yield return new WaitForSeconds(0.25f);
                         }
                     }
                     //Killed enemy, should not shift
@@ -149,10 +193,22 @@ public class SpecialManager : MonoBehaviour
                 {
                     if(theEnemy != null)
                     {
+                        if(theSpecial.isHealing)
+                        {
+                            battleHud.spawnParticle(2, theBattleManager.playerList[enemyIndex]);
+                        }
+                        else if(theSpecial.isPhysical)
+                        {
+                            battleHud.spawnParticle(0, theBattleManager.playerList[enemyIndex]);
+                        }
+                        else if(theSpecial.isMental)
+                        {
+                            battleHud.spawnParticle(1, theBattleManager.playerList[enemyIndex]);
+                        }
                         theEnemy.stats.currenthp -= damage;
                         theEnemy.stats.currenthp += healing;
                         Debug.Log("HEALED ALLY FOR " + healing + " DAMAGED ALLY FOR " + damage);
-                        yield return new WaitForSeconds(0.5f);
+                        yield return new WaitForSeconds(0.25f);
                     }
                 }
                 if(theSpecial.isModifier && theEnemy != null)
@@ -160,6 +216,15 @@ public class SpecialManager : MonoBehaviour
                     for(int i = 0; i < theSpecial.modifierStats.Count; i++)
                     {
                         theEnemy.modifiers.Add(theSpecial.modifierStats[i]);
+                        if(theSpecial.modifierStats[i][0] < 0)
+                        {
+                            battleHud.spawnParticle(3, theBattleManager.playerList[enemyIndex]);
+                        }
+                        else if(theSpecial.modifierStats[i][0] > 0)
+                        {
+                            battleHud.spawnParticle(4, theBattleManager.playerList[enemyIndex]);
+                        }
+                        yield return new WaitForSeconds(0.25f);
                     }
                 }
             }
@@ -173,10 +238,22 @@ public class SpecialManager : MonoBehaviour
                     {
                         if(theEnemy != null)
                         {
+                            if(theSpecial.isHealing)
+                            {
+                                battleHud.spawnParticle(2, theBattleManager.playerList[i]);
+                            }
+                            else if(theSpecial.isPhysical)
+                            {
+                                battleHud.spawnParticle(0, theBattleManager.playerList[i]);
+                            }
+                            else if(theSpecial.isMental)
+                            {
+                                battleHud.spawnParticle(1, theBattleManager.playerList[i]);
+                            }
                             theEnemy.stats.currenthp -= damage;
                             theEnemy.stats.currenthp += healing;
                             Debug.Log("HEALED ALLY FOR " + healing + " DAMAGED ALLY FOR " + damage);
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(0.25f);
                         }
                     }
                     if(theSpecial.isModifier && theEnemy != null)
@@ -184,6 +261,15 @@ public class SpecialManager : MonoBehaviour
                         for(int j = 0; j < theSpecial.modifierStats.Count; j++)
                         {
                             theEnemy.modifiers.Add(theSpecial.modifierStats[j]);
+                            if(theSpecial.modifierStats[j][0] < 0)
+                            {
+                                battleHud.spawnParticle(3, theBattleManager.playerList[i]);
+                            }
+                            else if(theSpecial.modifierStats[j][0] > 0)
+                            {
+                                battleHud.spawnParticle(4, theBattleManager.playerList[i]);
+                            }
+                            yield return new WaitForSeconds(0.25f);
                         }
                     }
                     //Killed enemy, should not shift
@@ -200,6 +286,18 @@ public class SpecialManager : MonoBehaviour
                 {
                     if(thePlayer != null)
                     {
+                        if(theSpecial.isHealing)
+                        {
+                            battleHud.spawnParticle(2, theBattleManager.playerList[playerIndex]);
+                        }
+                        else if(theSpecial.isPhysical)
+                        {
+                            battleHud.spawnParticle(0, theBattleManager.playerList[playerIndex]);
+                        }
+                        else if(theSpecial.isMental)
+                        {
+                            battleHud.spawnParticle(1, theBattleManager.playerList[playerIndex]);
+                        }
                         thePlayer.stats.currenthp -= damage;
                         thePlayer.stats.currenthp += healing;
                         Debug.Log("HEALED ENEMY FOR " + healing + " DAMAGED ENEMY FOR " + damage);
@@ -211,6 +309,15 @@ public class SpecialManager : MonoBehaviour
                     for(int i = 0; i < theSpecial.modifierStats.Count; i++)
                     {
                         thePlayer.modifiers.Add(theSpecial.modifierStats[i]);
+                        if(theSpecial.modifierStats[i][0] < 0)
+                        {
+                            battleHud.spawnParticle(3, theBattleManager.playerList[playerIndex]);
+                        }
+                        else if(theSpecial.modifierStats[i][0] > 0)
+                        {
+                            battleHud.spawnParticle(4, theBattleManager.playerList[playerIndex]);
+                        }
+                        yield return new WaitForSeconds(0.25f);
                     }
                 }
             }
