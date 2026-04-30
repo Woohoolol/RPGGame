@@ -20,6 +20,8 @@ public class WorldManager : MonoBehaviour
     public GameObject specialManager;
     public GameObject itemManager;
     public GameObject itemSelection;
+    public GameObject shopSelection;
+    public GameObject shopManager;
     public List<int> itemsToChoose;
     //0 = Overworld mode, 1 = stats menu, 2 = detailed stats, 3 = equipment menu, 4 = inventory menu
     public float mode;
@@ -291,70 +293,72 @@ public class WorldManager : MonoBehaviour
             }
             else if(mode == 3)
             {
-            string nameInfo = "";
-            string descriptionInfo = "";
-            string quantityInfo = "";
-            nameInfo += String.Format("{0,-15}", "Name: "); 
-            descriptionInfo +=  String.Format("{0,-30}", "Description: ");
-            quantityInfo +=  String.Format("{0,-10}", "Quantity: ");
-            nameInfo += "\n\n";
-            descriptionInfo += "\n\n";
-            quantityInfo += "\n\n";
-            itemsToChoose = new List<int>();
-            foreach(var item in SaveManager.instance.inventory)
-            {
-                itemsToChoose.Add(item.Key);
-                //Padding on the bottom to make sure that the highlight box remains consistently stable
-                int bottomPadding = 4;
-                Item theItem = itemManager.GetComponent<ItemManager>().allItems[item.Key];
-                int quantity = item.Value;
-                quantityInfo +=  String.Format("{0,-5}", quantity);
-                String[] words = theItem.description.Split();
-                String line = "";
-                foreach(string word in words)
+                string nameInfo = "";
+                string descriptionInfo = "";
+                string quantityInfo = "";
+                nameInfo += String.Format("{0,-15}", "Name: "); 
+                descriptionInfo +=  String.Format("{0,-30}", "Description: ");
+                quantityInfo +=  String.Format("{0,-10}", "Quantity: ");
+                nameInfo += "\n\n";
+                descriptionInfo += "\n\n";
+                quantityInfo += "\n\n";
+                itemsToChoose = new List<int>();
+                foreach(var item in SaveManager.instance.inventory)
                 {
-                    if((line + word + " ").Length >= 40)
+                    itemsToChoose.Add(item.Key);
+                    //Padding on the bottom to make sure that the highlight box remains consistently stable
+                    int bottomPadding = 4;
+                    Item theItem = itemManager.GetComponent<ItemManager>().allItems[item.Key];
+                    int quantity = item.Value;
+                    quantityInfo +=  String.Format("{0,-5}", quantity);
+                    String[] words = theItem.description.Split();
+                    String line = "";
+                    foreach(string word in words)
                     {
-                        descriptionInfo += line + "\n";
-                        line = word + " ";
-                        bottomPadding--;
+                        if((line + word + " ").Length >= 40)
+                        {
+                            descriptionInfo += line + "\n";
+                            line = word + " ";
+                            bottomPadding--;
+                        }
+                        else
+                        {
+                            line += word + " ";
+                        }
                     }
-                    else
+                    descriptionInfo += line;
+                    for(int j = 0; j < bottomPadding; j++)
                     {
-                        line += word + " ";
+                        descriptionInfo += "\n";
+                    }
+                    line = "";
+                    words = theItem.name.Split();
+                    bottomPadding = 4;
+                    foreach(string word in words)
+                    {
+                        if((line + word + " ").Length >= 10)
+                        {
+                            nameInfo += line + "\n";
+                            line = word + " ";
+                            bottomPadding--;
+                        }
+                        else
+                        {
+                            line += word + " ";
+                        }
+                    }
+                    nameInfo += line;
+                    quantityInfo += "\n\n\n\n";
+                    for(int j = 0; j < bottomPadding; j++)
+                    {
+                        nameInfo += "\n";
                     }
                 }
-                descriptionInfo += line;
-                for(int j = 0; j < bottomPadding; j++)
-                {
-                    descriptionInfo += "\n";
-                }
-                line = "";
-                words = theItem.name.Split();
-                bottomPadding = 4;
-                foreach(string word in words)
-                {
-                    if((line + word + " ").Length >= 10)
-                    {
-                        nameInfo += line + "\n";
-                        line = word + " ";
-                        bottomPadding--;
-                    }
-                    else
-                    {
-                        line += word + " ";
-                    }
-                }
-                nameInfo += line;
-                quantityInfo += "\n\n\n\n";
-                for(int j = 0; j < bottomPadding; j++)
-                {
-                    nameInfo += "\n";
-                }
-            }
-            itemSelection.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().SetText(nameInfo);
-            itemSelection.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(descriptionInfo);
-            itemSelection.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().SetText(quantityInfo);
+                itemSelection.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().SetText(nameInfo);
+                itemSelection.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(descriptionInfo);
+                itemSelection.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().SetText(quantityInfo);
+                itemSelection.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().SetText("Money: " + SaveManager.instance.money);
+
             }
             yield return null;
         }

@@ -206,7 +206,9 @@ public class BattleManager : MonoBehaviour
         }
         SaveManager.instance.money += moneyGain;
         int itemAcquired = UnityEngine.Random.Range(0, 5);
-        itemManager.GetComponent<ItemManager>().acquiredItem(itemAcquired, 3);
+        itemManager.GetComponent<ItemManager>().acquiredItem(itemAcquired, 1);
+        string itemName = itemManager.GetComponent<ItemManager>().allItems[itemAcquired].name;
+        SaveManager.instance.spawnDialogue(new List<string>{itemName + " acquired!"});
         yield return null;
     }
 }

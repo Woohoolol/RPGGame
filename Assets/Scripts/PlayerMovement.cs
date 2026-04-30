@@ -7,9 +7,11 @@ public class PlayerMovement : MonoBehaviour
     public int yDirection;
     public bool canMove;
     public bool canSave;
+    public bool canBuy;
     public Rigidbody2D rb;
     public GameObject worldManager;
     public Animator anim;
+    public GameObject shopkeeper;
     public int state;
     public int previousState;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -89,6 +91,14 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(SaveManager.instance.lastSavedLocation);
             SaveManager.instance.saveGame();
         }
+        if(canBuy && Keyboard.current.zKey.wasPressedThisFrame && worldManager.GetComponent<WorldManager>().mode == 0)
+        {
+            Debug.Log("Opened shop!");
+            if(!shopkeeper.GetComponent<ShopManager>().activated)
+            {
+                shopkeeper.GetComponent<ShopManager>().activateShop();
+            }
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -97,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
         {
             canSave = true;
         }
+        if(collision.gameObject.CompareTag("Shopkeeper"))
+        {
+            canBuy = true;
+            shopkeeper = collision.gameObject;
+        }
     }
 
     public void OnCollisionExit2D(Collision2D collision)
@@ -104,6 +119,10 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.CompareTag("SaveSpot"))
         {
             canSave = false;
+        }
+        if(collision.gameObject.CompareTag("Shopkeeper"))
+        {
+            canBuy = false;
         }
     }
 }

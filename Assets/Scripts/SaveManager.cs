@@ -164,31 +164,33 @@ public class SaveManager : MonoBehaviour
     //AKA we cannot put them in character.cs
     public IEnumerator levelUp()
     {
-        while(true && SceneManager.GetActiveScene().name != "MainMenuScene")
+        while(true)
         {
-            for(int i = 0; i < playerList.Count; i++)
+            if(SceneManager.GetActiveScene().name != "MainMenuScene")
             {
-                Character thePlayer = playerList[i].GetComponent<Character>();
-                bool leveledUp = false;
-                while(thePlayer.stats.exp >= thePlayer.expRequirement)
+                for(int i = 0; i < playerList.Count; i++)
                 {
-                    thePlayer.stats.level++;
-                    thePlayer.stats.exp -= thePlayer.expRequirement;
-                    leveledUp = true;
+                    Character thePlayer = playerList[i].GetComponent<Character>();
+                    bool leveledUp = false;
+                    while(thePlayer.stats.exp >= thePlayer.expRequirement)
+                    {
+                        thePlayer.stats.level++;
+                        thePlayer.stats.exp -= thePlayer.expRequirement;
+                        leveledUp = true;
+                    }
+                    if(leveledUp)
+                    {
+                        List<string> levelUpDialogue = new List<string>{thePlayer.stats.characterType + " Leveled up to level " + thePlayer.stats.level + "!"};
+                        SaveManager.instance.spawnDialogue(levelUpDialogue, characterDialogue: false);
+                    }
                 }
-                if(leveledUp)
-                {
-                    List<string> levelUpDialogue = new List<string>{thePlayer.stats.characterType + " Leveled up to level " + thePlayer.stats.level + "!"};
-                    SaveManager.instance.spawnDialogue(levelUpDialogue, characterDialogue: false);
-                }
-
             }
             yield return null;
         }
     }
 
     //Dialogue character referencing charactertypes from Character
-    public GameObject spawnDialogue(List<string> dialogue, bool characterDialogue, List<int> dialogueCharacters = null)
+    public GameObject spawnDialogue(List<string> dialogue, bool characterDialogue = false, List<int> dialogueCharacters = null)
     {
         //Z values are all glitching with each other, will spawn at dfferent z values
         float zCoordinate = 0;
@@ -214,7 +216,11 @@ public class SaveManager : MonoBehaviour
             {
                 GameObject theDialogueCanvas = dialogueList[0];
                 dialogueList.RemoveAt(0);
-                theDialogueCanvas.SetActive(true);
+                //Dialogue box may disappear in the middle of scene transitions
+                if(theDialogueCanvas != null)
+                {
+                    theDialogueCanvas.SetActive(true);
+                }
                 yield return new WaitUntil(() => theDialogueCanvas == null);
             }
             yield return null;

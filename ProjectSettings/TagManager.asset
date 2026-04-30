@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SaveSpot
   - TransitionEffect
+  - Shopkeeper
   layers:
   - Default
   - TransparentFX

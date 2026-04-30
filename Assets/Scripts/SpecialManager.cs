@@ -25,13 +25,13 @@ public class SpecialManager : MonoBehaviour
         //Ally specials
         allSpecials.Add(new Special("Double Hit", "Hits an enemy twice for 0.75x physical.", 5, 0, intensity: 0.75f, numberOfHits: 2, isPhysical: true));
         allSpecials.Add(new Special("Respite", "Recovers an ally's hp for 0.75x mental.", 4, 2, intensity: 0.5f, numberOfHits: 1, isHealing: true, isMental: true));
-        allSpecials.Add(new Special("Arrow Storm", "Strikes all enemies 3 times for 0.33x physical.", 12, 1, intensity: 0.33f, numberOfHits: 3, isPhysical: true));
-        allSpecials.Add(new Special("Meteor", "Strikes an enemy powerfully for 2.5x mental.", 9, 0, intensity: 2.5f, numberOfHits: 1, isMental: true));
+        allSpecials.Add(new Special("Arrow Storm", "Strikes all enemies 3 times for 0.33x physical.", 10, 1, intensity: 0.33f, numberOfHits: 3, isPhysical: true));
+        allSpecials.Add(new Special("Meteor", "Strikes an enemy powerfully for 1.5x mental.", 5, 0, intensity: 2.5f, numberOfHits: 1, isMental: true));
         allSpecials.Add(new Special("Circle of Life", "Recover all allies' hp for 0.33x mental.", 12, 3, intensity: 0.33f, numberOfHits: 1, isMental: true, isHealing: true));
         allSpecials.Add(new Special("Sharpen", "Increase own physical by 0.5x for 3 turns.", 5, 4, isModifier: true, modifierStats: new List<float[]>{new float[]{1, 0.5f, 1}}));
         allSpecials.Add(new Special("Wither", "Decrease an enemy's physical defense and mental defense by 0.5x for 2 turns.", 9, 0, isModifier: true, modifierStats: new List<float[]>(){new float[]{-3, 0.5f, 2}, new float[]{-4, 0.5f, 2}}));
         allSpecials.Add(new Special("Guard", "Increase own physical defense by 0.75x for 2 turns.", 4, 4, isModifier: true, modifierStats: new List<float[]>(){new float[]{3, 0.75f, 2}}));
-        allSpecials.Add(new Special("Mana Barrier", "Increase all allies' magic defense by 0.33x for 3 turns.", 10, 3, isModifier: true, modifierStats: new List<float[]>(){new float[]{4, 0.33f, 3}}));
+        allSpecials.Add(new Special("Mana Barrier", "Increase all allies' magic defense by 0.33x for 3 turns.", 7, 3, isModifier: true, modifierStats: new List<float[]>(){new float[]{4, 0.33f, 3}}));
 
         //Enemy specials
 
