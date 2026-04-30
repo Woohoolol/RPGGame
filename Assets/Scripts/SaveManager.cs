@@ -18,7 +18,6 @@ public class SaveManager : MonoBehaviour
     public List<GameObject> playerList;
     public Dictionary<int, int> inventory;
     public Vector3 lastSavedLocation;
-    public int checkpoint;
     public float money;
     public GameData gameData;
     private List<SaveInterface> allSaveData;
@@ -29,6 +28,7 @@ public class SaveManager : MonoBehaviour
     private String theSceneName;
     public bool dialogueActive;
     public List<GameObject> dialogueList;
+    public List<int> eventFlags;
     //Should be initalized in inspector with every class wanted
     //These two should be synchronized with each other
     public GameObject[] classes;
@@ -41,6 +41,7 @@ public class SaveManager : MonoBehaviour
         playerList = new List<GameObject>();
         dialogueList = new List<GameObject>();
         inventory = new Dictionary<int, int>(); 
+        eventFlags = new List<int>();
         //Setting file save/load to default directory
         fileManager = new FileManager(Application.persistentDataPath, fileName);
         Debug.Log("Saved location is" + Application.persistentDataPath);
@@ -91,7 +92,7 @@ public class SaveManager : MonoBehaviour
             inventory.Add(gameData.inventoryID[i], gameData.inventoryQuantity[i]);
         }
         lastSavedLocation = gameData.lastSavedLocation;
-        checkpoint = gameData.checkpoint;
+        eventFlags = gameData.eventFlags;
         money = gameData.money;
     }
 
@@ -123,8 +124,9 @@ public class SaveManager : MonoBehaviour
             inventory.Add(gameData.inventoryID[i], gameData.inventoryQuantity[i]);
         }
         lastSavedLocation = gameData.lastSavedLocation;
-        checkpoint = gameData.checkpoint;
         money = gameData.money;
+        eventFlags = gameData.eventFlags;
+
     }
 
     public void saveGame()
@@ -143,8 +145,8 @@ public class SaveManager : MonoBehaviour
             gameData.inventoryQuantity.Add(item.Value);
         }
         gameData.lastSavedLocation = lastSavedLocation;
-        gameData.checkpoint = checkpoint;
         gameData.money = money;
+        gameData.eventFlags = eventFlags;
         fileManager.Save(gameData);
     }
 

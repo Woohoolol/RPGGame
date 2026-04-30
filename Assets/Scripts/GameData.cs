@@ -9,7 +9,7 @@ public class GameData
     public List<int> inventoryQuantity;
     public List<CharacterStats> playerStats;
     public Vector3 lastSavedLocation;
-    public int checkpoint;
+    public List<int> eventFlags;
     public GameData()
     {
         money = 0;
@@ -27,6 +27,11 @@ public class GameData
         inventoryID = new List<int>{0, 1, 2, 3, 4};
         inventoryQuantity = new List<int>{1, 1, 1, 1, 1};
         lastSavedLocation = new Vector3(0, 0, 0);
-        checkpoint = 0;
+        eventFlags = new List<int>{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        //1 = starting out story
+        //2 = talking to shopkeeper
+        //3 = fighting first boss
+        //4 = fighting final boss
+        //5 = 
     }
 }

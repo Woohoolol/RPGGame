@@ -26,8 +26,15 @@ public class ShopManager : MonoBehaviour
 
     public void activateShop()
     {
+        StartCoroutine(delayActivateShop());
+    }
+
+    public IEnumerator delayActivateShop()
+    {
+        yield return new WaitForSeconds(0.1f);
         activated = true;
-        focusedIndex = 0;
+        focusedIndex = 0;  
+        yield return null;
     }
     void Awake()
     {

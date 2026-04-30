@@ -28,7 +28,6 @@ public class BattleHud : MonoBehaviour
     public int focusedIndex;
     public int chosenSpecial;
     public int chosenItem;
-    private bool finished;
     private List<GameObject> portraits;
     private List<int> itemsToChoose;
     //0 = Physical, 1 = Mental, 2 = Healing, 3 = Debuff, 4 = Buff
@@ -52,7 +51,6 @@ public class BattleHud : MonoBehaviour
             battleManager.enemyList.Add(spawnedEnemy);
         }
         portraits = new List<GameObject>();
-        finished = false;
         focusedIndex = 0;
         mode = 0;
         for(int i = 0; i < SaveManager.instance.playerList.Count; i++)

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     public float playerSpeed;
@@ -84,16 +86,30 @@ public class PlayerMovement : MonoBehaviour
             }
             rb.linearVelocity = new Vector2(xDirection * playerSpeed, yDirection * playerSpeed);
         }
-        if(canSave && Keyboard.current.zKey.wasPressedThisFrame && worldManager.GetComponent<WorldManager>().mode == 0)
+        if(canSave && Keyboard.current.zKey.wasPressedThisFrame && worldManager.GetComponent<WorldManager>().mode == 0 && !SaveManager.instance.dialogueActive)
         {
             Debug.Log("Saved game!");
             SaveManager.instance.lastSavedLocation = transform.position;
             Debug.Log(SaveManager.instance.lastSavedLocation);
             SaveManager.instance.saveGame();
+            SaveManager.instance.spawnDialogue(new List<string>{"Saved data successfully!"});
         }
-        if(canBuy && Keyboard.current.zKey.wasPressedThisFrame && worldManager.GetComponent<WorldManager>().mode == 0)
+        if(canBuy && Keyboard.current.zKey.wasPressedThisFrame && worldManager.GetComponent<WorldManager>().mode == 0 && !SaveManager.instance.dialogueActive)
         {
             Debug.Log("Opened shop!");
+            if(SaveManager.instance.eventFlags.Contains(2))
+            {
+                List<string> dialogue = new List<string>{"Hi, who is this?", "It's me! The shopkeeper! Tee-hee. Want to buy any wares here?", "That's my friend from childhood days. You'll give us a discount... right?", "Hey! Why'd you tell them that! Anyhow, you won't get prices better than this!", "She is definitely upcharging us.", "(Sigh.... why are all merchants like this.)"};
+                List<int> dialogueCharacters = new List<int>{0, 4, 1, 4, 1, 3};
+                SaveManager.instance.spawnDialogue(dialogue, characterDialogue: true, dialogueCharacters: dialogueCharacters);
+                SaveManager.instance.eventFlags.Remove(2);
+            }
+            else
+            {
+                List<string> dialogue = new List<string>{"Welcome back! Want to buy something?"};
+                List<int> dialogueCharacters = new List<int>{4};
+                SaveManager.instance.spawnDialogue(dialogue, characterDialogue: true, dialogueCharacters: dialogueCharacters);
+            }
             if(!shopkeeper.GetComponent<ShopManager>().activated)
             {
                 shopkeeper.GetComponent<ShopManager>().activateShop();
@@ -101,12 +117,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collision.gameObject.CompareTag("SaveSpot"))
+        if(collider.gameObject.CompareTag("SaveSpot"))
         {
             canSave = true;
         }
+    }
+
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.gameObject.CompareTag("SaveSpot"))
+        {
+            canSave = false;
+        }
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+
         if(collision.gameObject.CompareTag("Shopkeeper"))
         {
             canBuy = true;
@@ -116,10 +144,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("SaveSpot"))
-        {
-            canSave = false;
-        }
         if(collision.gameObject.CompareTag("Shopkeeper"))
         {
             canBuy = false;
