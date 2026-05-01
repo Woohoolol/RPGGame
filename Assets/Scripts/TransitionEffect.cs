@@ -5,7 +5,14 @@ public class TransitionEffect : MonoBehaviour
     void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
-        GetComponent<Animator>().Play("EndTransition");
+        if(SaveManager.instance.eventFlags.Contains(1))
+        {
+            GetComponent<Animator>().Play("FadeIn");
+        }
+        else
+        {
+            GetComponent<Animator>().Play("EndTransition");
+        }
     }
 
     // Update is called once per frame

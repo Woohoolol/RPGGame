@@ -72,6 +72,7 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SaveManager.instance.dialogueActive = true;
         if(Keyboard.current.zKey.wasPressedThisFrame)
         {
             if(textIndex < texts.Count)

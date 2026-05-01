@@ -35,7 +35,7 @@ public class SaveManager : MonoBehaviour
     public GameObject[] portraits;
     void Awake()
     {
-        biome = 1;
+        biome = 0;
         theSceneName = SceneManager.GetActiveScene().name;
         transitionEffect = Instantiate(transitionEffectPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         playerList = new List<GameObject>();
@@ -182,7 +182,7 @@ public class SaveManager : MonoBehaviour
                     }
                     if(leveledUp)
                     {
-                        List<string> levelUpDialogue = new List<string>{thePlayer.stats.characterType + " Leveled up to level " + thePlayer.stats.level + "!"};
+                        List<string> levelUpDialogue = new List<string>{thePlayer.name + " Leveled up to level " + thePlayer.stats.level + "!"};
                         SaveManager.instance.spawnDialogue(levelUpDialogue, characterDialogue: false);
                     }
                 }
@@ -206,7 +206,6 @@ public class SaveManager : MonoBehaviour
         theDialogueCanvas.transform.GetChild(0).GetComponent<Dialogue>().characterType = dialogueCharacters;
         theDialogueCanvas.transform.GetChild(0).GetComponent<Dialogue>().characterDialogue = characterDialogue;
         dialogueList.Add(theDialogueCanvas);
-        dialogueActive = true;
         return theDialogueCanvas;
     }
 
@@ -241,6 +240,7 @@ public class SaveManager : MonoBehaviour
             Character thePlayer = playerList[i].GetComponent<Character>();
             if(thePlayer.stats.characterType == 0)
             {
+                thePlayer.name = "Warrior";
                 thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.55)) + 6;
                 thePlayer.basemaxhp = (10 + 5 * thePlayer.stats.level);
                 thePlayer.basemaxmp = (1 + 1 * thePlayer.stats.level);
@@ -248,10 +248,11 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (0 + 0.5f * thePlayer.stats.level);
                 thePlayer.basepdefense = (5 + 3.5f * thePlayer.stats.level);
                 thePlayer.basemdefense = (3 + 3.5f * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(0, 1), (7, 5)};
+                thePlayer.specialList = new List<(int, int)>{(0, 1), (7, 5), (10, 9)};
             }
             else if(thePlayer.stats.characterType == 1)
             {
+                thePlayer.name = "Archer";
                 thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.49)) + 4;
                 thePlayer.basemaxhp = (7 + 2 * thePlayer.stats.level);
                 thePlayer.basemaxmp = (3 + 1.5f * thePlayer.stats.level);
@@ -259,11 +260,12 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basemdefense = (2 + 1 * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(2, 1), (5, 5)};
+                thePlayer.specialList = new List<(int, int)>{(5, 1), (2, 5), (11, 9)};
 
             }
             else if(thePlayer.stats.characterType == 2)
             {
+                thePlayer.name = "Mage";
                 thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.47)) + 4;
                 thePlayer.basemaxhp = (7 + 1.5f * thePlayer.stats.level);
                 thePlayer.basemaxmp = (3 + 3f * thePlayer.stats.level);
@@ -271,11 +273,12 @@ public class SaveManager : MonoBehaviour
                 thePlayer.basemental = (3 + 3.5f * thePlayer.stats.level);
                 thePlayer.basepdefense = (2 + 1 * thePlayer.stats.level);
                 thePlayer.basemdefense = (3 + 2 * thePlayer.stats.level);
-                thePlayer.specialList = new List<(int, int)>{(3, 1), (6, 5)};
+                thePlayer.specialList = new List<(int, int)>{(3, 1), (6, 5), (9, 9)};
 
             }
             else if(thePlayer.stats.characterType == 3)
             {
+                thePlayer.name = "Cleric";
                 thePlayer.expRequirement = (float)Math.Ceiling(Math.Pow(thePlayer.stats.level, 1.52)) + 5;
                 thePlayer.basemaxhp = (10 + 3.5f * thePlayer.stats.level);
                 thePlayer.basemaxmp = (3 + 2f * thePlayer.stats.level);

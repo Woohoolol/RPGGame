@@ -60,18 +60,18 @@ public class ShopManager : MonoBehaviour
             shopSelection.SetActive(true);
             background.SetActive(true);
 
-            if(Keyboard.current.xKey.wasPressedThisFrame)
+            if(Keyboard.current.xKey.wasPressedThisFrame && !SaveManager.instance.dialogueActive)
             {
                 highlightBox2.SetActive(false);
                 shopSelection.SetActive(false);
                 background.SetActive(false);
                 activated = false;
             } 
-            if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0)
+            if(Keyboard.current.upArrowKey.wasPressedThisFrame && focusedIndex > 0 && !SaveManager.instance.dialogueActive)
             {
                 focusedIndex--;
             }
-            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < allItems.Count - 1)
+            if(Keyboard.current.downArrowKey.wasPressedThisFrame && focusedIndex < allItems.Count - 1 && !SaveManager.instance.dialogueActive)
             {
                 focusedIndex++;
             }

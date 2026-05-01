@@ -7,6 +7,8 @@ TagManager:
   - SaveSpot
   - TransitionEffect
   - Shopkeeper
+  - Teleporter
+  - NPCRecruit
   layers:
   - Default
   - TransparentFX

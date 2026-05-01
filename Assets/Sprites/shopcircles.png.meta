@@ -134,6 +134,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: shopcircles_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af103ace62a1ca54a92588f78207e30d
+      internalID: -1834078290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -153,6 +175,7 @@ TextureImporter:
         value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":3.0},"gridSpriteSize":{"x":159.0,"y":159.0},"gridSpriteOffset":{"x":33.0,"y":34.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       shopcircles_0: -3692746934162933852
+      shopcircles_1: -1834078290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

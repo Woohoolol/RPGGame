@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+
 public class WorldManager : MonoBehaviour
 {
     public GameObject player;
@@ -23,6 +24,8 @@ public class WorldManager : MonoBehaviour
     public GameObject shopSelection;
     public GameObject shopManager;
     public List<int> itemsToChoose;
+    public List<GameObject> teleporterList;
+    public List<GameObject> NPCRecruit;
     //0 = Overworld mode, 1 = stats menu, 2 = detailed stats, 3 = equipment menu, 4 = inventory menu
     public float mode;
     public int focusedIndex;
@@ -43,21 +46,93 @@ public class WorldManager : MonoBehaviour
         focusedIndex = 0;
         StartCoroutine(showMenu());
         StartCoroutine(enterBattle());
+        StartCoroutine(story());
+        StartCoroutine(initializeNPC());    
         player.transform.position = SaveManager.instance.lastSavedLocation;
+
     }
 
+    public IEnumerator initializeNPC()
+    {
+        if(SaveManager.instance.eventFlags.Contains(4))
+        {
+            GameObject npc = null;
+            npc = Instantiate(NPCRecruit[0], new Vector3(5.5f, -1.5f, 0), Quaternion.Euler(0, 0, 0));
+            npc.SetActive(true);
+            npc = Instantiate(NPCRecruit[1], new Vector3(-7.5f, -2.5f, 0), Quaternion.Euler(0, 0, 0));
+            npc.SetActive(true);
+            npc = Instantiate(NPCRecruit[2], new Vector3(-6.5f, 3.5f, 0), Quaternion.Euler(0, 0, 0));
+            npc.SetActive(true);
+        }
+        yield return null;
+    }
+    public IEnumerator story()
+    {
+        if(SaveManager.instance.eventFlags.Contains(1))
+        {
+
+            SaveManager.instance.dialogueActive = true;
+            yield return new WaitForSeconds(2);
+            List<string> dialogue = new List<string>{"Hmm... it's a long journey ahead.", "Maybe I should find some of my teammates before continuing on."};
+            List<int> dialogueCharacters = new List<int>{0, 0};
+            SaveManager.instance.spawnDialogue(dialogue, characterDialogue: true, dialogueCharacters: dialogueCharacters);
+            SaveManager.instance.eventFlags.Remove(1);
+        }
+        if(SaveManager.instance.eventFlags.Contains(4))
+        {
+            yield return new WaitUntil(() => SaveManager.instance.playerList.Count == 4);
+            List<string> dialogue = new List<string>{"That should be everyone! Everyone ready?", "Of course.", "Sure!", "Yes.", "Here we go!"};
+            List<int> dialogueCharacters = new List<int>{0, 1, 2, 3, 0};
+            SaveManager.instance.spawnDialogue(dialogue, characterDialogue: true, dialogueCharacters: dialogueCharacters);
+            dialogue = new List<string>{"A teleporter should have been unlocked in the area!"};
+            SaveManager.instance.spawnDialogue(dialogue);
+            SaveManager.instance.eventFlags.Remove(4);
+        }
+        teleporterList[0].GetComponent<Teleporter>().activated = true;
+        teleporterList[1].GetComponent<Teleporter>().activated = true;
+        if(SaveManager.instance.eventFlags.Contains(5))
+        {
+
+        }
+        yield return null;
+    }
     // Update is called once per frame
     void Update()
     {
+    
+        if(Keyboard.current.pKey.wasPressedThisFrame && !SaveManager.instance.dialogueActive)
+        {
+            for(int i = 0; i < SaveManager.instance.gameData.playerStats.Count; i++)
+            {
+                SaveManager.instance.gameData.playerStats[i].exp += 200;
+            }
+            List<int> itemIDs = new List<int>();
+            for(int i = 0; i < itemManager.GetComponent<ItemManager>().allItems.Count; i++)
+            {
+                itemIDs.Add(itemManager.GetComponent<ItemManager>().allItems[i].itemID);
+            }
+            foreach(var itemID in itemIDs)
+            {
+                if(SaveManager.instance.inventory.ContainsKey(itemID))
+                {
+                    SaveManager.instance.inventory[itemID] += 2;
+                }
+                else
+                {
+                    SaveManager.instance.inventory[itemID] = 2;
+                }
+            }
+        }
         if(mode == 0)
         {
             actionMenu.SetActive(false);
             player.GetComponent<PlayerMovement>().canMove = true;
-            if(Keyboard.current.enterKey.wasPressedThisFrame)
+            if(Keyboard.current.enterKey.wasPressedThisFrame && !SaveManager.instance.dialogueActive)
             {
                 mode = 1;
             }
-            if(player.GetComponent<PlayerMovement>().xDirection != 0 || player.GetComponent<PlayerMovement>().yDirection != 0)
+            //Should not be encountering enemies in resting biome
+            if(SaveManager.instance.biome != 0 && (player.GetComponent<PlayerMovement>().xDirection != 0 || player.GetComponent<PlayerMovement>().yDirection != 0))
             {
                 encounterRate += Time.deltaTime * encounterModifier;
             }

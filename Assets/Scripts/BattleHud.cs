@@ -41,6 +41,7 @@ public class BattleHud : MonoBehaviour
         {
             Transform thePosition = positions.GetChild(i);
             List<GameObject> listOfEnemies = SaveManager.instance.enemies[SaveManager.instance.biome - 1].biomeEnemies;
+            // List<GameObject> listOfEnemies = SaveManager.instance.enemies[0].biomeBosses;
             GameObject spawnedType = listOfEnemies[UnityEngine.Random.Range(0, listOfEnemies.Count)];
             GameObject spawnedEnemy = Instantiate(spawnedType, thePosition.position, Quaternion.Euler(0, 0, 0));
             //Will instantiate by default in the center due to world camera camera main
@@ -247,6 +248,7 @@ public class BattleHud : MonoBehaviour
                     specialMenu.SetActive(false);
                     highlightBox.SetActive(false);
                     chosenSpecial = validSpecials[focusedIndex];
+                    optionDescription.GetComponent<TextMeshProUGUI>().SetText("");
                     focusedIndex = 0;
                     mode = 2.5f;
                 }
@@ -284,7 +286,7 @@ public class BattleHud : MonoBehaviour
                 if(Keyboard.current.zKey.wasPressedThisFrame)
                 {
                     battleManager.enemyList[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
-                    battleManager.allySpecial(chosenSpecial, focusedIndex);
+                    battleManager.targetSpecial(chosenSpecial, focusedIndex);
                     mode = 0;
                     focusedIndex = 0;
                     optionDescription.SetActive(false);
@@ -292,7 +294,7 @@ public class BattleHud : MonoBehaviour
             }
             else if(targeting == 1)
             {
-                battleManager.allySpecial(chosenSpecial, -1);
+                battleManager.targetSpecial(chosenSpecial, -1);
                 mode = 0;
                 focusedIndex = 0;
             }
@@ -321,7 +323,7 @@ public class BattleHud : MonoBehaviour
                 if(Keyboard.current.zKey.wasPressedThisFrame && battleManager.playerList[focusedIndex].GetComponent<Character>().stats.currenthp > 0)
                 {
                     portraits[focusedIndex].GetComponent<SpriteRenderer>().color = Color.white;
-                    battleManager.allySpecial(chosenSpecial, focusedIndex);
+                    battleManager.targetSpecial(chosenSpecial, focusedIndex);
                     mode = 0;
                     focusedIndex = 0;
                     optionDescription.SetActive(false);
@@ -329,13 +331,13 @@ public class BattleHud : MonoBehaviour
             }
             else if(targeting == 3)
             {
-                battleManager.allySpecial(chosenSpecial, -1);
+                battleManager.targetSpecial(chosenSpecial, -1);
                 mode = 0;
                 focusedIndex = 0;
             }
             else if(targeting == 4)
             {
-                battleManager.allySpecial(chosenSpecial, -1);     
+                battleManager.targetSpecial(chosenSpecial, -1);     
                 mode = 0;
                 focusedIndex = 0;
             }
@@ -469,7 +471,6 @@ public class BattleHud : MonoBehaviour
         else if(mode == 7)
         {
             //Wait until enemies are done attacking or is attacking
-            optionDescription.SetActive(false);
             showInactiveMenu();
             if(!battleManager.enemyTurn() && !battleManager.specialManager.GetComponent<SpecialManager>().activated)
             {
@@ -527,8 +528,8 @@ public class BattleHud : MonoBehaviour
     {
         for(int i = 0; i < battleManager.playerList.Count; i++)
         {
-            SaveManager.instance.gameData.playerStats[i].currenthp = battleManager.playerList[i].GetComponent<Character>().stats.currenthp;
-            SaveManager.instance.gameData.playerStats[i].currentmp = battleManager.playerList[i].GetComponent<Character>().stats.currentmp;
+            SaveManager.instance.playerList[i].GetComponent<Character>().stats.currenthp = battleManager.playerList[i].GetComponent<Character>().stats.currenthp;
+            SaveManager.instance.playerList[i].GetComponent<Character>().stats.currentmp = battleManager.playerList[i].GetComponent<Character>().stats.currentmp;
         }
     }
 

@@ -110,9 +110,9 @@ MonoBehaviour:
     exp: 0
     level: 0
   basemaxhp: 10
-  basemaxmp: 1
+  basemaxmp: 10
   basephysical: 5
-  basemental: 0
+  basemental: 1
   basepdefense: 2
   basemdefense: 2
   finalmaxhp: 0
@@ -124,3 +124,4 @@ MonoBehaviour:
   expRequirement: 0
   enemyExp: 4
   enemyMoney: 10
+  enemySpecialList: 

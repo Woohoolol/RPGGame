@@ -6,6 +6,8 @@ public class Character : MonoBehaviour
 {
     public CharacterStats stats = new CharacterStats();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public string name;
+
     public float basemaxhp;
     public float basemaxmp;
     public float basephysical;
@@ -28,7 +30,8 @@ public class Character : MonoBehaviour
     //Only relevant for enemy characters
     public float enemyExp = 5;
     public float enemyMoney = 10;
-
+    //Don't need level requirement for spells here, should be initalized in prefab
+    public List<int> enemySpecialList;
     void Start()
     {
         specialList = new List<(int, int)>();
@@ -52,6 +55,7 @@ public class Character : MonoBehaviour
             if(modifierType < 0)
             {
                 modifierValue *= -1;
+                modifierValue = (1 - modifierValue);
             }
             if(Math.Abs(modifierType) == 1)
             {
@@ -71,11 +75,15 @@ public class Character : MonoBehaviour
             }
             else if(Math.Abs(modifierType) == 5)
             {
-                finalmaxhp += modifierValue * basemaxhp;
+                stats.currenthp -= modifierValue * stats.currenthp;
+                modifiers.RemoveAt(i);
+                i--;
             }
             else if(Math.Abs(modifierType) == 6)
             {
-                finalmaxmp += modifierValue * basemaxmp;
+                stats.currentmp -= modifierValue * stats.currentmp;
+                modifiers.RemoveAt(i);
+                i--;
             }
         }
         //Stat caps

@@ -53,10 +53,10 @@ public class ItemManager : MonoBehaviour
         while(true)
         {
             yield return new WaitUntil(() => acquired);
-            Debug.Log("ACTIAVETD");
+            string itemName = allItems[itemID].name;
+            SaveManager.instance.spawnDialogue(new List<string>{quantity + " " + itemName + " acquired!"});
             if(!inventory.ContainsKey(itemID))
             {
-                Debug.Log("Addedfdfds");
                 inventory.Add(itemID, quantity);
             }
             else

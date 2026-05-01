@@ -14,6 +14,11 @@ public class DefeatScreen : MonoBehaviour
         
     }
 
+    public void newGame()
+    {
+        SaveManager.instance.newGame();
+        StartCoroutine(SaveManager.instance.switchToScene("WorldScene"));
+    }
     public void loading()
     {
         SaveManager.instance.loadGame();

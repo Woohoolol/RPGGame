@@ -14,7 +14,7 @@ public class GameData
     {
         money = 0;
         playerStats = new List<CharacterStats>();
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 1; i++)
         {
             CharacterStats stat = new CharacterStats();
             stat.characterType = i;
@@ -30,8 +30,8 @@ public class GameData
         eventFlags = new List<int>{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         //1 = starting out story
         //2 = talking to shopkeeper
-        //3 = fighting first boss
-        //4 = fighting final boss
-        //5 = 
+        //3 = first save
+        //4 = collected all allies
+
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using TMPro;
 public class BattleManager : MonoBehaviour
 {
     public List<GameObject> playerList;
@@ -99,12 +100,23 @@ public class BattleManager : MonoBehaviour
         currentPlayerIndex++;
     }
 
-    public void allySpecial(int specialIndex, int theEnemyIndex)
+    public void targetSpecial(int specialIndex, int targetIndex, bool isEnemyAction = false)
     {
-        Special theSpecial = specialManager.GetComponent<SpecialManager>().allSpecials[specialIndex];
-        specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, playerIndex: currentPlayerIndex, enemyIndex: theEnemyIndex);
-        playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
-        currentPlayerIndex++;
+        Special theSpecial;
+        if(!isEnemyAction)
+        {
+            theSpecial = specialManager.GetComponent<SpecialManager>().allSpecials[specialIndex];
+            specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, playerIndex: currentPlayerIndex, enemyIndex: targetIndex, isEnemyAction);
+            playerList[currentPlayerIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
+            currentPlayerIndex++;
+        }
+        else
+        {
+            theSpecial = specialManager.GetComponent<SpecialManager>().allEnemySpecials[specialIndex];
+            specialManager.GetComponent<SpecialManager>().activateSpecial(specialIndex, playerIndex: targetIndex, enemyIndex: currentEnemyIndex, isEnemyAction);
+            enemyList[currentEnemyIndex].GetComponent<Character>().stats.currentmp -= theSpecial.mpcost;
+
+        }
     }
 
     public void allyItem(int itemID, int theAllyIndex)
@@ -143,6 +155,11 @@ public class BattleManager : MonoBehaviour
         int roll = UnityEngine.Random.Range(0, 101);
         return roll >= escapeRequirement;
     }
+
+    public void enemyNormalAttack(Character attackingEnemy, Character attackedAlly)
+    {
+        attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + Math.Pow(attackedAlly.finalpdefense, 0.75)))));
+    }
     public IEnumerator enemyAttack()
     {
         while(true)
@@ -162,13 +179,36 @@ public class BattleManager : MonoBehaviour
                         }
                     }
                     int attackingIndex = validAttackingIndex[UnityEngine.Random.Range(0, validAttackingIndex.Count)];
+                    //0 = normal attack, 1 = spell
+                    int action = UnityEngine.Random.Range(1, 3);
 
                     Character attackingEnemy = enemyList[currentEnemyIndex].GetComponent<Character>();
                     //Int version of random range is exclusive on second number
                     //Float version of random range is inclusive on both
                     Character attackedAlly =  playerList[attackingIndex].GetComponent<Character>();
-                    battleHud.GetComponent<BattleHud>().spawnParticle(0, playerList[attackingIndex]);
-                    attackedAlly.stats.currenthp -= (float)Math.Ceiling((double)(attackingEnemy.finalphysical * (attackingEnemy.finalphysical/(1 + 0.75 * attackingEnemy.finalphysical + Math.Pow(attackedAlly.finalpdefense, 0.75)))));
+                    //Enemy with no spells should always attack
+                    battleHud.GetComponent<BattleHud>().optionDescription.SetActive(true);
+                    if(action == 1 || attackingEnemy.enemySpecialList.Count == 0)
+                    {
+                        enemyNormalAttack(attackingEnemy, attackedAlly);
+                        battleHud.GetComponent<BattleHud>().spawnParticle(0, playerList[attackingIndex]);
+                        battleHud.GetComponent<BattleHud>().optionDescription.GetComponent<TextMeshProUGUI>().SetText("Attack");
+                    }
+                    else if(action > 1)
+                    {
+                        int specialIndex = attackingEnemy.enemySpecialList[UnityEngine.Random.Range(0, attackingEnemy.enemySpecialList.Count)];
+                        if(attackingEnemy.stats.currentmp >= specialManager.GetComponent<SpecialManager>().allEnemySpecials[specialIndex].mpcost)
+                        {
+                            targetSpecial(specialIndex, attackingIndex, isEnemyAction: true);
+                            battleHud.GetComponent<BattleHud>().optionDescription.GetComponent<TextMeshProUGUI>().SetText(specialManager.GetComponent<SpecialManager>().allEnemySpecials[specialIndex].name);
+                        }
+                        else
+                        {
+                            enemyNormalAttack(attackingEnemy, attackedAlly);
+                            battleHud.GetComponent<BattleHud>().spawnParticle(0, playerList[attackingIndex]);
+                            battleHud.GetComponent<BattleHud>().optionDescription.GetComponent<TextMeshProUGUI>().SetText("Attack");
+                        }
+                    }
                     //Enemies should stop hitting when everyone dead
                     if(defeat())
                     {
@@ -177,7 +217,8 @@ public class BattleManager : MonoBehaviour
                     }
                     //Should be in battlehud but easier to get timings here for highlighting
                     enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.yellow;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitUntil(() => !specialManager.GetComponent<SpecialManager>().enemyActivated);
+                    yield return new WaitForSeconds(0.5f);
                     enemyList[currentEnemyIndex].GetComponent<SpriteRenderer>().color = Color.white;
                 }
                 for(int i = 0; i < playerList.Count; i++)
@@ -200,15 +241,13 @@ public class BattleManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(2);
-        for(int i = 0; i < SaveManager.instance.gameData.playerStats.Count; i++)
+        for(int i = 0; i < SaveManager.instance.playerList.Count; i++)
         {
-            SaveManager.instance.gameData.playerStats[i].exp += expGain;
+            SaveManager.instance.playerList[i].GetComponent<Character>().stats.exp += expGain;
         }
         SaveManager.instance.money += moneyGain;
         int itemAcquired = UnityEngine.Random.Range(0, 5);
         itemManager.GetComponent<ItemManager>().acquiredItem(itemAcquired, 1);
-        string itemName = itemManager.GetComponent<ItemManager>().allItems[itemAcquired].name;
-        SaveManager.instance.spawnDialogue(new List<string>{itemName + " acquired!"});
         yield return null;
     }
 }

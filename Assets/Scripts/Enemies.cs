@@ -7,9 +7,10 @@ public class Enemies
     //Unlike the playable characters, the biome enemies/boss are not dependent on level
     //Their stats are hard coded in the inspector
     public List<GameObject> biomeEnemies;
-    public GameObject biomeBoss;
+    public List<GameObject> biomeBosses;
     public Enemies()
     {
         biomeEnemies = new List<GameObject>();
+        biomeBosses = new List<GameObject>();
     }
 }
